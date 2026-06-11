@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>l-lab.cl | Desarrollo web y aplicaciones a medida</title>
+    <meta name="description" content="Estudio tecnológico elegante para páginas web, aplicaciones web, sistemas internos, dashboards, automatizaciones y mantención.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        graphite: '#171717',
+                        smoke: '#f4f1ec',
+                        ash: '#d8d2c8',
+                        ember: '#ff6a2a',
+                        copper: '#b64a22'
+                    },
+                    fontFamily: {
+                        display: ['IBM Plex Mono', 'monospace'],
+                        sans: ['DM Sans', 'sans-serif'],
+                        mono: ['IBM Plex Mono', 'monospace']
+                    },
+                    boxShadow: {
+                        glow: '0 0 60px rgba(255,106,42,.18)'
+                    }
+                }
+            }
+        }
+    </script>
+    <script>
+        if (localStorage.getItem('l-lab-theme') === 'light') {
+            document.documentElement.classList.add('light-theme');
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body { background: #171717; color: #f4f1ec; transition: background .35s ease, color .35s ease; }
+        .grain:before { content:""; position:fixed; inset:0; pointer-events:none; opacity:.13; z-index:50; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E"); }
+        .reveal { animation: reveal .8s cubic-bezier(.2,.8,.2,1) both; }
+        .delay-1 { animation-delay: .12s; } .delay-2 { animation-delay: .24s; } .delay-3 { animation-delay: .36s; }
+        @keyframes reveal { from { opacity:0; transform: translateY(18px); } to { opacity:1; transform: translateY(0); } }
+        .field input, .field textarea, .field select {
+            width:100%; border:1px solid rgba(244,241,236,.16); border-radius:1rem; background:rgba(244,241,236,.06);
+            padding: .95rem 1rem; color:#f4f1ec; outline:none; transition:.2s ease;
+        }
+        .field input:focus, .field textarea:focus, .field select:focus { border-color:#ff6a2a; box-shadow:0 0 0 4px rgba(255,106,42,.12); }
+        .field select option { color:#171717; }
+        .hero-net { position: relative; overflow: hidden; }
+        .hero-net::before {
+            content:""; position:absolute; inset:0; pointer-events:none; opacity:.58;
+            background-image:
+                linear-gradient(rgba(244,241,236,.065) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(244,241,236,.065) 1px, transparent 1px);
+            background-size: 72px 72px;
+            mask-image: radial-gradient(ellipse at 52% 35%, black 0%, black 48%, transparent 78%);
+        }
+        .hero-net::after {
+            content:""; position:absolute; inset:0; pointer-events:none; opacity:.95;
+            background-image:
+                radial-gradient(circle, rgba(255,106,42,.95) 0 2.4px, transparent 3.2px),
+                radial-gradient(circle, rgba(244,241,236,.55) 0 1.8px, transparent 2.8px),
+                radial-gradient(circle, rgba(255,106,42,.45) 0 1.8px, transparent 2.8px);
+            background-size: 432px 72px, 576px 72px, 360px 72px;
+            background-position: 0 35px, 160px 71px, 80px 0;
+            filter: drop-shadow(0 0 10px rgba(255,106,42,.45));
+            animation: signal-run 18s linear infinite;
+            mask-image: radial-gradient(ellipse at 52% 35%, black 0%, black 42%, transparent 74%);
+        }
+        .hero-net > * { position: relative; z-index: 1; }
+        @keyframes signal-run {
+            to { background-position: 432px 35px, -416px 71px, 440px 0; }
+        }
+        .terminal-output p { min-height: 1.5rem; white-space: pre-wrap; word-break: break-word; }
+        .terminal-cursor { display:inline-block; height:1em; width:.55em; translate:0 .16em; background:#ff6a2a; animation: cursor-blink .9s steps(1,end) infinite; }
+        @keyframes cursor-blink { 50% { opacity:0; } }
+        .theme-toggle-dot { transform: translateX(0); transition: transform .25s ease, background .25s ease; }
+        .light-theme .theme-toggle-dot { transform: translateX(1.45rem); background:#171717; }
+        .light-theme body { background:#f4f1ec; color:#171717; }
+        .light-theme .grain:before { opacity:.07; }
+        .light-theme header { background:rgba(244,241,236,.78) !important; border-color:rgba(23,23,23,.1) !important; }
+        .light-theme .text-smoke { color:#171717 !important; }
+        .light-theme .text-smoke\/72, .light-theme .text-smoke\/70, .light-theme .text-smoke\/62, .light-theme .text-smoke\/60, .light-theme .text-smoke\/55, .light-theme .text-smoke\/50, .light-theme .text-smoke\/45 { color:rgba(23,23,23,.62) !important; }
+        .light-theme .hero-net::before {
+            background-image:linear-gradient(rgba(23,23,23,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(23,23,23,.07) 1px, transparent 1px);
+        }
+        .light-theme .hero-net::after {
+            background-image:radial-gradient(circle, rgba(255,106,42,.95) 0 2.4px, transparent 3.2px), radial-gradient(circle, rgba(23,23,23,.36) 0 1.8px, transparent 2.8px), radial-gradient(circle, rgba(255,106,42,.45) 0 1.8px, transparent 2.8px);
+        }
+        .light-theme [class*="bg-white/[."] { background:rgba(23,23,23,.035) !important; }
+        .light-theme [class*="border-white/"] { border-color:rgba(23,23,23,.12) !important; }
+        .light-theme #proyectos { background:#e8e2d8 !important; color:#171717 !important; }
+        .light-theme #proyectos article, .light-theme #proyectos .col-span-full { background:rgba(255,255,255,.42) !important; border-color:rgba(23,23,23,.1) !important; }
+        .light-theme .terminal-panel { background:#0b0b0b !important; color:#f4f1ec !important; }
+        .light-theme .terminal-panel .text-smoke { color:#f4f1ec !important; }
+        .light-theme .terminal-panel .text-smoke\/40 { color:rgba(244,241,236,.4) !important; }
+        .light-theme .terminal-panel [class*="border-white/"] { border-color:rgba(244,241,236,.1) !important; }
+        .light-theme .field input, .light-theme .field textarea, .light-theme .field select { background:rgba(23,23,23,.04); border-color:rgba(23,23,23,.14); color:#171717; }
+        @media (prefers-reduced-motion: reduce) { .hero-net::after, .terminal-cursor { animation: none; } }
+    </style>
+</head>
+<body class="grain font-sans selection:bg-ember selection:text-graphite">
+    <div class="absolute inset-0 -z-10 overflow-hidden">
+        <div class="absolute left-[-12rem] top-[-10rem] h-[32rem] w-[32rem] rounded-full bg-ember/10 blur-3xl"></div>
+        <div class="absolute right-[-18rem] top-[20rem] h-[40rem] w-[40rem] rounded-full bg-white/5 blur-3xl"></div>
+        <div class="absolute inset-0 bg-[linear-gradient(rgba(244,241,236,.045)_1px,transparent_1px),linear-gradient(90deg,rgba(244,241,236,.045)_1px,transparent_1px)] bg-[size:72px_72px]"></div>
+    </div>
+
+    <header class="sticky top-0 z-40 border-b border-white/10 bg-graphite/78 backdrop-blur-xl">
+        <nav class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
+            <a href="#inicio" class="group flex items-baseline gap-2">
+                <span class="font-display text-3xl leading-none tracking-tight">l-lab</span>
+                <span class="font-mono text-xs uppercase tracking-[.35em] text-ember">cl</span>
+            </a>
+            <div class="hidden items-center gap-8 font-mono text-xs uppercase tracking-[.18em] text-smoke/70 md:flex">
+                <a class="transition hover:text-ember" href="#inicio">Inicio</a>
+                <a class="transition hover:text-ember" href="#servicios">Servicios</a>
+                <a class="transition hover:text-ember" href="#proyectos">Proyectos</a>
+                <a class="transition hover:text-ember" href="#nosotros">Nosotros</a>
+                <a class="transition hover:text-ember" href="#contacto">Contacto</a>
+            </div>
+            <div class="flex items-center gap-3">
+                <button id="theme-toggle" type="button" class="group flex items-center gap-2 rounded-full border border-white/10 px-3 py-2 font-mono text-xs uppercase tracking-[.16em] text-smoke/70 transition hover:border-ember/60 hover:text-ember" aria-label="Cambiar a tema claro" aria-pressed="false">
+                    <span id="theme-label" class="hidden sm:inline">Oscuro</span>
+                    <span class="relative h-5 w-11 rounded-full bg-white/10 ring-1 ring-white/10 transition group-hover:ring-ember/50">
+                        <span class="theme-toggle-dot absolute left-1 top-1 h-3 w-3 rounded-full bg-ember"></span>
+                    </span>
+                </button>
+                <a href="https://wa.me/56934821394" target="_blank" class="rounded-full border border-ember/60 px-4 py-2 font-mono text-xs uppercase tracking-[.16em] text-ember transition hover:bg-ember hover:text-graphite">Cotizar</a>
+            </div>
+        </nav>
+    </header>
+
+    <main id="inicio">
+        <section class="hero-net mx-auto grid min-h-[86vh] max-w-7xl items-center gap-12 px-5 py-20 lg:grid-cols-[1.1fr_.9fr] lg:px-8">
+            <div>
+                <p class="reveal font-mono text-xs uppercase tracking-[.45em] text-ember">Estudio tecnológico</p>
+                <h1 class="reveal delay-1 mt-6 max-w-4xl font-mono text-5xl font-medium uppercase leading-[.95] tracking-[-.08em] text-smoke md:text-7xl lg:text-8xl">
+                    Desarrollo digital a tu medida.
+                </h1>
+                <p class="reveal delay-2 mt-8 max-w-2xl text-lg leading-8 text-smoke/72">
+                    Diseño y desarrollo productos digitales para empresas que necesitan presencia, operación y crecimiento: sitios web, sistemas internos, dashboards, APIs y mantención evolutiva.
+                </p>
+                <div class="reveal delay-3 mt-10 flex flex-col gap-3 sm:flex-row">
+                    <a href="#contacto" class="rounded-full bg-ember px-6 py-4 text-center font-bold text-graphite shadow-glow transition hover:-translate-y-0.5 hover:bg-[#ff7d45]">Solicitar cotización</a>
+                    <a href="#proyectos" class="rounded-full border border-white/15 px-6 py-4 text-center font-bold text-smoke transition hover:border-ember/70 hover:text-ember">Ver proyectos</a>
+                </div>
+            </div>
+            <div class="reveal delay-2 relative">
+                <div class="rounded-[2rem] border border-white/12 bg-white/[.045] p-5 shadow-2xl backdrop-blur">
+                    <div class="mb-5 flex items-center justify-between border-b border-white/10 pb-4 font-mono text-xs text-smoke/50">
+                        <span>l-lab.kernel</span><span class="text-ember">online</span>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="terminal-panel rounded-2xl bg-[#0b0b0b] p-5 font-mono text-[12px] leading-6 text-smoke shadow-inner ring-1 ring-white/10 md:text-sm">
+                            <div class="mb-4 flex items-center gap-2 border-b border-white/10 pb-3">
+                                <span class="h-2.5 w-2.5 rounded-full bg-[#ff5f57]"></span>
+                                <span class="h-2.5 w-2.5 rounded-full bg-[#ffbd2e]"></span>
+                                <span class="h-2.5 w-2.5 rounded-full bg-[#28c840]"></span>
+                                <span class="ml-3 text-xs text-smoke/40">~/clientes/rulkanis_web</span>
+                            </div>
+                            <div id="terminal-output" class="terminal-output min-h-[17rem] space-y-1 overflow-hidden" aria-label="Animación de consola creando el proyecto rulkanis_web"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="servicios" class="mx-auto max-w-7xl px-5 py-24 lg:px-8">
+            <div class="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+                <div><p class="font-mono text-xs uppercase tracking-[.35em] text-ember">Servicios</p><h2 class="mt-4 font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-6xl">Construcción digital completa.</h2></div>
+                <p class="max-w-md text-smoke/62">Desde una landing precisa hasta una aplicación web con flujos, usuarios e integraciones.</p>
+            </div>
+            <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                {% for service in services %}
+                <article class="group rounded-[1.5rem] border border-white/10 bg-white/[.035] p-6 transition duration-300 hover:-translate-y-1 hover:border-ember/50 hover:bg-white/[.06]">
+                    <div class="mb-8 h-1 w-12 rounded-full bg-ember transition group-hover:w-20"></div>
+                    <h3 class="text-xl font-bold">{{ service.title }}</h3>
+                    <p class="mt-4 leading-7 text-smoke/62">{{ service.description }}</p>
+                </article>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section id="proyectos" class="border-y border-white/10 bg-[#1d1c1a] text-smoke">
+            <div class="mx-auto max-w-7xl px-5 py-24 lg:px-8">
+                <p class="font-mono text-xs uppercase tracking-[.35em] text-ember">Repositorio comercial</p>
+                <h2 class="mt-4 font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-6xl">Proyectos seleccionados.</h2>
+                <div class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+                    {% for project in projects %}
+                    <article class="group rounded-[1.6rem] border border-white/10 bg-white/[.045] p-5 shadow-sm transition hover:-translate-y-1 hover:border-ember/40 hover:bg-white/[.07] hover:shadow-glow">
+                        <div class="mb-5 flex aspect-[4/3] items-center justify-center overflow-hidden rounded-[1.2rem] bg-graphite text-smoke ring-1 ring-white/10">
+                            {% if project.preview_video %}
+                            <video src="{{ project.preview_video.url }}" class="h-full w-full rounded-[1.2rem] object-cover transition duration-700 group-hover:scale-[1.03]" muted loop playsinline preload="metadata" onmouseenter="this.play()" onmouseleave="this.pause(); this.currentTime = 0;"></video>
+                            {% elif project.image %}
+                            <img src="{{ project.image.url }}" alt="{{ project.title }}" class="h-full w-full rounded-[1.2rem] object-cover object-top transition-[object-position,transform] duration-[5000ms] ease-in-out group-hover:scale-[1.02] group-hover:object-bottom">
+                            {% else %}
+                            <span class="font-mono text-xs uppercase tracking-[.3em] text-smoke/55">sin captura</span>
+                            {% endif %}
+                        </div>
+                        <h3 class="text-2xl font-bold">{{ project.title }}</h3>
+                        <p class="mt-3 text-smoke/62">{{ project.short_description }}</p>
+                        <div class="mt-5 flex flex-wrap gap-2">
+                            {% for tech in project.technology_list %}<span class="rounded-full bg-smoke/8 px-3 py-1 font-mono text-xs text-smoke/70">{{ tech }}</span>{% endfor %}
+                        </div>
+                        {% if project.project_url %}
+                        <a href="{{ project.project_url }}" target="_blank" rel="noopener" class="mt-6 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[.18em] text-ember transition hover:text-smoke">
+                            Ver proyecto <span aria-hidden="true">↗</span>
+                        </a>
+                        {% endif %}
+                    </article>
+                    {% empty %}
+                    <div class="col-span-full rounded-[1.6rem] border border-white/10 bg-white/[.045] p-8">
+                        <p class="font-mono text-xs uppercase tracking-[.3em] text-ember">Próximamente</p>
+                        <p class="mt-4 text-2xl font-bold">Los proyectos se cargarán desde el panel de administración.</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <section id="nosotros" class="mx-auto max-w-7xl px-5 py-24 lg:px-8">
+            <div class="grid gap-10 lg:grid-cols-[.72fr_1.28fr]">
+                <div class="self-start lg:sticky lg:top-28">
+                    <p class="font-mono text-xs uppercase tracking-[.35em] text-ember">Nosotros</p>
+                    <div class="mt-8 rounded-[1.6rem] border border-white/10 bg-white/[.035] p-6 transition duration-300 hover:border-ember/50 hover:shadow-[0_0_34px_rgba(255,106,42,.12)]">
+                        <p class="font-mono text-xs uppercase tracking-[.22em] text-smoke/45">Liderado por</p>
+                        <p class="mt-4 text-2xl font-bold">Nelson Landaeta</p>
+                        <p class="mt-3 leading-7 text-smoke/62">Desarrollador web con foco en Django, Tailwind y soluciones digitales para negocios reales.</p>
+                    </div>
+                </div>
+                <div>
+                    <h2 class="font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-6xl">Desarrollar soluciones. Crear oportunidades.</h2>
+                    <div class="mt-8 max-w-4xl space-y-5 text-lg leading-8 text-smoke/70">
+                        <p>l-lab.cl es un estudio tecnológico enfocado en crear sitios web, aplicaciones y sistemas internos a medida. Trabajamos con empresas que necesitan ordenar su presencia digital, automatizar procesos o construir herramientas web útiles para operar mejor.</p>
+                        <p>Cada proyecto parte con una conversación clara: qué problema hay que resolver, qué necesita el usuario y cómo podemos construir una solución simple, estable y preparada para crecer.</p>
+                    </div>
+                    <div class="mt-10 grid gap-4 md:grid-cols-2">
+                        <article class="rounded-[1.4rem] border border-white/10 bg-white/[.035] p-5 transition duration-300 hover:-translate-y-1 hover:border-ember/70 hover:shadow-[0_0_34px_rgba(255,106,42,.16)]">
+                            <span class="font-mono text-3xl tracking-[-.08em] text-ember">01</span>
+                            <h3 class="mt-5 text-xl font-bold">Diagnóstico claro</h3>
+                            <p class="mt-3 leading-7 text-smoke/62">Antes de diseñar o programar, entendemos el negocio, el problema y el objetivo.</p>
+                        </article>
+                        <article class="rounded-[1.4rem] border border-white/10 bg-white/[.035] p-5 transition duration-300 hover:-translate-y-1 hover:border-cyan-300/60 hover:shadow-[0_0_34px_rgba(103,232,249,.14)]">
+                            <span class="font-mono text-3xl tracking-[-.08em] text-ember">02</span>
+                            <h3 class="mt-5 text-xl font-bold">Desarrollo a medida</h3>
+                            <p class="mt-3 leading-7 text-smoke/62">No forzamos plantillas. Construimos según la necesidad real del proyecto.</p>
+                        </article>
+                        <article class="rounded-[1.4rem] border border-white/10 bg-white/[.035] p-5 transition duration-300 hover:-translate-y-1 hover:border-lime-300/60 hover:shadow-[0_0_34px_rgba(190,242,100,.13)]">
+                            <span class="font-mono text-3xl tracking-[-.08em] text-ember">03</span>
+                            <h3 class="mt-5 text-xl font-bold">Tecnología mantenible</h3>
+                            <p class="mt-3 leading-7 text-smoke/62">Usamos bases simples, limpias y escalables para que el proyecto pueda evolucionar.</p>
+                        </article>
+                        <article class="rounded-[1.4rem] border border-white/10 bg-white/[.035] p-5 transition duration-300 hover:-translate-y-1 hover:border-fuchsia-300/60 hover:shadow-[0_0_34px_rgba(240,171,252,.13)]">
+                            <span class="font-mono text-3xl tracking-[-.08em] text-ember">04</span>
+                            <h3 class="mt-5 text-xl font-bold">Acompañamiento</h3>
+                            <p class="mt-3 leading-7 text-smoke/62">Apoyamos despliegue, mejoras, mantención, dominio, hosting y correo.</p>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacto" class="mx-auto max-w-7xl px-5 pb-24 lg:px-8">
+            <div class="grid overflow-hidden rounded-[2rem] border border-white/10 bg-white/[.045] lg:grid-cols-[.9fr_1.1fr]">
+                <div class="bg-ember p-8 text-graphite md:p-10">
+                    <p class="font-mono text-xs uppercase tracking-[.3em]">Contacto</p>
+                    <h2 class="mt-5 font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-5xl">Conversemos tu próxima cotización.</h2>
+                    <div class="mt-10 space-y-4 font-bold">
+                        <a class="block rounded-2xl bg-graphite/10 p-4 transition hover:bg-graphite hover:text-smoke" href="mailto:nlandaeta@l-lab.cl">nlandaeta@l-lab.cl</a>
+                        <a class="block rounded-2xl bg-graphite/10 p-4 transition hover:bg-graphite hover:text-smoke" href="https://wa.me/56934821394" target="_blank">WhatsApp +56 9 3482 1394</a>
+                    </div>
+                </div>
+                <form method="post" class="field space-y-4 p-8 md:p-10">
+                    {% csrf_token %}
+                    {% if messages %}{% for message in messages %}<div class="rounded-2xl border border-ember/30 bg-ember/10 p-4 text-smoke">{{ message }}</div>{% endfor %}{% endif %}
+                    <div class="grid gap-4 md:grid-cols-2">{{ form.name }}{{ form.email }}</div>
+                    <div class="grid gap-4 md:grid-cols-2">{{ form.phone }}{{ form.service }}</div>
+                    {{ form.message }}
+                    <button class="w-full rounded-full bg-smoke px-6 py-4 font-bold text-graphite transition hover:-translate-y-0.5 hover:bg-ember" type="submit">Enviar solicitud</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="border-t border-white/10 px-5 py-8 text-center font-mono text-xs uppercase tracking-[.2em] text-smoke/45">
+        © {% now "Y" %} l-lab.cl — desarrollo web y aplicaciones a medida
+    </footer>
+
+    <script>
+        const themeToggle = document.querySelector('#theme-toggle');
+        const themeLabel = document.querySelector('#theme-label');
+
+        function applyTheme(theme) {
+            const isLight = theme === 'light';
+            document.documentElement.classList.toggle('light-theme', isLight);
+            localStorage.setItem('l-lab-theme', theme);
+            if (themeToggle) {
+                themeToggle.setAttribute('aria-label', isLight ? 'Cambiar a tema oscuro' : 'Cambiar a tema claro');
+                themeToggle.setAttribute('aria-pressed', String(isLight));
+            }
+            if (themeLabel) themeLabel.textContent = isLight ? 'Claro' : 'Oscuro';
+        }
+
+        applyTheme(localStorage.getItem('l-lab-theme') || 'dark');
+        themeToggle?.addEventListener('click', () => {
+            const nextTheme = document.documentElement.classList.contains('light-theme') ? 'dark' : 'light';
+            applyTheme(nextTheme);
+        });
+
+        const terminal = document.querySelector('#terminal-output');
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const terminalLines = [
+            { prompt: 'nlandaeta@l-lab', path: ':~$ ', command: 'mkdir rulkanis_web' },
+            { prompt: 'nlandaeta@l-lab', path: ':~$ ', command: 'cd rulkanis_web' },
+            { prompt: 'nlandaeta@l-lab', path: ':~/rulkanis_web$ ', command: 'python -m venv venv' },
+            { output: '✓ entorno virtual creado' },
+            { prompt: 'nlandaeta@l-lab', path: ':~/rulkanis_web$ ', command: 'source venv/bin/activate' },
+            { prompt: '(venv)', path: ' $ ', command: 'pip install django tailwind' },
+            { output: '✓ dependencias instaladas · django · tailwind' },
+            { prompt: '(venv)', path: ' $ ', command: 'django-admin startproject core .' },
+            { prompt: '(venv)', path: ' $ ', command: 'python manage.py runserver 0.0.0.0:8000' },
+            { output: 'Servidor iniciado → ', link: 'https://rulkanis.cl' },
+        ];
+
+        function appendSpan(line, text, className = '') {
+            const span = document.createElement('span');
+            span.className = className;
+            span.textContent = text;
+            line.appendChild(span);
+            return span;
+        }
+
+        function renderLine(item) {
+            const line = document.createElement('p');
+            terminal.appendChild(line);
+            if (item.prompt) {
+                appendSpan(line, item.prompt, 'text-ember');
+                appendSpan(line, item.path);
+                return { line, targetText: item.command };
+            }
+            return { line, targetText: item.output, output: true, link: item.link };
+        }
+
+        async function typeText(target, text, speed = 22) {
+            for (const character of text) {
+                target.textContent += character;
+                await new Promise(resolve => setTimeout(resolve, speed + Math.random() * 18));
+            }
+        }
+
+        async function runTerminal() {
+            if (!terminal) return;
+            if (prefersReducedMotion) {
+                terminalLines.forEach(item => {
+                    const { line } = renderLine(item);
+                    if (item.prompt) appendSpan(line, item.command);
+                    else {
+                        appendSpan(line, item.output, 'text-ash/70');
+                        if (item.link) {
+                            const link = document.createElement('a');
+                            link.href = item.link;
+                            link.target = '_blank';
+                            link.rel = 'noopener';
+                            link.className = 'text-ember underline decoration-ember/40 underline-offset-4 transition hover:text-smoke';
+                            link.textContent = item.link;
+                            line.appendChild(link);
+                        }
+                    }
+                });
+                return;
+            }
+
+            await new Promise(resolve => setTimeout(resolve, 650));
+            for (const item of terminalLines) {
+                const { line, targetText, output, link } = renderLine(item);
+                const target = appendSpan(line, '', output ? 'text-ash/70' : '');
+                await typeText(target, targetText, output ? 12 : 20);
+                if (link) {
+                    const anchor = document.createElement('a');
+                    anchor.href = link;
+                    anchor.target = '_blank';
+                    anchor.rel = 'noopener';
+                    anchor.className = 'text-ember underline decoration-ember/40 underline-offset-4 transition hover:text-smoke';
+                    line.appendChild(anchor);
+                    await typeText(anchor, link, 18);
+                }
+                await new Promise(resolve => setTimeout(resolve, output ? 260 : 380));
+            }
+            const cursor = document.createElement('span');
+            cursor.className = 'terminal-cursor';
+            terminal.lastElementChild.appendChild(document.createTextNode(' '));
+            terminal.lastElementChild.appendChild(cursor);
+        }
+
+        runTerminal();
+    </script>
+</body>
+</html>

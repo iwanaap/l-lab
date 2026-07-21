@@ -50,6 +50,7 @@
         .light-theme body { background:#f4f1ec; color:#171717; }
         .light-theme .grain:before { opacity:.07; }
         .light-theme header { background:rgba(244,241,236,.78) !important; border-color:rgba(23,23,23,.1) !important; }
+        .light-theme header [class*="bg-graphite/95"], .light-theme #mobile-menu { background:rgba(244,241,236,.96) !important; }
         .light-theme .text-smoke { color:#171717 !important; }
         .light-theme .text-smoke\/75, .light-theme .text-smoke\/72, .light-theme .text-smoke\/70, .light-theme .text-smoke\/62, .light-theme .text-smoke\/55, .light-theme .text-smoke\/50, .light-theme .text-smoke\/45 { color:rgba(23,23,23,.64) !important; }
         .light-theme [class*="bg-white/[."] { background:rgba(23,23,23,.035) !important; }
@@ -73,20 +74,42 @@
                 <span class="font-mono text-xs uppercase tracking-[.35em] text-ember">cl</span>
             </a>
             <div class="hidden items-center gap-8 font-mono text-xs uppercase tracking-[.18em] text-smoke/70 md:flex">
-                <a class="transition hover:text-ember" href="/#precios">Planes</a>
+                <a class="transition hover:text-ember" href="/#inicio">Inicio</a>
+                <a class="transition hover:text-ember" href="/#servicios">Servicios</a>
+                <div class="group relative py-2">
+                    <a class="transition hover:text-ember" href="/#proyectos">Proyectos</a>
+                    <div class="invisible absolute left-1/2 top-full w-60 -translate-x-1/2 rounded-2xl border border-white/10 bg-graphite/95 p-2 opacity-0 shadow-2xl backdrop-blur-xl transition group-hover:visible group-hover:opacity-100">
+                        <a class="block rounded-xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/desarrollo-web/">Desarrollo web</a>
+                        <a class="block rounded-xl px-4 py-3 transition hover:bg-white/[.06] hover:text-cyan-200" href="/automatizaciones/">Automatizaciones</a>
+                    </div>
+                </div>
+                <a class="transition hover:text-ember" href="/#nosotros">Nosotros</a>
+                <a class="transition hover:text-ember" href="/#precios">Precios</a>
                 <a class="transition hover:text-ember" href="/#contacto">Contacto</a>
-                <a class="transition hover:text-ember" href="/">Volver al inicio</a>
             </div>
             <div class="flex items-center gap-3">
-                <button id="theme-toggle" type="button" class="group flex items-center gap-2 rounded-full border border-white/10 px-3 py-2 font-mono text-xs uppercase tracking-[.16em] text-smoke/70 transition hover:border-ember/60 hover:text-ember" aria-label="Cambiar a tema claro" aria-pressed="false">
-                    <span id="theme-label" class="hidden sm:inline">Oscuro</span>
-                    <span class="relative h-5 w-11 rounded-full bg-white/10 ring-1 ring-white/10 transition group-hover:ring-ember/50">
-                        <span class="theme-toggle-dot absolute left-1 top-1 h-3 w-3 rounded-full bg-ember"></span>
-                    </span>
+                <button id="theme-toggle" type="button" class="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-lg text-smoke/70 transition hover:border-ember/60 hover:text-ember" aria-label="Cambiar a tema claro" aria-pressed="false">
+                    <span id="theme-moon" aria-hidden="true">☾</span>
+                    <span id="theme-sun" class="hidden" aria-hidden="true">☀</span>
                 </button>
-                <a href="https://wa.me/56934821394?text=Hola%20l-lab%2C%20quiero%20conocer%20m%C3%A1s%20sobre%20el%20ERP" target="_blank" class="rounded-full border border-cyan-300/60 px-4 py-2 font-mono text-xs uppercase tracking-[.16em] text-cyan-200 transition hover:bg-cyan-200 hover:text-graphite">Consultar</a>
+                <a href="https://wa.me/56934821394?text=Hola%20l-lab%2C%20quiero%20conocer%20m%C3%A1s%20sobre%20el%20ERP" target="_blank" class="hidden rounded-full sm:inline-flex border border-cyan-300/60 px-4 py-2 font-mono text-xs uppercase tracking-[.16em] text-cyan-200 transition hover:bg-cyan-200 hover:text-graphite">Consultar</a>
+                <button id="mobile-menu-toggle" type="button" class="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 font-mono text-lg text-smoke/70 transition hover:border-ember/60 hover:text-ember md:hidden" aria-label="Abrir menú" aria-expanded="false">☰</button>
             </div>
         </nav>
+        <div id="mobile-menu" class="hidden border-t border-white/10 bg-graphite/95 px-5 py-5 backdrop-blur-xl md:hidden">
+            <div class="mx-auto grid max-w-7xl gap-2 font-mono text-xs uppercase tracking-[.18em] text-smoke/70">
+                <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/#inicio">Inicio</a>
+                <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/#servicios">Servicios</a>
+                <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/#proyectos">Proyectos</a>
+                <div class="grid gap-2 border-l border-white/10 pl-4">
+                    <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/desarrollo-web/">Desarrollo web</a>
+                    <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-cyan-200" href="/automatizaciones/">Automatizaciones</a>
+                </div>
+                <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/#nosotros">Nosotros</a>
+                <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/#precios">Precios</a>
+                <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/#contacto">Contacto</a>
+            </div>
+        </div>
     </header>
 
     <main>
@@ -174,7 +197,10 @@
 
     <script>
         const themeToggle = document.querySelector('#theme-toggle');
-        const themeLabel = document.querySelector('#theme-label');
+        const themeMoon = document.querySelector('#theme-moon');
+        const themeSun = document.querySelector('#theme-sun');
+        const mobileMenuToggle = document.querySelector('#mobile-menu-toggle');
+        const mobileMenu = document.querySelector('#mobile-menu');
 
         function applyTheme(theme) {
             const isLight = theme === 'light';
@@ -184,13 +210,29 @@
                 themeToggle.setAttribute('aria-label', isLight ? 'Cambiar a tema oscuro' : 'Cambiar a tema claro');
                 themeToggle.setAttribute('aria-pressed', String(isLight));
             }
-            if (themeLabel) themeLabel.textContent = isLight ? 'Claro' : 'Oscuro';
+            themeMoon?.classList.toggle('hidden', isLight);
+            themeSun?.classList.toggle('hidden', !isLight);
         }
 
         applyTheme(localStorage.getItem('l-lab-theme') || 'dark');
         themeToggle?.addEventListener('click', () => {
             const nextTheme = document.documentElement.classList.contains('light-theme') ? 'dark' : 'light';
             applyTheme(nextTheme);
+        });
+
+        mobileMenuToggle?.addEventListener('click', () => {
+            const isOpen = !mobileMenu?.classList.contains('hidden');
+            mobileMenu?.classList.toggle('hidden', isOpen);
+            mobileMenuToggle.setAttribute('aria-expanded', String(!isOpen));
+            mobileMenuToggle.textContent = isOpen ? '☰' : '×';
+        });
+
+        mobileMenu?.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileMenuToggle?.setAttribute('aria-expanded', 'false');
+                if (mobileMenuToggle) mobileMenuToggle.textContent = '☰';
+            });
         });
     </script>
 </body>

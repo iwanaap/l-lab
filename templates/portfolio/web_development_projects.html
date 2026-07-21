@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Desarrollo web | l-lab.cl</title>
+    <meta name="description" content="Proyectos realizados en desarrollo web por l-lab.cl: sitios corporativos, landing pages y aplicaciones web.">
+    <link rel="icon" type="image/png" href="/media/logo_l-lab.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { graphite:'#171717', smoke:'#f4f1ec', ash:'#d8d2c8', ember:'#ff6a2a', copper:'#b64a22' },
+                    fontFamily: { display:['IBM Plex Mono','monospace'], sans:['DM Sans','sans-serif'], mono:['IBM Plex Mono','monospace'] },
+                    boxShadow: { glow:'0 0 60px rgba(255,106,42,.18)' }
+                }
+            }
+        }
+    </script>
+    <script>if (localStorage.getItem('l-lab-theme') === 'light') document.documentElement.classList.add('light-theme');</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body { background:#171717; color:#f4f1ec; transition:background .35s ease, color .35s ease; }
+        .grain:before { content:""; position:fixed; inset:0; pointer-events:none; opacity:.13; z-index:50; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E"); }
+        .web-grid { position:relative; overflow:hidden; }
+        .web-grid::before { content:""; position:absolute; inset:0; opacity:.55; pointer-events:none; background-image:linear-gradient(rgba(255,106,42,.075) 1px, transparent 1px), linear-gradient(90deg, rgba(255,106,42,.075) 1px, transparent 1px); background-size:72px 72px; mask-image:radial-gradient(ellipse at 48% 24%, black 0%, black 45%, transparent 78%); }
+        .web-grid > * { position:relative; z-index:1; }
+        .theme-toggle-dot { transform:translateX(0); transition:transform .25s ease, background .25s ease; }
+        .light-theme .theme-toggle-dot { transform:translateX(1.45rem); background:#171717; }
+        .light-theme body { background:#f4f1ec; color:#171717; }
+        .light-theme .grain:before { opacity:.07; }
+        .light-theme header { background:rgba(244,241,236,.78) !important; border-color:rgba(23,23,23,.1) !important; }
+        .light-theme header [class*="bg-graphite/95"], .light-theme #mobile-menu { background:rgba(244,241,236,.96) !important; }
+        .light-theme .text-smoke { color:#171717 !important; }
+        .light-theme .text-smoke\/72, .light-theme .text-smoke\/70, .light-theme .text-smoke\/62, .light-theme .text-smoke\/55, .light-theme .text-smoke\/45 { color:rgba(23,23,23,.64) !important; }
+        .light-theme [class*="bg-white/[."] { background:rgba(23,23,23,.035) !important; }
+        .light-theme [class*="border-white/"] { border-color:rgba(23,23,23,.12) !important; }
+        .light-theme #galeria { background:#e8e2d8 !important; color:#171717 !important; border-color:rgba(23,23,23,.1) !important; }
+    </style>
+</head>
+<body class="grain font-sans selection:bg-ember selection:text-graphite">
+    <div class="absolute inset-0 -z-10 overflow-hidden">
+        <div class="absolute left-[-14rem] top-[-12rem] h-[34rem] w-[34rem] rounded-full bg-ember/10 blur-3xl"></div>
+        <div class="absolute right-[-16rem] top-[18rem] h-[38rem] w-[38rem] rounded-full bg-white/5 blur-3xl"></div>
+    </div>
+
+    <header class="sticky top-0 z-40 border-b border-white/10 bg-graphite/78 backdrop-blur-xl">
+        <nav class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
+            <a href="/" class="group flex items-baseline gap-2"><span class="font-display text-3xl leading-none tracking-tight">l-lab</span><span class="font-mono text-xs uppercase tracking-[.35em] text-ember">cl</span></a>
+            <div class="hidden items-center gap-8 font-mono text-xs uppercase tracking-[.18em] text-smoke/70 md:flex">
+                <a class="transition hover:text-ember" href="/#inicio">Inicio</a>
+                <a class="transition hover:text-ember" href="/#servicios">Servicios</a>
+                <div class="group relative py-2">
+                    <a class="text-ember transition hover:text-ember" href="/#proyectos">Proyectos</a>
+                    <div class="invisible absolute left-1/2 top-full w-60 -translate-x-1/2 rounded-2xl border border-white/10 bg-graphite/95 p-2 opacity-0 shadow-2xl backdrop-blur-xl transition group-hover:visible group-hover:opacity-100">
+                        <a class="block rounded-xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/desarrollo-web/">Desarrollo web</a>
+                        <a class="block rounded-xl px-4 py-3 transition hover:bg-white/[.06] hover:text-cyan-200" href="/automatizaciones/">Automatizaciones</a>
+                    </div>
+                </div>
+                <a class="transition hover:text-ember" href="/#nosotros">Nosotros</a>
+                <a class="transition hover:text-ember" href="/#precios">Precios</a>
+                <a class="transition hover:text-ember" href="/#contacto">Contacto</a>
+            </div>
+            <div class="flex items-center gap-3">
+                <button id="theme-toggle" type="button" class="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-lg text-smoke/70 transition hover:border-ember/60 hover:text-ember" aria-label="Cambiar a tema claro" aria-pressed="false"><span id="theme-moon" aria-hidden="true">☾</span><span id="theme-sun" class="hidden" aria-hidden="true">☀</span></button>
+                <a href="https://wa.me/56934821394?text=Hola%20l-lab%2C%20quiero%20cotizar%20desarrollo%20web" target="_blank" class="hidden rounded-full sm:inline-flex border border-ember/60 px-4 py-2 font-mono text-xs uppercase tracking-[.16em] text-ember transition hover:bg-ember hover:text-graphite">Cotizar</a>
+                <button id="mobile-menu-toggle" type="button" class="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 font-mono text-lg text-smoke/70 transition hover:border-ember/60 hover:text-ember md:hidden" aria-label="Abrir menú" aria-expanded="false">☰</button>
+            </div>
+        </nav>
+        <div id="mobile-menu" class="hidden border-t border-white/10 bg-graphite/95 px-5 py-5 backdrop-blur-xl md:hidden">
+            <div class="mx-auto grid max-w-7xl gap-2 font-mono text-xs uppercase tracking-[.18em] text-smoke/70">
+                <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/#inicio">Inicio</a>
+                <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/#servicios">Servicios</a>
+                <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/#proyectos">Proyectos</a>
+                <div class="grid gap-2 border-l border-white/10 pl-4">
+                    <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/desarrollo-web/">Desarrollo web</a>
+                    <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-cyan-200" href="/automatizaciones/">Automatizaciones</a>
+                </div>
+                <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/#nosotros">Nosotros</a>
+                <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/#precios">Precios</a>
+                <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/#contacto">Contacto</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="web-grid mx-auto grid min-h-[70vh] max-w-7xl items-center gap-12 px-5 py-20 lg:grid-cols-[1.05fr_.95fr] lg:px-8">
+            <div>
+                <p class="font-mono text-xs uppercase tracking-[.45em] text-ember">Desarrollo web</p>
+                <h1 class="mt-6 max-w-4xl font-mono text-5xl font-medium uppercase leading-[.95] tracking-[-.08em] text-smoke md:text-7xl lg:text-8xl">Sitios, landings y plataformas realizadas.</h1>
+                <p class="mt-8 max-w-2xl text-lg leading-8 text-smoke/72">Una colección de trabajos web construidos para presentar servicios, capturar clientes, ordenar contenido y crear presencia digital profesional.</p>
+                <div class="mt-10 flex flex-col gap-3 sm:flex-row">
+                    <a href="#galeria" class="rounded-full bg-ember px-6 py-4 text-center font-bold text-graphite shadow-glow transition hover:-translate-y-0.5 hover:bg-[#ff7d45]">Ver galería</a>
+                    <a href="/automatizaciones/" class="rounded-full border border-white/15 px-6 py-4 text-center font-bold text-smoke transition hover:border-cyan-200 hover:text-cyan-200">Ver automatizaciones</a>
+                </div>
+            </div>
+            <div class="rounded-[2rem] border border-white/10 bg-white/[.045] p-5 shadow-2xl backdrop-blur">
+                <div class="mb-5 flex items-center justify-between border-b border-white/10 pb-4 font-mono text-xs text-smoke/55"><span>web.l-lab/showcase</span><span class="text-ember">online</span></div>
+                <div class="grid gap-3">
+                    <div class="rounded-2xl border border-ember/20 bg-ember/10 p-4"><p class="font-mono text-xs uppercase tracking-[.22em] text-ember">Corporativo</p><p class="mt-2 text-smoke/62">Presencia clara para negocios y servicios.</p></div>
+                    <div class="grid gap-3 sm:grid-cols-2">
+                        <div class="rounded-2xl border border-white/10 bg-white/[.045] p-4"><p class="font-mono text-xs uppercase tracking-[.22em] text-cyan-200">Landing</p><p class="mt-2 text-smoke/62">Campañas y conversión.</p></div>
+                        <div class="rounded-2xl border border-white/10 bg-white/[.045] p-4"><p class="font-mono text-xs uppercase tracking-[.22em] text-lime-200">Aplicación</p><p class="mt-2 text-smoke/62">Usuarios, paneles y flujos.</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="galeria" class="border-y border-white/10 bg-[#1d1c1a] text-smoke">
+            <div class="mx-auto max-w-7xl px-5 py-20 lg:px-8">
+                <p class="font-mono text-xs uppercase tracking-[.35em] text-ember">Repositorio web</p>
+                <h2 class="mt-4 font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-6xl">Proyectos realizados.</h2>
+                <div class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+                    {% for project in projects %}
+                    <article class="group rounded-[1.6rem] border border-white/10 bg-white/[.045] p-5 shadow-sm transition hover:-translate-y-1 hover:border-ember/40 hover:bg-white/[.07] hover:shadow-glow">
+                        <div class="mb-5 flex aspect-[4/3] items-center justify-center overflow-hidden rounded-[1.2rem] bg-graphite text-smoke ring-1 ring-white/10">
+                            {% if project.preview_video %}
+                            <video src="{{ project.preview_video.url }}" class="h-full w-full rounded-[1.2rem] object-cover transition duration-700 group-hover:scale-[1.03]" autoplay muted loop playsinline></video>
+                            {% elif project.image %}
+                            <img src="{{ project.image.url }}" alt="{{ project.title }}" class="h-full w-full rounded-[1.2rem] object-cover object-top transition-[object-position,transform] duration-[5000ms] ease-in-out group-hover:scale-[1.02] group-hover:object-bottom">
+                            {% else %}
+                            <span class="font-mono text-xs uppercase tracking-[.3em] text-smoke/55">sin captura</span>
+                            {% endif %}
+                        </div>
+                        <h3 class="text-2xl font-bold">{{ project.title }}</h3>
+                        <p class="mt-3 text-smoke/62">{{ project.short_description }}</p>
+                        <div class="mt-5 flex flex-wrap gap-2">{% for tech in project.technology_list %}<span class="rounded-full bg-smoke/8 px-3 py-1 font-mono text-xs text-smoke/70">{{ tech }}</span>{% endfor %}</div>
+                        {% if project.project_url %}<a href="{{ project.project_url }}" target="_blank" rel="noopener" class="mt-6 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[.18em] text-ember transition hover:text-smoke">Ver proyecto <span aria-hidden="true">↗</span></a>{% endif %}
+                    </article>
+                    {% empty %}
+                    <div class="col-span-full rounded-[1.6rem] border border-white/10 bg-white/[.045] p-8"><p class="font-mono text-xs uppercase tracking-[.3em] text-ember">Próximamente</p><p class="mt-4 text-2xl font-bold">Los proyectos se cargarán desde el panel de administración.</p></div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="border-t border-white/10 px-5 py-8 text-center font-mono text-xs uppercase tracking-[.2em] text-smoke/45">© {% now "Y" %} l-lab.cl — desarrollo web y proyectos realizados</footer>
+    <script>
+        const themeToggle = document.querySelector('#theme-toggle');
+        const themeMoon = document.querySelector('#theme-moon');
+        const themeSun = document.querySelector('#theme-sun');
+        const mobileMenuToggle = document.querySelector('#mobile-menu-toggle');
+        const mobileMenu = document.querySelector('#mobile-menu');
+        function applyTheme(theme) {
+            const isLight = theme === 'light';
+            document.documentElement.classList.toggle('light-theme', isLight);
+            localStorage.setItem('l-lab-theme', theme);
+            if (themeToggle) {
+                themeToggle.setAttribute('aria-label', isLight ? 'Cambiar a tema oscuro' : 'Cambiar a tema claro');
+                themeToggle.setAttribute('aria-pressed', String(isLight));
+            }
+            themeMoon?.classList.toggle('hidden', isLight);
+            themeSun?.classList.toggle('hidden', !isLight);
+        }
+        applyTheme(localStorage.getItem('l-lab-theme') || 'dark');
+        themeToggle?.addEventListener('click', () => applyTheme(document.documentElement.classList.contains('light-theme') ? 'dark' : 'light'));
+
+        mobileMenuToggle?.addEventListener('click', () => {
+            const isOpen = !mobileMenu?.classList.contains('hidden');
+            mobileMenu?.classList.toggle('hidden', isOpen);
+            mobileMenuToggle.setAttribute('aria-expanded', String(!isOpen));
+            mobileMenuToggle.textContent = isOpen ? '☰' : '×';
+        });
+
+        mobileMenu?.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileMenuToggle?.setAttribute('aria-expanded', 'false');
+                if (mobileMenuToggle) mobileMenuToggle.textContent = '☰';
+            });
+        });
+    </script>
+</body>
+</html>

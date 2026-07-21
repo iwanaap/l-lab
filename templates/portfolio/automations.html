@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Automatizaciones | l-lab.cl</title>
+    <meta name="description" content="Automatizaciones, sistemas, integraciones y productos digitales construidos por l-lab.cl.">
+    <link rel="icon" type="image/png" href="/media/logo_l-lab.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { graphite:'#171717', smoke:'#f4f1ec', ash:'#d8d2c8', ember:'#ff6a2a', copper:'#b64a22' },
+                    fontFamily: { display:['IBM Plex Mono','monospace'], sans:['DM Sans','sans-serif'], mono:['IBM Plex Mono','monospace'] },
+                    boxShadow: { glow:'0 0 60px rgba(255,106,42,.18)', cyan:'0 0 70px rgba(103,232,249,.12)' }
+                }
+            }
+        }
+    </script>
+    <script>if (localStorage.getItem('l-lab-theme') === 'light') document.documentElement.classList.add('light-theme');</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body { background:#171717; color:#f4f1ec; transition:background .35s ease, color .35s ease; }
+        .grain:before { content:""; position:fixed; inset:0; pointer-events:none; opacity:.13; z-index:50; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E"); }
+        .project-grid { position:relative; overflow:hidden; }
+        .project-grid::before { content:""; position:absolute; inset:0; opacity:.55; pointer-events:none; background-image:linear-gradient(rgba(103,232,249,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(103,232,249,.08) 1px, transparent 1px); background-size:64px 64px; mask-image:radial-gradient(ellipse at 48% 24%, black 0%, black 45%, transparent 78%); }
+        .project-grid > * { position:relative; z-index:1; }
+        .robot-stage { position:relative; min-height:25rem; overflow:visible; }
+        .robot { position:absolute; left:50%; top:48%; width:9rem; height:9rem; transform:translate(-50%,-50%); animation:robot-cycle 6.8s ease-in-out infinite; }
+        .robot-head { position:absolute; left:1.35rem; top:.6rem; width:5.8rem; height:4.4rem; border:1px solid rgba(103,232,249,.42); border-radius:1.45rem; background:linear-gradient(180deg,#f4f1ec,#c7f6ff); box-shadow:0 0 38px rgba(103,232,249,.24); }
+        .robot-head::before { content:""; position:absolute; left:50%; top:-1.35rem; width:.1rem; height:1.35rem; background:rgba(103,232,249,.65); }
+        .robot-head::after { content:""; position:absolute; left:50%; top:-1.75rem; width:.65rem; height:.65rem; transform:translateX(-50%); border-radius:999px; background:#67e8f9; box-shadow:0 0 18px rgba(103,232,249,.9); animation:robot-light 1.2s ease-in-out infinite; }
+        .robot-eye { position:absolute; top:1.55rem; width:.72rem; height:.72rem; border-radius:999px; background:#171717; animation:robot-focus 6.8s infinite; }
+        .robot-eye.left { left:1.55rem; } .robot-eye.right { right:1.55rem; }
+        .robot-smile { position:absolute; left:50%; bottom:.9rem; width:1.6rem; height:.7rem; transform:translateX(-50%); border-bottom:3px solid #171717; border-radius:0 0 999px 999px; }
+        .robot-body { position:absolute; left:2rem; top:5.25rem; width:4.5rem; height:3rem; border-radius:1.1rem; border:1px solid rgba(255,255,255,.18); background:rgba(103,232,249,.14); }
+        .robot-arm { position:absolute; top:5.65rem; width:2.7rem; height:.8rem; border-radius:999px; background:#67e8f9; transform-origin:center; }
+        .robot-arm.left { left:.15rem; animation:robot-arm-left 6.8s ease-in-out infinite; } .robot-arm.right { right:.15rem; animation:robot-arm-right 6.8s ease-in-out infinite; }
+        .idea-bubble { position:absolute; left:50%; top:1.8rem; width:3.3rem; height:3.3rem; transform:translateX(-50%) scale(.2); opacity:0; border-radius:999px; background:#fef08a; color:#171717; box-shadow:0 0 40px rgba(254,240,138,.55); animation:idea-pop 6.8s infinite; }
+        .idea-bubble::before { content:""; position:absolute; left:1.35rem; top:.85rem; width:.6rem; height:.9rem; border-radius:.5rem .5rem .25rem .25rem; background:#171717; box-shadow:0 1.05rem 0 -.18rem #171717; }
+        .idea-dot { position:absolute; border-radius:999px; background:rgba(244,241,236,.55); animation:thinking-dots 6.8s infinite; }
+        .idea-dot.d1 { left:38%; top:28%; width:.45rem; height:.45rem; } .idea-dot.d2 { left:42%; top:23%; width:.62rem; height:.62rem; animation-delay:.12s; } .idea-dot.d3 { left:47%; top:18%; width:.8rem; height:.8rem; animation-delay:.24s; }
+        .work-smoke { position:absolute; left:50%; top:58%; width:6.8rem; height:3rem; transform:translateX(-50%); opacity:0; filter:blur(.2px); animation:smoke-burst 6.8s infinite; }
+        .work-smoke span { position:absolute; width:1rem; height:1rem; border-radius:999px; background:rgba(244,241,236,.3); animation:smoke-float .55s ease-in-out infinite alternate; }
+        .work-smoke span:nth-child(1) { left:.3rem; top:1.2rem; } .work-smoke span:nth-child(2) { left:2.2rem; top:.4rem; animation-delay:.12s; } .work-smoke span:nth-child(3) { right:1.4rem; top:1.1rem; animation-delay:.22s; } .work-smoke span:nth-child(4) { right:.2rem; top:.25rem; animation-delay:.32s; }
+        .clock-result { position:absolute; right:11%; top:47%; width:4.2rem; height:4.2rem; opacity:0; transform:scale(.35) rotate(-12deg); border-radius:999px; border:4px solid #f4f1ec; background:#67e8f9; box-shadow:0 0 36px rgba(103,232,249,.5); animation:clock-result 6.8s infinite; }
+        .clock-result::before { content:""; position:absolute; left:50%; top:50%; width:.16rem; height:1.25rem; transform-origin:bottom; transform:translate(-50%,-100%) rotate(0deg); background:#171717; border-radius:999px; animation:clock-hand 6.8s infinite; }
+        .clock-result::after { content:""; position:absolute; left:50%; top:50%; width:1.05rem; height:.16rem; transform-origin:left; background:#171717; border-radius:999px; }
+        @keyframes robot-cycle { 0%, 20%, 100% { transform:translate(-50%,-50%) rotate(0deg); } 45%, 64% { transform:translate(-50%,-48%) rotate(-1deg); } 50%, 58% { transform:translate(-50%,-51%) rotate(1deg); } 82%, 92% { transform:translate(-58%,-50%) rotate(0deg); } }
+        @keyframes robot-light { 50% { opacity:.35; transform:translateX(-50%) scale(.75); } }
+        @keyframes robot-focus { 0%, 18%, 100% { transform:scaleY(1); } 42%, 64% { transform:scaleY(.45); } 92% { transform:scaleY(.12); } }
+        @keyframes robot-arm-left { 0%, 32%, 72%, 100% { transform:rotate(8deg); } 42%, 64% { transform:rotate(34deg) translate(.35rem,.4rem); } 82%, 94% { transform:rotate(-18deg) translate(-.1rem,-.15rem); } }
+        @keyframes robot-arm-right { 0%, 32%, 72%, 100% { transform:rotate(-8deg); } 42%, 64% { transform:rotate(-38deg) translate(-.25rem,.42rem); } 82%, 94% { transform:rotate(-8deg) translate(1.2rem,-.4rem); } }
+        @keyframes thinking-dots { 0%, 24% { opacity:1; transform:translateY(0) scale(1); } 32%, 100% { opacity:0; transform:translateY(-.8rem) scale(.7); } }
+        @keyframes idea-pop { 0%, 27% { opacity:0; transform:translateX(-50%) scale(.2); } 33%, 43% { opacity:1; transform:translateX(-50%) scale(1); } 50%, 100% { opacity:0; transform:translateX(-50%) scale(.75); } }
+        @keyframes smoke-burst { 0%, 38%, 70%, 100% { opacity:0; transform:translateX(-50%) scale(.7); } 45%, 64% { opacity:1; transform:translateX(-50%) scale(1); } }
+        @keyframes smoke-float { to { transform:translateY(-.7rem) scale(1.25); opacity:.45; } }
+        @keyframes clock-result { 0%, 72% { opacity:0; transform:scale(.35) rotate(-12deg); } 80%, 93% { opacity:1; transform:scale(1) rotate(0deg); } 100% { opacity:0; transform:scale(.75) rotate(8deg); } }
+        @keyframes clock-hand { 78%, 94% { transform:translate(-50%,-100%) rotate(720deg); } }
+        @media (prefers-reduced-motion: reduce) { .robot, .robot-head::after, .robot-eye, .robot-arm, .idea-bubble, .idea-dot, .work-smoke, .work-smoke span, .clock-result, .clock-result::before { animation:none; } }
+        .theme-toggle-dot { transform:translateX(0); transition:transform .25s ease, background .25s ease; }
+        .light-theme .theme-toggle-dot { transform:translateX(1.45rem); background:#171717; }
+        .light-theme body { background:#f4f1ec; color:#171717; }
+        .light-theme .grain:before { opacity:.07; }
+        .light-theme header { background:rgba(244,241,236,.78) !important; border-color:rgba(23,23,23,.1) !important; }
+        .light-theme header [class*="bg-graphite/95"], .light-theme #mobile-menu { background:rgba(244,241,236,.96) !important; }
+        .light-theme .text-smoke { color:#171717 !important; }
+        .light-theme .text-smoke\/75, .light-theme .text-smoke\/72, .light-theme .text-smoke\/70, .light-theme .text-smoke\/62, .light-theme .text-smoke\/55, .light-theme .text-smoke\/50, .light-theme .text-smoke\/45 { color:rgba(23,23,23,.64) !important; }
+        .light-theme [class*="bg-white/[."] { background:rgba(23,23,23,.035) !important; }
+        .light-theme [class*="border-white/"] { border-color:rgba(23,23,23,.12) !important; }
+        .light-theme .dark-panel { background:#171717 !important; color:#f4f1ec !important; }
+        .light-theme .dark-panel .text-smoke { color:#f4f1ec !important; }
+        .light-theme #casos { background:#e8e2d8 !important; color:#171717 !important; border-color:rgba(23,23,23,.1) !important; }
+    </style>
+</head>
+<body class="grain font-sans selection:bg-cyan-200 selection:text-graphite">
+    <div class="absolute inset-0 -z-10 overflow-hidden">
+        <div class="absolute left-[-14rem] top-[-12rem] h-[34rem] w-[34rem] rounded-full bg-cyan-300/10 blur-3xl"></div>
+        <div class="absolute right-[-16rem] top-[18rem] h-[38rem] w-[38rem] rounded-full bg-ember/10 blur-3xl"></div>
+    </div>
+
+    <header class="sticky top-0 z-40 border-b border-white/10 bg-graphite/78 backdrop-blur-xl">
+        <nav class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
+            <a href="/" class="group flex items-baseline gap-2">
+                <span class="font-display text-3xl leading-none tracking-tight">l-lab</span>
+                <span class="font-mono text-xs uppercase tracking-[.35em] text-ember">cl</span>
+            </a>
+            <div class="hidden items-center gap-8 font-mono text-xs uppercase tracking-[.18em] text-smoke/70 md:flex">
+                <a class="transition hover:text-ember" href="/#inicio">Inicio</a>
+                <a class="transition hover:text-ember" href="/#servicios">Servicios</a>
+                <div class="group relative py-2">
+                    <a class="text-cyan-200 transition hover:text-ember" href="/#proyectos">Proyectos</a>
+                    <div class="invisible absolute left-1/2 top-full w-56 -translate-x-1/2 rounded-2xl border border-white/10 bg-graphite/95 p-2 opacity-0 shadow-2xl backdrop-blur-xl transition group-hover:visible group-hover:opacity-100">
+                        <a class="block rounded-xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/desarrollo-web/">Desarrollo web</a>
+                        <a class="block rounded-xl px-4 py-3 transition hover:bg-white/[.06] hover:text-cyan-200" href="/automatizaciones/">Automatizaciones</a>
+                    </div>
+                </div>
+                <a class="transition hover:text-ember" href="/#nosotros">Nosotros</a>
+                <a class="transition hover:text-ember" href="/#precios">Precios</a>
+                <a class="transition hover:text-ember" href="/#contacto">Contacto</a>
+            </div>
+            <div class="flex items-center gap-3">
+                <button id="theme-toggle" type="button" class="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-lg text-smoke/70 transition hover:border-ember/60 hover:text-ember" aria-label="Cambiar a tema claro" aria-pressed="false"><span id="theme-moon" aria-hidden="true">☾</span><span id="theme-sun" class="hidden" aria-hidden="true">☀</span></button>
+                <a href="https://wa.me/56934821394?text=Hola%20l-lab%2C%20quiero%20automatizar%20un%20proceso" target="_blank" class="hidden rounded-full sm:inline-flex border border-cyan-300/60 px-4 py-2 font-mono text-xs uppercase tracking-[.16em] text-cyan-200 transition hover:bg-cyan-200 hover:text-graphite">Automatizar</a>
+                <button id="mobile-menu-toggle" type="button" class="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 font-mono text-lg text-smoke/70 transition hover:border-ember/60 hover:text-ember md:hidden" aria-label="Abrir menú" aria-expanded="false">☰</button>
+            </div>
+        </nav>
+        <div id="mobile-menu" class="hidden border-t border-white/10 bg-graphite/95 px-5 py-5 backdrop-blur-xl md:hidden">
+            <div class="mx-auto grid max-w-7xl gap-2 font-mono text-xs uppercase tracking-[.18em] text-smoke/70">
+                <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/#inicio">Inicio</a>
+                <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/#servicios">Servicios</a>
+                <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/#proyectos">Proyectos</a>
+                <div class="grid gap-2 border-l border-white/10 pl-4">
+                    <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/desarrollo-web/">Desarrollo web</a>
+                    <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-cyan-200" href="/automatizaciones/">Automatizaciones</a>
+                </div>
+                <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/#nosotros">Nosotros</a>
+                <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/#precios">Precios</a>
+                <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/#contacto">Contacto</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="project-grid mx-auto grid min-h-[62vh] max-w-7xl items-center gap-12 px-5 py-16 lg:grid-cols-[.9fr_1.1fr] lg:px-8">
+            <div>
+                <h1 class="max-w-4xl font-mono text-5xl font-medium uppercase leading-[.95] tracking-[-.08em] text-smoke md:text-6xl lg:text-7xl">Automatizaciones</h1>
+                <p class="mt-7 max-w-2xl text-lg leading-8 text-smoke/72">Desarrollamos soluciones para mejorar la calidad de tu trabajo.</p>
+                <div class="mt-9 flex flex-col gap-3 sm:flex-row">
+                    <a href="#casos" class="rounded-full bg-cyan-200 px-6 py-4 text-center font-bold text-graphite transition hover:-translate-y-0.5 hover:bg-white">Ver proyectos</a>
+                    <a href="/desarrollo-web/" class="rounded-full border border-white/15 px-6 py-4 text-center font-bold text-smoke transition hover:border-ember hover:text-ember">Ver desarrollo web</a>
+                </div>
+            </div>
+            <div class="relative">
+                <div class="robot-stage">
+                    <span class="idea-dot d1"></span><span class="idea-dot d2"></span><span class="idea-dot d3"></span>
+                    <span class="idea-bubble" aria-hidden="true"></span>
+                    <div class="robot" aria-label="Robot animado pensando, trabajando y mostrando un reloj">
+                        <div class="robot-head"><span class="robot-eye left"></span><span class="robot-eye right"></span><span class="robot-smile"></span></div>
+                        <div class="robot-body"></div>
+                        <div class="robot-arm left"></div>
+                        <div class="robot-arm right"></div>
+                    </div>
+                    <div class="work-smoke" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+                    <span class="clock-result" aria-label="Resultado: tiempo ahorrado"></span>
+                </div>
+            </div>
+        </section>
+
+        <section id="casos" class="border-y border-white/10 bg-[#121110]">
+            <div class="mx-auto max-w-7xl px-5 py-20 lg:px-8">
+                <p class="font-mono text-xs uppercase tracking-[.35em] text-cyan-200">Repositorio de automatizaciones</p>
+                <h2 class="mt-4 font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-6xl">Proyectos realizados.</h2>
+                <p class="mt-6 max-w-3xl text-lg leading-8 text-smoke/70">Casos presentados con el mismo formato del apartado de desarrollo web: una tarjeta visual, objetivo, resultado y herramientas utilizadas.</p>
+                <div class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+                    {% for project in automation_projects %}
+                    <article class="group rounded-[1.6rem] border border-white/10 bg-white/[.045] p-5 shadow-sm transition hover:-translate-y-1 hover:border-cyan-300/40 hover:bg-white/[.07] hover:shadow-cyan">
+                        <div class="mb-5 aspect-[4/3] overflow-hidden rounded-[1.2rem] bg-[#0b0b0b] p-4 ring-1 ring-white/10">
+                            <div class="flex h-full flex-col justify-between rounded-[1rem] border border-white/10 bg-[radial-gradient(circle_at_20%_18%,rgba(103,232,249,.22),transparent_34%),radial-gradient(circle_at_78%_72%,rgba(255,106,42,.16),transparent_30%),linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.02))] p-4 transition duration-700 group-hover:scale-[1.02]">
+                                <div class="flex items-center justify-between font-mono text-[10px] uppercase tracking-[.18em] text-smoke/45">
+                                    <span>automation.flow</span>
+                                    <span class="text-cyan-200">live</span>
+                                </div>
+                                <div class="grid gap-2">
+                                    <div class="h-2 w-2/3 rounded-full bg-cyan-200/70 shadow-[0_0_24px_rgba(103,232,249,.35)]"></div>
+                                    <div class="grid grid-cols-3 gap-2">
+                                        <span class="h-14 rounded-2xl border border-cyan-300/20 bg-cyan-300/10"></span>
+                                        <span class="h-14 rounded-2xl border border-ember/20 bg-ember/10"></span>
+                                        <span class="h-14 rounded-2xl border border-lime-300/20 bg-lime-300/10"></span>
+                                    </div>
+                                    <div class="ml-auto h-2 w-1/2 rounded-full bg-ember/70"></div>
+                                </div>
+                                <p class="font-mono text-xs uppercase tracking-[.22em] text-cyan-200">{{ project.category }}</p>
+                            </div>
+                        </div>
+                        <h3 class="text-2xl font-bold">{{ project.title }}</h3>
+                        <p class="mt-3 text-smoke/62">{{ project.description }}</p>
+                        <div class="mt-5 rounded-[1.1rem] border border-cyan-300/20 bg-cyan-300/10 p-4 text-sm leading-6 text-smoke/70">
+                            <strong class="text-cyan-200">Resultado:</strong> {{ project.result }}
+                        </div>
+                        <div class="mt-5 flex flex-wrap gap-2">
+                            {% for tech in project.technologies %}<span class="rounded-full bg-smoke/8 px-3 py-1 font-mono text-xs text-smoke/70">{{ tech }}</span>{% endfor %}
+                        </div>
+                        <a href="https://wa.me/56934821394?text=Hola%20l-lab%2C%20quiero%20crear%20una%20automatizaci%C3%B3n%20similar%20a%20{{ project.title|urlencode }}" target="_blank" rel="noopener" class="mt-6 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[.18em] text-cyan-200 transition hover:text-smoke">Solicitar algo similar <span aria-hidden="true">↗</span></a>
+                    </article>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <section class="mx-auto max-w-7xl px-5 py-20 lg:px-8">
+            <div class="rounded-[2rem] border border-ember/25 bg-ember/10 p-8 md:p-10">
+                <p class="font-mono text-xs uppercase tracking-[.35em] text-ember">¿Quieres algo parecido?</p>
+                <h2 class="mt-4 max-w-4xl font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-6xl">Cuéntame qué proceso quieres dejar de hacer manualmente.</h2>
+                <a href="https://wa.me/56934821394?text=Hola%20l-lab%2C%20quiero%20crear%20una%20automatizaci%C3%B3n" target="_blank" class="mt-8 inline-flex rounded-full bg-ember px-6 py-4 font-bold text-graphite transition hover:-translate-y-0.5 hover:bg-[#ff7d45]">Conversemos por WhatsApp</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="border-t border-white/10 px-5 py-8 text-center font-mono text-xs uppercase tracking-[.2em] text-smoke/45">© {% now "Y" %} l-lab.cl — proyectos, automatizaciones y sistemas</footer>
+
+    <script>
+        const themeToggle = document.querySelector('#theme-toggle');
+        const themeMoon = document.querySelector('#theme-moon');
+        const themeSun = document.querySelector('#theme-sun');
+        const mobileMenuToggle = document.querySelector('#mobile-menu-toggle');
+        const mobileMenu = document.querySelector('#mobile-menu');
+        function applyTheme(theme) {
+            const isLight = theme === 'light';
+            document.documentElement.classList.toggle('light-theme', isLight);
+            localStorage.setItem('l-lab-theme', theme);
+            if (themeToggle) {
+                themeToggle.setAttribute('aria-label', isLight ? 'Cambiar a tema oscuro' : 'Cambiar a tema claro');
+                themeToggle.setAttribute('aria-pressed', String(isLight));
+            }
+            themeMoon?.classList.toggle('hidden', isLight);
+            themeSun?.classList.toggle('hidden', !isLight);
+        }
+        applyTheme(localStorage.getItem('l-lab-theme') || 'dark');
+        themeToggle?.addEventListener('click', () => applyTheme(document.documentElement.classList.contains('light-theme') ? 'dark' : 'light'));
+
+        mobileMenuToggle?.addEventListener('click', () => {
+            const isOpen = !mobileMenu?.classList.contains('hidden');
+            mobileMenu?.classList.toggle('hidden', isOpen);
+            mobileMenuToggle.setAttribute('aria-expanded', String(!isOpen));
+            mobileMenuToggle.textContent = isOpen ? '☰' : '×';
+        });
+
+        mobileMenu?.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileMenuToggle?.setAttribute('aria-expanded', 'false');
+                if (mobileMenuToggle) mobileMenuToggle.textContent = '☰';
+            });
+        });
+    </script>
+</body>
+</html>

@@ -12,6 +12,34 @@ from .models import Project
 logger = logging.getLogger(__name__)
 
 
+AUTOMATION_PROJECTS = [
+    {
+        "category": "Automatización comercial",
+        "title": "Seguimiento comercial automático",
+        "description": "Captura prospectos desde formularios o WhatsApp, clasifica interés, crea recordatorios y evita que oportunidades queden perdidas.",
+        "result": "Menos seguimiento manual y más control sobre cada contacto.",
+        "technologies": ["CRM", "WhatsApp", "Email", "IA"],
+        "accent": "cyan",
+    },
+    {
+        "category": "Documentos y cotizaciones",
+        "title": "Generación de propuestas",
+        "description": "Sistema para ordenar datos del cliente, calcular valores, generar documentos y enviar cotizaciones con menos pasos repetitivos.",
+        "result": "Cotizaciones más rápidas, consistentes y fáciles de rastrear.",
+        "technologies": ["PDF", "Planillas", "Django", "Email"],
+        "accent": "ember",
+    },
+    {
+        "category": "Control operativo",
+        "title": "Panel de tareas y alertas",
+        "description": "Tablero para centralizar tareas, estados, responsables y alertas internas sin depender de chats dispersos.",
+        "result": "Mayor visibilidad de pendientes y procesos críticos.",
+        "technologies": ["Dashboard", "APIs", "Reportes", "KPIs"],
+        "accent": "lime",
+    },
+]
+
+
 SERVICES = [
     {
         "title": "Páginas web corporativas",
@@ -42,6 +70,19 @@ SERVICES = [
 
 def erp(request):
     return render(request, "portfolio/erp.html")
+
+
+def web_development_projects(request):
+    projects = Project.objects.filter(status="published")
+    return render(request, "portfolio/web_development_projects.html", {"projects": projects})
+
+
+def automations(request):
+    return render(request, "portfolio/automations.html", {"automation_projects": AUTOMATION_PROJECTS})
+
+
+def projects_hub(request):
+    return redirect("/#proyectos")
 
 
 def home(request):

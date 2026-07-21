@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>l-lab.cl | Desarrollo web y aplicaciones a medida</title>
     <meta name="description" content="Estudio tecnológico elegante para páginas web, aplicaciones web, sistemas internos, dashboards, automatizaciones y mantención.">
+    <link rel="icon" type="image/png" href="/media/logo_l-lab.png">
+    <link rel="apple-touch-icon" href="/media/logo_l-lab.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -94,6 +96,10 @@
         .light-theme [class*="border-white/"] { border-color:rgba(23,23,23,.12) !important; }
         .light-theme #proyectos { background:#e8e2d8 !important; color:#171717 !important; }
         .light-theme #proyectos article, .light-theme #proyectos .col-span-full { background:rgba(255,255,255,.42) !important; border-color:rgba(23,23,23,.1) !important; }
+        .light-theme #precios { background:#efe7dc !important; color:#171717 !important; border-color:rgba(23,23,23,.1) !important; }
+        .light-theme #precios article, .light-theme #precios > div > div:first-of-type { background:rgba(255,255,255,.42) !important; border-color:rgba(23,23,23,.1) !important; }
+        .light-theme #precios [class*="bg-white/[."] { background:rgba(23,23,23,.035) !important; }
+        .light-theme #precios [class*="border-white/"] { border-color:rgba(23,23,23,.12) !important; }
         .light-theme .terminal-panel { background:#0b0b0b !important; color:#f4f1ec !important; }
         .light-theme .terminal-panel .text-smoke { color:#f4f1ec !important; }
         .light-theme .terminal-panel .text-smoke\/40 { color:rgba(244,241,236,.4) !important; }
@@ -103,6 +109,14 @@
     </style>
 </head>
 <body class="grain font-sans selection:bg-ember selection:text-graphite">
+    <div id="contact-success-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-graphite/75 px-5 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="contact-success-title">
+        <div class="max-w-md rounded-[2rem] border border-ember/30 bg-smoke p-8 text-center text-graphite shadow-glow">
+            <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-ember text-3xl font-bold">✓</div>
+            <h2 id="contact-success-title" class="mt-5 font-mono text-3xl font-medium uppercase tracking-[-.06em]">Mensaje enviado</h2>
+            <p class="mt-4 leading-7 text-graphite/70">Gracias por escribirnos. Te contactaremos pronto.</p>
+            <button id="contact-success-close" type="button" class="mt-7 w-full rounded-full bg-graphite px-6 py-4 font-bold text-smoke transition hover:bg-ember hover:text-graphite">Entendido</button>
+        </div>
+    </div>
     <div class="absolute inset-0 -z-10 overflow-hidden">
         <div class="absolute left-[-12rem] top-[-10rem] h-[32rem] w-[32rem] rounded-full bg-ember/10 blur-3xl"></div>
         <div class="absolute right-[-18rem] top-[20rem] h-[40rem] w-[40rem] rounded-full bg-white/5 blur-3xl"></div>
@@ -120,6 +134,7 @@
                 <a class="transition hover:text-ember" href="#servicios">Servicios</a>
                 <a class="transition hover:text-ember" href="#proyectos">Proyectos</a>
                 <a class="transition hover:text-ember" href="#nosotros">Nosotros</a>
+                <a class="transition hover:text-ember" href="#precios">Precios</a>
                 <a class="transition hover:text-ember" href="#contacto">Contacto</a>
             </div>
             <div class="flex items-center gap-3">
@@ -194,7 +209,7 @@
                     <article class="group rounded-[1.6rem] border border-white/10 bg-white/[.045] p-5 shadow-sm transition hover:-translate-y-1 hover:border-ember/40 hover:bg-white/[.07] hover:shadow-glow">
                         <div class="mb-5 flex aspect-[4/3] items-center justify-center overflow-hidden rounded-[1.2rem] bg-graphite text-smoke ring-1 ring-white/10">
                             {% if project.preview_video %}
-                            <video src="{{ project.preview_video.url }}" class="h-full w-full rounded-[1.2rem] object-cover transition duration-700 group-hover:scale-[1.03]" muted loop playsinline preload="metadata" onmouseenter="this.play()" onmouseleave="this.pause(); this.currentTime = 0;"></video>
+                            <video src="{{ project.preview_video.url }}" class="project-video h-full w-full rounded-[1.2rem] object-cover transition duration-700 group-hover:scale-[1.03]" autoplay muted loop playsinline webkit-playsinline preload="auto" onmouseenter="this.play()" onmouseleave="this.pause(); this.currentTime = 0;"></video>
                             {% elif project.image %}
                             <img src="{{ project.image.url }}" alt="{{ project.title }}" class="h-full w-full rounded-[1.2rem] object-cover object-top transition-[object-position,transform] duration-[5000ms] ease-in-out group-hover:scale-[1.02] group-hover:object-bottom">
                             {% else %}
@@ -227,50 +242,181 @@
                 <div class="self-start lg:sticky lg:top-28">
                     <p class="font-mono text-xs uppercase tracking-[.35em] text-ember">Nosotros</p>
                     <div class="mt-8 rounded-[1.6rem] border border-white/10 bg-white/[.035] p-6 transition duration-300 hover:border-ember/50 hover:shadow-[0_0_34px_rgba(255,106,42,.12)]">
-                        <p class="font-mono text-xs uppercase tracking-[.22em] text-smoke/45">Liderado por</p>
+                        <p class="font-mono text-xs uppercase tracking-[.22em] text-smoke/45">Desarrollador FullStack</p>
                         <p class="mt-4 text-2xl font-bold">Nelson Landaeta</p>
-                        <p class="mt-3 leading-7 text-smoke/62">Desarrollador web con foco en Django, Tailwind y soluciones digitales para negocios reales.</p>
+                        <p class="mt-3 leading-7 text-smoke/62">Python, Tailwind, React, JavaScript, Node.js y TypeScript.</p>
                     </div>
                 </div>
                 <div>
-                    <h2 class="font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-6xl">Desarrollar soluciones. Crear oportunidades.</h2>
+                    <h2 class="font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-6xl">Tecnología simple. Crecimiento real.</h2>
                     <div class="mt-8 max-w-4xl space-y-5 text-lg leading-8 text-smoke/70">
-                        <p>l-lab.cl es un estudio tecnológico enfocado en crear sitios web, aplicaciones y sistemas internos a medida. Trabajamos con empresas que necesitan ordenar su presencia digital, automatizar procesos o construir herramientas web útiles para operar mejor.</p>
-                        <p>Cada proyecto parte con una conversación clara: qué problema hay que resolver, qué necesita el usuario y cómo podemos construir una solución simple, estable y preparada para crecer.</p>
+                        <p>En l-lab.cl creemos que la tecnología debe ser clara, útil y accesible. Nuestra misión es ayudar a negocios, emprendedores y empresas a construir presencia digital, ordenar procesos y abrir nuevas oportunidades mediante soluciones web a medida.</p>
                     </div>
                     <div class="mt-10 grid gap-4 md:grid-cols-2">
                         <article class="rounded-[1.4rem] border border-white/10 bg-white/[.035] p-5 transition duration-300 hover:-translate-y-1 hover:border-ember/70 hover:shadow-[0_0_34px_rgba(255,106,42,.16)]">
                             <span class="font-mono text-3xl tracking-[-.08em] text-ember">01</span>
-                            <h3 class="mt-5 text-xl font-bold">Diagnóstico claro</h3>
-                            <p class="mt-3 leading-7 text-smoke/62">Antes de diseñar o programar, entendemos el negocio, el problema y el objetivo.</p>
+                            <h3 class="mt-5 text-xl font-bold">Misión</h3>
+                            <p class="mt-3 leading-7 text-smoke/62">Crear soluciones digitales útiles, simples y adaptadas a la realidad de cada negocio.</p>
                         </article>
                         <article class="rounded-[1.4rem] border border-white/10 bg-white/[.035] p-5 transition duration-300 hover:-translate-y-1 hover:border-cyan-300/60 hover:shadow-[0_0_34px_rgba(103,232,249,.14)]">
                             <span class="font-mono text-3xl tracking-[-.08em] text-ember">02</span>
-                            <h3 class="mt-5 text-xl font-bold">Desarrollo a medida</h3>
-                            <p class="mt-3 leading-7 text-smoke/62">No forzamos plantillas. Construimos según la necesidad real del proyecto.</p>
+                            <h3 class="mt-5 text-xl font-bold">Visión</h3>
+                            <p class="mt-3 leading-7 text-smoke/62">Ser un aliado tecnológico cercano para empresas que buscan crecer con herramientas digitales.</p>
                         </article>
                         <article class="rounded-[1.4rem] border border-white/10 bg-white/[.035] p-5 transition duration-300 hover:-translate-y-1 hover:border-lime-300/60 hover:shadow-[0_0_34px_rgba(190,242,100,.13)]">
                             <span class="font-mono text-3xl tracking-[-.08em] text-ember">03</span>
-                            <h3 class="mt-5 text-xl font-bold">Tecnología mantenible</h3>
-                            <p class="mt-3 leading-7 text-smoke/62">Usamos bases simples, limpias y escalables para que el proyecto pueda evolucionar.</p>
+                            <h3 class="mt-5 text-xl font-bold">Objetivo</h3>
+                            <p class="mt-3 leading-7 text-smoke/62">Convertir ideas, procesos y necesidades en plataformas web estables y mantenibles.</p>
                         </article>
                         <article class="rounded-[1.4rem] border border-white/10 bg-white/[.035] p-5 transition duration-300 hover:-translate-y-1 hover:border-fuchsia-300/60 hover:shadow-[0_0_34px_rgba(240,171,252,.13)]">
                             <span class="font-mono text-3xl tracking-[-.08em] text-ember">04</span>
-                            <h3 class="mt-5 text-xl font-bold">Acompañamiento</h3>
-                            <p class="mt-3 leading-7 text-smoke/62">Apoyamos despliegue, mejoras, mantención, dominio, hosting y correo.</p>
+                            <h3 class="mt-5 text-xl font-bold">Compromiso</h3>
+                            <p class="mt-3 leading-7 text-smoke/62">Acompañar cada proyecto con claridad, soporte y mejora continua.</p>
                         </article>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="contacto" class="mx-auto max-w-7xl px-5 pb-24 lg:px-8">
+        <section id="precios" class="border-y border-white/10 bg-[#121110]">
+            <div class="mx-auto max-w-7xl px-5 py-24 lg:px-8">
+                <div class="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+                    <div>
+                        <p class="font-mono text-xs uppercase tracking-[.35em] text-ember">Precios</p>
+                        <h2 class="mt-4 font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-6xl">Planes para ti y tu negocio.</h2>
+                    </div>
+                    <p class="max-w-lg text-smoke/62">Soluciones con implementación, soporte y mantención.</p>
+                </div>
+
+                <div class="mb-8 rounded-[1.6rem] border border-ember/25 bg-ember/10 p-5 md:p-6">
+                    <div class="grid gap-5 md:grid-cols-[.7fr_1.3fr] md:items-center">
+                        <div>
+                            <p class="font-mono text-xs uppercase tracking-[.28em] text-ember">Mantención mensual</p>
+                            <h3 class="mt-2 text-2xl font-bold tracking-[-.04em] text-smoke">Incluida en todos los planes</h3>
+                        </div>
+                        <div class="grid gap-3 text-sm leading-6 text-smoke/70 md:grid-cols-2">
+                            <p>✓ Hosting activo, monitoreo básico, respaldo y soporte técnico.</p>
+                            <p>✓ Hasta <strong class="text-smoke">3 horas mensuales</strong> para modificaciones, implementaciones y cambios en la página web.</p>
+                        </div>
+                    </div>
+                    <p class="mt-4 border-t border-white/10 pt-4 text-sm leading-6 text-smoke/55">Las horas cubren ajustes de contenido, textos, imágenes, secciones pequeñas y mejoras menores. Nuevas funcionalidades grandes, rediseños completos, integraciones complejas o automatizaciones adicionales se cotizan aparte.</p>
+                </div>
+
+                <div class="grid gap-5 lg:grid-cols-3">
+                    <article class="group flex flex-col rounded-[1.8rem] border border-white/10 bg-white/[.04] p-6 transition duration-300 hover:-translate-y-1 hover:border-ember/60 hover:shadow-glow">
+                        <div class="flex items-start justify-between gap-4">
+                            <div>
+                                <p class="font-mono text-xs uppercase tracking-[.25em] text-ember">Plan web</p>
+                                <h3 class="mt-3 text-3xl font-bold tracking-[-.04em]">Esencial</h3>
+                            </div>
+                            <span class="rounded-full border border-ember/35 px-3 py-1 font-mono text-xs uppercase tracking-[.18em] text-ember">Base</span>
+                        </div>
+                        <div class="mt-8 rounded-[1.3rem] bg-ember p-5 text-graphite">
+                            <p class="font-mono text-xs uppercase tracking-[.2em]">Implementación</p>
+                            <p class="mt-2 font-mono text-4xl font-medium tracking-[-.08em]">$100.000</p>
+                        </div>
+                        <div class="mt-6 grid gap-3 font-mono text-sm">
+                            <div class="rounded-2xl border border-white/10 bg-white/[.035] p-4"><span class="text-smoke/55">Mantención mensual</span><br><strong class="text-xl text-smoke">$20.000</strong></div>
+                            <div class="rounded-2xl border border-ember/25 bg-ember/10 p-4"><span class="text-smoke/55">Pago anual mantención</span><br><strong class="text-xl text-ember">$100.000</strong> <span class="text-smoke/55">ahorras $40.000</span></div>
+                        </div>
+                        <ul class="mt-7 flex-1 space-y-3 leading-7 text-smoke/70">
+                            <li>✓ Página web a medida</li>
+                            <li>✓ Dominio .cl por 1 año</li>
+                            <li>✓ Creación de logo</li>
+                            <li>✓ 100 tarjetas de presentación con diseño incluido</li>
+                            <li>✓ Certificado SSL / HTTPS página segura</li>
+                            <li>✓ 1 correo corporativo con dominio propio de 10 GB de almacenamiento</li>
+                        </ul>
+                        <a href="https://wa.me/56934821394?text=Hola%20l-lab%2C%20quiero%20cotizar%20el%20Plan%20Web%20Esencial" target="_blank" class="mt-8 rounded-full border border-white/15 px-5 py-4 text-center font-bold text-smoke transition hover:border-ember hover:bg-ember hover:text-graphite">Cotizar Esencial</a>
+                    </article>
+
+                    <article class="group relative flex flex-col overflow-hidden rounded-[1.8rem] border border-ember/45 bg-white/[.06] p-6 shadow-glow transition duration-300 hover:-translate-y-1 hover:border-ember">
+                        <div class="absolute right-[-5rem] top-[-5rem] h-48 w-48 rounded-full bg-ember/20 blur-3xl"></div>
+                        <div class="relative flex items-start justify-between gap-4">
+                            <div>
+                                <p class="font-mono text-xs uppercase tracking-[.25em] text-ember">Plan operación</p>
+                                <h3 class="mt-3 text-3xl font-bold tracking-[-.04em]">Empresa</h3>
+                            </div>
+                            <a href="/erp/" class="rounded-full bg-ember px-3 py-1 font-mono text-xs uppercase tracking-[.18em] text-graphite transition hover:bg-smoke">ERP</a>
+                        </div>
+                        <div class="relative mt-8 rounded-[1.3rem] bg-smoke p-5 text-graphite">
+                            <p class="font-mono text-xs uppercase tracking-[.2em]">Implementación</p>
+                            <p class="mt-2 font-mono text-4xl font-medium tracking-[-.08em]">$150.000</p>
+                        </div>
+                        <div class="relative mt-6 rounded-2xl border border-white/10 bg-white/[.035] p-4 font-mono text-sm"><span class="text-smoke/55">Mantención mensual</span><br><strong class="text-xl text-smoke">$30.000</strong></div>
+                        <ul class="relative mt-7 flex-1 space-y-3 leading-7 text-smoke/70">
+                            <li>✓ Todo lo del Plan Web Esencial</li>
+                            <li>✓ +100 tarjetas de presentación</li>
+                            <li>✓ +3 correos corporativos personalizados de 10 GB de almacenamiento</li>
+                            <li>✓ Acceso a <a href="/erp/" class="text-ember underline decoration-ember/40 underline-offset-4 transition hover:text-smoke">ERP</a> empresarial</li>
+                            <li>✓ Módulos <a href="/erp/" class="text-ember underline decoration-ember/40 underline-offset-4 transition hover:text-smoke">ERP</a>: tareas, cotizaciones, órdenes de compra, facturas, pagos y más</li>
+                            <li>✓ Creación de usuarios y administrador del <a href="/erp/" class="text-ember underline decoration-ember/40 underline-offset-4 transition hover:text-smoke">ERP</a></li>
+                            <li>✓ Capacitación para uso del <a href="/erp/" class="text-ember underline decoration-ember/40 underline-offset-4 transition hover:text-smoke">ERP</a></li>
+                        </ul>
+                        <a href="https://wa.me/56934821394?text=Hola%20l-lab%2C%20quiero%20cotizar%20el%20Plan%20Empresa" target="_blank" class="relative mt-8 rounded-full bg-ember px-5 py-4 text-center font-bold text-graphite transition hover:-translate-y-0.5 hover:bg-[#ff7d45]">Cotizar Empresa</a>
+                    </article>
+
+                    <article class="group flex flex-col rounded-[1.8rem] border border-white/10 bg-white/[.04] p-6 transition duration-300 hover:-translate-y-1 hover:border-cyan-300/60 hover:shadow-[0_0_60px_rgba(103,232,249,.14)]">
+                        <div class="flex items-start justify-between gap-4">
+                            <div>
+                                <p class="font-mono text-xs uppercase tracking-[.25em] text-ember">Plan IA / Scripts</p>
+                                <h3 class="mt-3 text-3xl font-bold tracking-[-.04em]">Automatización</h3>
+                            </div>
+                            <span class="rounded-full border border-cyan-300/35 px-3 py-1 font-mono text-xs uppercase tracking-[.18em] text-cyan-200">Pro</span>
+                        </div>
+                        <div class="mt-8 rounded-[1.3rem] bg-cyan-200 p-5 text-graphite">
+                            <p class="font-mono text-xs uppercase tracking-[.2em]">Implementación</p>
+                            <p class="mt-2 font-mono text-4xl font-medium tracking-[-.08em]">$200.000</p>
+                        </div>
+                        <div class="mt-6 rounded-2xl border border-white/10 bg-white/[.035] p-4 font-mono text-sm"><span class="text-smoke/55">Mantención mensual</span><br><strong class="text-xl text-smoke">$35.000</strong></div>
+                        <ul class="mt-7 flex-1 space-y-3 leading-7 text-smoke/70">
+                            <li>✓ Todo lo del Plan Web Esencial y Plan Empresa</li>
+                            <li>✓ 1 automatización de tarea incluida</li>
+                            <li>✓ Diagnóstico de procesos de la empresa</li>
+                            <li>✓ Implementación con agentes de IA o script especial según la tarea</li>
+                        </ul>
+                        <div class="mt-7 rounded-[1.2rem] border border-cyan-300/20 bg-cyan-300/10 p-4 text-sm leading-6 text-smoke/70">
+                            <strong class="text-cyan-200">Automatización adicional:</strong> $50.000. Si requiere agente IA, suma $5.000 a la mantención mensual.
+                        </div>
+                        <a href="https://wa.me/56934821394?text=Hola%20l-lab%2C%20quiero%20cotizar%20el%20Plan%20Automatizaci%C3%B3n" target="_blank" class="mt-8 rounded-full border border-white/15 px-5 py-4 text-center font-bold text-smoke transition hover:border-cyan-200 hover:bg-cyan-200 hover:text-graphite">Cotizar Automatización</a>
+                    </article>
+                </div>
+
+                <div class="mt-8 rounded-[2.4rem] border border-cyan-300/20 bg-[radial-gradient(circle_at_12%_18%,rgba(103,232,249,.16),transparent_32%),linear-gradient(135deg,rgba(255,255,255,.055),rgba(255,255,255,.02))] p-6 shadow-[0_0_70px_rgba(103,232,249,.08)] md:p-8">
+                    <div class="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+                        <div class="max-w-3xl">
+                            <p class="font-mono text-xs uppercase tracking-[.35em] text-cyan-200">Proyecto especial</p>
+                            <h3 class="mt-4 font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] text-smoke md:text-6xl">Desarrollo a medida.</h3>
+                            <p class="mt-6 max-w-2xl text-lg leading-8 text-smoke/70">También realizamos trabajos personalizados y desarrollo de software específico para procesos que no calzan en un plan estándar.</p>
+                        </div>
+                        <div class="rounded-full border border-cyan-300/30 bg-cyan-300/10 px-5 py-3 font-mono text-xs uppercase tracking-[.22em] text-cyan-200">Cotización personalizada</div>
+                    </div>
+                    <div class="mt-8 grid gap-4 md:grid-cols-3">
+                        <div class="rounded-[1.4rem] border border-cyan-300/20 bg-cyan-300/10 p-5">
+                            <p class="font-mono text-xs uppercase tracking-[.22em] text-cyan-200">Software específico</p>
+                            <p class="mt-3 leading-7 text-smoke/70">Sistemas internos, paneles administrativos, flujos de trabajo, portales privados, reportes y herramientas operativas.</p>
+                        </div>
+                        <div class="rounded-[1.4rem] border border-white/10 bg-white/[.035] p-5">
+                            <p class="font-mono text-xs uppercase tracking-[.22em] text-ember">Evaluación previa</p>
+                            <p class="mt-3 leading-7 text-smoke/70">Levantamos requerimientos, definimos alcance, complejidad, tiempos y propuesta técnica antes de cotizar.</p>
+                        </div>
+                        <div class="rounded-[1.4rem] border border-lime-300/20 bg-lime-300/10 p-5">
+                            <p class="font-mono text-xs uppercase tracking-[.22em] text-lime-200">Valor</p>
+                            <p class="mt-3 text-2xl font-bold tracking-[-.04em] text-smoke">Precio sujeto a evaluación del proyecto.</p>
+                        </div>
+                    </div>
+                    <a href="https://wa.me/56934821394?text=Hola%20l-lab%2C%20quiero%20cotizar%20un%20desarrollo%20a%20medida" target="_blank" class="mt-7 inline-flex rounded-full border border-cyan-300/40 px-6 py-4 font-bold text-cyan-200 transition hover:-translate-y-0.5 hover:bg-cyan-200 hover:text-graphite">Solicitar evaluación</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacto" class="mx-auto max-w-7xl px-5 py-24 lg:px-8">
             <div class="grid overflow-hidden rounded-[2rem] border border-white/10 bg-white/[.045] lg:grid-cols-[.9fr_1.1fr]">
                 <div class="bg-ember p-8 text-graphite md:p-10">
                     <p class="font-mono text-xs uppercase tracking-[.3em]">Contacto</p>
                     <h2 class="mt-5 font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-5xl">Conversemos tu próxima cotización.</h2>
                     <div class="mt-10 space-y-4 font-bold">
-                        <a class="block rounded-2xl bg-graphite/10 p-4 transition hover:bg-graphite hover:text-smoke" href="mailto:nlandaeta@l-lab.cl">nlandaeta@l-lab.cl</a>
+                        <a class="block rounded-2xl bg-graphite/10 p-4 transition hover:bg-graphite hover:text-smoke" href="mailto:contacto@l-lab.cl">contacto@l-lab.cl</a>
                         <a class="block rounded-2xl bg-graphite/10 p-4 transition hover:bg-graphite hover:text-smoke" href="https://wa.me/56934821394" target="_blank">WhatsApp +56 9 3482 1394</a>
                     </div>
                 </div>
@@ -291,6 +437,28 @@
     </footer>
 
     <script>
+        const successModal = document.querySelector('#contact-success-modal');
+        const successModalClose = document.querySelector('#contact-success-close');
+
+        function closeSuccessModal() {
+            successModal?.classList.add('hidden');
+            successModal?.classList.remove('flex');
+        }
+
+        if (new URLSearchParams(window.location.search).get('sent') === '1') {
+            successModal?.classList.remove('hidden');
+            successModal?.classList.add('flex');
+            history.replaceState(null, '', `${window.location.pathname}#contacto`);
+        }
+
+        successModalClose?.addEventListener('click', closeSuccessModal);
+        successModal?.addEventListener('click', event => {
+            if (event.target === successModal) closeSuccessModal();
+        });
+        document.addEventListener('keydown', event => {
+            if (event.key === 'Escape') closeSuccessModal();
+        });
+
         const themeToggle = document.querySelector('#theme-toggle');
         const themeLabel = document.querySelector('#theme-label');
 
@@ -311,8 +479,65 @@
             applyTheme(nextTheme);
         });
 
+        const projectVideos = document.querySelectorAll('.project-video');
+        const isTouchDevice = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+
+        function prepareProjectVideo(video) {
+            video.muted = true;
+            video.defaultMuted = true;
+            video.playsInline = true;
+            video.setAttribute('muted', '');
+            video.setAttribute('playsinline', '');
+            video.setAttribute('webkit-playsinline', '');
+            if (isTouchDevice) video.setAttribute('autoplay', '');
+            video.load();
+        }
+
+        function playProjectVideo(video) {
+            video.muted = true;
+            video.defaultMuted = true;
+            video.setAttribute('muted', '');
+
+            const start = () => video.play().catch(() => {
+                video.controls = true;
+            });
+
+            if (video.readyState >= 2) start();
+            else video.addEventListener('loadeddata', start, { once: true });
+        }
+
+        projectVideos.forEach(video => {
+            prepareProjectVideo(video);
+
+            if (isTouchDevice) {
+                video.addEventListener('touchstart', () => playProjectVideo(video), { passive: true });
+                video.addEventListener('click', () => playProjectVideo(video));
+            } else {
+                video.pause();
+                video.currentTime = 0;
+            }
+        });
+
+        if (isTouchDevice && projectVideos.length) {
+            if ('IntersectionObserver' in window) {
+                const videoObserver = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                        const video = entry.target;
+                        if (entry.isIntersecting) {
+                            playProjectVideo(video);
+                        } else {
+                            video.pause();
+                        }
+                    });
+                }, { threshold: 0.15, rootMargin: '120px 0px' });
+
+                projectVideos.forEach(video => videoObserver.observe(video));
+            } else {
+                projectVideos.forEach(playProjectVideo);
+            }
+        }
+
         const terminal = document.querySelector('#terminal-output');
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const terminalLines = [
             { prompt: 'nlandaeta@l-lab', path: ':~$ ', command: 'mkdir rulkanis_web' },
             { prompt: 'nlandaeta@l-lab', path: ':~$ ', command: 'cd rulkanis_web' },
@@ -323,7 +548,7 @@
             { output: '✓ dependencias instaladas · django · tailwind' },
             { prompt: '(venv)', path: ' $ ', command: 'django-admin startproject core .' },
             { prompt: '(venv)', path: ' $ ', command: 'python manage.py runserver 0.0.0.0:8000' },
-            { output: 'Servidor iniciado → ', link: 'https://rulkanis.cl' },
+            { output: 'Servidor iniciado → ', link: 'https://rulkanis.l-lab.cl' },
         ];
 
         function appendSpan(line, text, className = '') {
@@ -354,27 +579,7 @@
 
         async function runTerminal() {
             if (!terminal) return;
-            if (prefersReducedMotion) {
-                terminalLines.forEach(item => {
-                    const { line } = renderLine(item);
-                    if (item.prompt) appendSpan(line, item.command);
-                    else {
-                        appendSpan(line, item.output, 'text-ash/70');
-                        if (item.link) {
-                            const link = document.createElement('a');
-                            link.href = item.link;
-                            link.target = '_blank';
-                            link.rel = 'noopener';
-                            link.className = 'text-ember underline decoration-ember/40 underline-offset-4 transition hover:text-smoke';
-                            link.textContent = item.link;
-                            line.appendChild(link);
-                        }
-                    }
-                });
-                return;
-            }
-
-            await new Promise(resolve => setTimeout(resolve, 650));
+            await new Promise(resolve => setTimeout(resolve, 250));
             for (const item of terminalLines) {
                 const { line, targetText, output, link } = renderLine(item);
                 const target = appendSpan(line, '', output ? 'text-ash/70' : '');
@@ -396,7 +601,31 @@
             terminal.lastElementChild.appendChild(cursor);
         }
 
-        runTerminal();
+        let terminalStarted = false;
+
+        function startTerminalOnce() {
+            if (terminalStarted) return;
+            terminalStarted = true;
+            runTerminal();
+        }
+
+        if (terminal) {
+            if ('IntersectionObserver' in window) {
+                const terminalObserver = new IntersectionObserver((entries, observer) => {
+                    const entry = entries[0];
+                    if (!entry?.isIntersecting) return;
+                    observer.disconnect();
+                    startTerminalOnce();
+                }, {
+                    threshold: 0.35,
+                    rootMargin: '0px 0px -10% 0px'
+                });
+
+                terminalObserver.observe(terminal);
+            } else {
+                startTerminalOnce();
+            }
+        }
     </script>
 </body>
 </html>

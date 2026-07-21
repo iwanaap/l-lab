@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,7 +26,9 @@ SECRET_KEY = 'django-insecure-4j++15(nrab3%xyzh%u-))=vvrj3=6w0u0t0of7#em-9gqq!2w
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "l-lab.cl", "www.l-lab.cl"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "l-lab.cl", "www.l-lab.cl", "erp.l-lab.cl"]
+CSRF_TRUSTED_ORIGINS = ["https://l-lab.cl", "https://www.l-lab.cl", "https://erp.l-lab.cl"]
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 
 # Application definition
@@ -121,3 +124,20 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# Email / contact form
+CONTACT_EMAIL = os.environ.get("CONTACT_EMAIL", "contacto@l-lab.cl")
+EMAIL_BACKEND = os.environ.get("EMAIL_BACKEND", "django.core.mail.backends.smtp.EmailBackend")
+EMAIL_HOST = os.environ.get("EMAIL_HOST", "smtp.titan.email")
+EMAIL_PORT = int(os.environ.get("EMAIL_PORT", "465"))
+EMAIL_USE_SSL = os.environ.get("EMAIL_USE_SSL", "True").lower() in ("1", "true", "yes", "on")
+EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS", "False").lower() in ("1", "true", "yes", "on")
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", CONTACT_EMAIL)
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
+DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", CONTACT_EMAIL)
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
+
+try:
+    from .local_settings import *  # noqa: F401,F403
+except ImportError:
+    pass

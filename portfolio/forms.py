@@ -13,14 +13,11 @@ class ContactInquiryForm(forms.ModelForm):
             "phone": forms.TextInput(attrs={"placeholder": "+56 9 ..."}),
             "service": forms.Select(
                 choices=[
-                    ("", "Selecciona un servicio"),
-                    ("Sitio web corporativo", "Sitio web corporativo"),
-                    ("Landing page", "Landing page"),
-                    ("Tienda online", "Tienda online"),
-                    ("Aplicación web", "Aplicación web"),
-                    ("Sistema interno", "Sistema interno"),
-                    ("Dashboard", "Dashboard"),
-                    ("Automatización / API", "Automatización / API"),
+                    ("", "Selecciona un plan o servicio"),
+                    ("Plan Web Esencial", "Plan Web Esencial"),
+                    ("Plan Empresa", "Plan Empresa"),
+                    ("Plan Automatización", "Plan Automatización"),
+                    ("Desarrollo a medida", "Desarrollo a medida"),
                     ("Mantención web", "Mantención web"),
                 ]
             ),

@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ERP empresarial | l-lab.cl</title>
+    <meta name="description" content="ERP empresarial para ordenar tareas, cotizaciones, órdenes de compra, facturas, pagos, usuarios y procesos internos.">
+    <link rel="icon" type="image/png" href="/media/logo_l-lab.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        graphite: '#171717',
+                        smoke: '#f4f1ec',
+                        ash: '#d8d2c8',
+                        ember: '#ff6a2a',
+                        copper: '#b64a22'
+                    },
+                    fontFamily: {
+                        display: ['IBM Plex Mono', 'monospace'],
+                        sans: ['DM Sans', 'sans-serif'],
+                        mono: ['IBM Plex Mono', 'monospace']
+                    },
+                    boxShadow: {
+                        glow: '0 0 60px rgba(255,106,42,.18)',
+                        cyan: '0 0 70px rgba(103,232,249,.12)'
+                    }
+                }
+            }
+        }
+    </script>
+    <script>
+        if (localStorage.getItem('l-lab-theme') === 'light') {
+            document.documentElement.classList.add('light-theme');
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body { background:#171717; color:#f4f1ec; transition:background .35s ease, color .35s ease; }
+        .grain:before { content:""; position:fixed; inset:0; pointer-events:none; opacity:.13; z-index:50; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E"); }
+        .erp-grid { position:relative; overflow:hidden; }
+        .erp-grid::before { content:""; position:absolute; inset:0; opacity:.55; pointer-events:none; background-image:linear-gradient(rgba(103,232,249,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(103,232,249,.08) 1px, transparent 1px); background-size:64px 64px; mask-image:radial-gradient(ellipse at 48% 24%, black 0%, black 45%, transparent 78%); }
+        .erp-grid > * { position:relative; z-index:1; }
+        .theme-toggle-dot { transform:translateX(0); transition:transform .25s ease, background .25s ease; }
+        .light-theme .theme-toggle-dot { transform:translateX(1.45rem); background:#171717; }
+        .light-theme body { background:#f4f1ec; color:#171717; }
+        .light-theme .grain:before { opacity:.07; }
+        .light-theme header { background:rgba(244,241,236,.78) !important; border-color:rgba(23,23,23,.1) !important; }
+        .light-theme .text-smoke { color:#171717 !important; }
+        .light-theme .text-smoke\/75, .light-theme .text-smoke\/72, .light-theme .text-smoke\/70, .light-theme .text-smoke\/62, .light-theme .text-smoke\/55, .light-theme .text-smoke\/50, .light-theme .text-smoke\/45 { color:rgba(23,23,23,.64) !important; }
+        .light-theme [class*="bg-white/[."] { background:rgba(23,23,23,.035) !important; }
+        .light-theme [class*="border-white/"] { border-color:rgba(23,23,23,.12) !important; }
+        .light-theme .dark-panel { background:#171717 !important; color:#f4f1ec !important; }
+        .light-theme .dark-panel .text-smoke { color:#f4f1ec !important; }
+        .light-theme .dark-panel .text-smoke\/62, .light-theme .dark-panel .text-smoke\/55 { color:rgba(244,241,236,.62) !important; }
+        .light-theme #erp-soluciones { background:#e8e2d8 !important; color:#171717 !important; border-color:rgba(23,23,23,.1) !important; }
+    </style>
+</head>
+<body class="grain font-sans selection:bg-cyan-200 selection:text-graphite">
+    <div class="absolute inset-0 -z-10 overflow-hidden">
+        <div class="absolute left-[-14rem] top-[-12rem] h-[34rem] w-[34rem] rounded-full bg-cyan-300/10 blur-3xl"></div>
+        <div class="absolute right-[-16rem] top-[18rem] h-[38rem] w-[38rem] rounded-full bg-ember/10 blur-3xl"></div>
+    </div>
+
+    <header class="sticky top-0 z-40 border-b border-white/10 bg-graphite/78 backdrop-blur-xl">
+        <nav class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
+            <a href="/" class="group flex items-baseline gap-2">
+                <span class="font-display text-3xl leading-none tracking-tight">l-lab</span>
+                <span class="font-mono text-xs uppercase tracking-[.35em] text-ember">cl</span>
+            </a>
+            <div class="hidden items-center gap-8 font-mono text-xs uppercase tracking-[.18em] text-smoke/70 md:flex">
+                <a class="transition hover:text-ember" href="/#precios">Planes</a>
+                <a class="transition hover:text-ember" href="/#contacto">Contacto</a>
+                <a class="transition hover:text-ember" href="/">Volver al inicio</a>
+            </div>
+            <div class="flex items-center gap-3">
+                <button id="theme-toggle" type="button" class="group flex items-center gap-2 rounded-full border border-white/10 px-3 py-2 font-mono text-xs uppercase tracking-[.16em] text-smoke/70 transition hover:border-ember/60 hover:text-ember" aria-label="Cambiar a tema claro" aria-pressed="false">
+                    <span id="theme-label" class="hidden sm:inline">Oscuro</span>
+                    <span class="relative h-5 w-11 rounded-full bg-white/10 ring-1 ring-white/10 transition group-hover:ring-ember/50">
+                        <span class="theme-toggle-dot absolute left-1 top-1 h-3 w-3 rounded-full bg-ember"></span>
+                    </span>
+                </button>
+                <a href="https://wa.me/56934821394?text=Hola%20l-lab%2C%20quiero%20conocer%20m%C3%A1s%20sobre%20el%20ERP" target="_blank" class="rounded-full border border-cyan-300/60 px-4 py-2 font-mono text-xs uppercase tracking-[.16em] text-cyan-200 transition hover:bg-cyan-200 hover:text-graphite">Consultar</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="erp-grid mx-auto grid min-h-[78vh] max-w-7xl items-center gap-12 px-5 py-20 lg:grid-cols-[1.05fr_.95fr] lg:px-8">
+            <div>
+                <p class="font-mono text-xs uppercase tracking-[.45em] text-cyan-200">ERP empresarial</p>
+                <h1 class="mt-6 max-w-4xl font-mono text-5xl font-medium uppercase leading-[.95] tracking-[-.08em] text-smoke md:text-7xl lg:text-8xl">Ordena tu operación en un solo lugar.</h1>
+                <p class="mt-8 max-w-2xl text-lg leading-8 text-smoke/72">Un ERP ayuda a centralizar tareas, documentos, cotizaciones, compras, facturas, pagos y usuarios para que tu empresa trabaje con más control, trazabilidad y menos procesos dispersos.</p>
+                <div class="mt-10 flex flex-col gap-3 sm:flex-row">
+                    <a href="/#precios" class="rounded-full bg-cyan-200 px-6 py-4 text-center font-bold text-graphite transition hover:-translate-y-0.5 hover:bg-white">Ver plan Empresa</a>
+                    <a href="https://wa.me/56934821394?text=Hola%20l-lab%2C%20quiero%20conocer%20el%20ERP%20empresarial" target="_blank" class="rounded-full border border-white/15 px-6 py-4 text-center font-bold text-smoke transition hover:border-cyan-200 hover:text-cyan-200">Solicitar demo</a>
+                </div>
+            </div>
+            <div class="dark-panel rounded-[2rem] border border-white/10 bg-[#0b0b0b] p-5 shadow-cyan">
+                <div class="mb-5 flex items-center justify-between border-b border-white/10 pb-4 font-mono text-xs text-smoke/55">
+                    <span>erp.l-lab/modules</span><span class="text-cyan-200">activo</span>
+                </div>
+                <div class="grid gap-3">
+                    <div class="rounded-2xl border border-cyan-300/20 bg-cyan-300/10 p-4"><p class="font-mono text-xs uppercase tracking-[.22em] text-cyan-200">Tareas</p><p class="mt-2 text-smoke/62">Asigna responsables, fechas y avances.</p></div>
+                    <div class="grid gap-3 sm:grid-cols-2">
+                        <div class="rounded-2xl border border-white/10 bg-white/[.045] p-4"><p class="font-mono text-xs uppercase tracking-[.22em] text-ember">Cotizaciones</p><p class="mt-2 text-smoke/62">Crea y controla propuestas.</p></div>
+                        <div class="rounded-2xl border border-white/10 bg-white/[.045] p-4"><p class="font-mono text-xs uppercase tracking-[.22em] text-lime-200">Pagos</p><p class="mt-2 text-smoke/62">Registra estados y seguimiento.</p></div>
+                    </div>
+                    <div class="grid gap-3 sm:grid-cols-2">
+                        <div class="rounded-2xl border border-white/10 bg-white/[.045] p-4"><p class="font-mono text-xs uppercase tracking-[.22em] text-smoke">Órdenes</p><p class="mt-2 text-smoke/62">Ordenes de compra y control interno.</p></div>
+                        <div class="rounded-2xl border border-white/10 bg-white/[.045] p-4"><p class="font-mono text-xs uppercase tracking-[.22em] text-smoke">Usuarios</p><p class="mt-2 text-smoke/62">Perfiles, permisos y administración.</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mx-auto max-w-7xl px-5 py-20 lg:px-8">
+            <div class="mb-12 max-w-3xl">
+                <p class="font-mono text-xs uppercase tracking-[.35em] text-ember">Utilidades</p>
+                <h2 class="mt-4 font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-6xl">¿Para qué sirve?</h2>
+                <p class="mt-6 text-lg leading-8 text-smoke/70">Sirve para transformar información dispersa en procesos claros. En vez de depender de planillas, chats y documentos sueltos, el ERP concentra la operación y deja registro de cada movimiento.</p>
+            </div>
+            <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                <article class="rounded-[1.5rem] border border-white/10 bg-white/[.035] p-6"><span class="font-mono text-3xl tracking-[-.08em] text-cyan-200">01</span><h3 class="mt-5 text-xl font-bold">Control</h3><p class="mt-3 leading-7 text-smoke/62">Permite saber qué está pendiente, quién es responsable y en qué estado va cada proceso.</p></article>
+                <article class="rounded-[1.5rem] border border-white/10 bg-white/[.035] p-6"><span class="font-mono text-3xl tracking-[-.08em] text-ember">02</span><h3 class="mt-5 text-xl font-bold">Orden</h3><p class="mt-3 leading-7 text-smoke/62">Centraliza documentos, clientes, movimientos y tareas para evitar pérdida de información.</p></article>
+                <article class="rounded-[1.5rem] border border-white/10 bg-white/[.035] p-6"><span class="font-mono text-3xl tracking-[-.08em] text-lime-200">03</span><h3 class="mt-5 text-xl font-bold">Seguimiento</h3><p class="mt-3 leading-7 text-smoke/62">Facilita revisar cotizaciones, órdenes, facturas, pagos y avances desde un mismo panel.</p></article>
+                <article class="rounded-[1.5rem] border border-white/10 bg-white/[.035] p-6"><span class="font-mono text-3xl tracking-[-.08em] text-fuchsia-200">04</span><h3 class="mt-5 text-xl font-bold">Escalabilidad</h3><p class="mt-3 leading-7 text-smoke/62">Se puede adaptar con nuevos módulos según la evolución del negocio.</p></article>
+            </div>
+        </section>
+
+        <section id="erp-soluciones" class="border-y border-white/10 bg-[#121110]">
+            <div class="mx-auto max-w-7xl px-5 py-20 lg:px-8">
+                <div class="grid gap-10 lg:grid-cols-[.78fr_1.22fr]">
+                    <div>
+                        <p class="font-mono text-xs uppercase tracking-[.35em] text-cyan-200">Soluciones</p>
+                        <h2 class="mt-4 font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-6xl">Menos desorden. Más decisiones.</h2>
+                    </div>
+                    <div class="grid gap-4 md:grid-cols-2">
+                        <div class="rounded-[1.4rem] border border-white/10 bg-white/[.04] p-5"><h3 class="text-xl font-bold">Gestión de tareas</h3><p class="mt-3 leading-7 text-smoke/62">Organiza pendientes, responsables, prioridades y estados de avance.</p></div>
+                        <div class="rounded-[1.4rem] border border-white/10 bg-white/[.04] p-5"><h3 class="text-xl font-bold">Área comercial</h3><p class="mt-3 leading-7 text-smoke/62">Administra cotizaciones, clientes y seguimiento de oportunidades.</p></div>
+                        <div class="rounded-[1.4rem] border border-white/10 bg-white/[.04] p-5"><h3 class="text-xl font-bold">Compras y documentos</h3><p class="mt-3 leading-7 text-smoke/62">Ordena órdenes de compra, facturas, pagos y registros administrativos.</p></div>
+                        <div class="rounded-[1.4rem] border border-white/10 bg-white/[.04] p-5"><h3 class="text-xl font-bold">Usuarios y permisos</h3><p class="mt-3 leading-7 text-smoke/62">Crea usuarios, perfiles y un administrador para controlar accesos.</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mx-auto max-w-7xl px-5 py-20 lg:px-8">
+            <div class="rounded-[2rem] border border-ember/25 bg-ember/10 p-8 md:p-10">
+                <div class="grid gap-8 lg:grid-cols-[1fr_.8fr] lg:items-center">
+                    <div>
+                        <p class="font-mono text-xs uppercase tracking-[.35em] text-ember">Por qué usarlo</p>
+                        <h2 class="mt-4 font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-5xl">Porque una empresa ordenada responde mejor.</h2>
+                        <p class="mt-6 max-w-3xl text-lg leading-8 text-smoke/70">Un ERP reduce errores, evita duplicar información y entrega una mirada más clara del funcionamiento diario. Además, permite capacitar equipos, crear hábitos de gestión y preparar la empresa para crecer.</p>
+                    </div>
+                    <div class="space-y-3 font-mono text-sm">
+                        <p class="rounded-2xl border border-white/10 bg-white/[.035] p-4">✓ Incluido en Plan Empresa</p>
+                        <p class="rounded-2xl border border-white/10 bg-white/[.035] p-4">✓ Creación de usuarios y administrador</p>
+                        <p class="rounded-2xl border border-white/10 bg-white/[.035] p-4">✓ Capacitación de uso incluida</p>
+                    </div>
+                </div>
+                <a href="https://wa.me/56934821394?text=Hola%20l-lab%2C%20quiero%20solicitar%20una%20demo%20del%20ERP" target="_blank" class="mt-8 inline-flex rounded-full bg-ember px-6 py-4 font-bold text-graphite transition hover:-translate-y-0.5 hover:bg-[#ff7d45]">Solicitar demo del ERP</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="border-t border-white/10 px-5 py-8 text-center font-mono text-xs uppercase tracking-[.2em] text-smoke/45">
+        © {% now "Y" %} l-lab.cl — ERP empresarial y soluciones digitales
+    </footer>
+
+    <script>
+        const themeToggle = document.querySelector('#theme-toggle');
+        const themeLabel = document.querySelector('#theme-label');
+
+        function applyTheme(theme) {
+            const isLight = theme === 'light';
+            document.documentElement.classList.toggle('light-theme', isLight);
+            localStorage.setItem('l-lab-theme', theme);
+            if (themeToggle) {
+                themeToggle.setAttribute('aria-label', isLight ? 'Cambiar a tema oscuro' : 'Cambiar a tema claro');
+                themeToggle.setAttribute('aria-pressed', String(isLight));
+            }
+            if (themeLabel) themeLabel.textContent = isLight ? 'Claro' : 'Oscuro';
+        }
+
+        applyTheme(localStorage.getItem('l-lab-theme') || 'dark');
+        themeToggle?.addEventListener('click', () => {
+            const nextTheme = document.documentElement.classList.contains('light-theme') ? 'dark' : 'light';
+            applyTheme(nextTheme);
+        });
+    </script>
+</body>
+</html>

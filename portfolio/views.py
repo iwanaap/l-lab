@@ -12,60 +12,136 @@ from .models import Project
 logger = logging.getLogger(__name__)
 
 
-AUTOMATION_PROJECTS = [
+AUTOMATION_EXAMPLES = [
     {
-        "category": "Automatización comercial",
-        "title": "Seguimiento comercial automático",
-        "description": "Captura prospectos desde formularios o WhatsApp, clasifica interés, crea recordatorios y evita que oportunidades queden perdidas.",
-        "result": "Menos seguimiento manual y más control sobre cada contacto.",
-        "technologies": ["CRM", "WhatsApp", "Email", "IA"],
-        "accent": "cyan",
+        "category": "Ventas",
+        "title": "Formulario a lead y seguimiento",
+        "description": "Cuando llega un formulario, crea el contacto, asigna un responsable y agenda el próximo seguimiento.",
+        "result": "Cada consulta entra al flujo comercial con un próximo paso visible.",
+        "technologies": ["Formularios", "CRM", "Email", "ERP"],
     },
     {
-        "category": "Documentos y cotizaciones",
-        "title": "Generación de propuestas",
-        "description": "Sistema para ordenar datos del cliente, calcular valores, generar documentos y enviar cotizaciones con menos pasos repetitivos.",
-        "result": "Cotizaciones más rápidas, consistentes y fáciles de rastrear.",
-        "technologies": ["PDF", "Planillas", "Django", "Email"],
-        "accent": "ember",
+        "category": "Operación",
+        "title": "Cotización a orden interna",
+        "description": "Cuando se aprueba una cotización, genera una orden interna con los datos del cliente, alcance y responsables.",
+        "result": "El trabajo puede comenzar sin volver a copiar la información comercial.",
+        "technologies": ["Cotizaciones", "PDF", "ERP", "Webhooks"],
     },
     {
-        "category": "Control operativo",
-        "title": "Panel de tareas y alertas",
-        "description": "Tablero para centralizar tareas, estados, responsables y alertas internas sin depender de chats dispersos.",
-        "result": "Mayor visibilidad de pendientes y procesos críticos.",
-        "technologies": ["Dashboard", "APIs", "Reportes", "KPIs"],
-        "accent": "lime",
+        "category": "Cobranza",
+        "title": "Recordatorio de pago pendiente",
+        "description": "Cuando un pago sigue pendiente cerca de su vencimiento, prepara o envía el recordatorio por el canal definido.",
+        "result": "Cobranza consistente sin revisar fechas una por una.",
+        "technologies": ["Pagos", "Email", "WhatsApp", "ERP"],
+    },
+    {
+        "category": "Atención",
+        "title": "Consultas de WhatsApp clasificadas",
+        "description": "Guarda la solicitud, identifica su tipo y la deriva al responsable correcto cuando un cliente consulta.",
+        "result": "Menos conversaciones perdidas y solicitudes más fáciles de encontrar.",
+        "technologies": ["WhatsApp", "CRM", "Reglas", "APIs"],
+    },
+    {
+        "category": "Equipo",
+        "title": "Aviso de tareas vencidas",
+        "description": "Cuando vence una tarea, notifica al responsable y deja el atraso visible para seguimiento.",
+        "result": "Los pendientes críticos se detectan sin depender de la memoria.",
+        "technologies": ["Tareas", "Email", "Telegram", "ERP"],
+    },
+    {
+        "category": "Gestión",
+        "title": "Reporte diario automático",
+        "description": "Consolida ventas, tareas o movimientos y entrega un resumen sin preparar el reporte a mano.",
+        "result": "Información operativa lista para revisar cada mañana.",
+        "technologies": ["Dashboards", "Planillas", "ERP", "KPIs"],
     },
 ]
 
 
 SERVICES = [
     {
-        "title": "Páginas web corporativas",
-        "description": "Sitios sobrios, rápidos y administrables para presentar servicios, capturar clientes y construir confianza.",
+        "title": "Web profesional",
+        "description": "Una web rápida y confiable que genera confianza y formaliza tu proyecto, con información clara para una mejor comunicación.",
+        "url": "/desarrollo-web/",
+        "cta": "Ver solución web",
     },
     {
-        "title": "Landing pages",
-        "description": "Páginas enfocadas en conversión para campañas, lanzamientos, validación de productos o servicios específicos.",
+        "title": "Ordenamos tus operaciones",
+        "description": "Conectamos la información y los procesos de tu negocio para reducir tareas manuales y trabajar con mayor claridad.",
+        "url": "/sistemas/",
+        "cta": "Conocer los sistemas",
     },
     {
-        "title": "Aplicaciones web",
-        "description": "Plataformas a medida con paneles, usuarios, flujos de negocio, integraciones y despliegue productivo.",
+        "title": "Sistemas para tu negocio",
+        "description": "Conoce soluciones ya desarrolladas, como ERP Empresas y Aula Virtual, listas para adaptar a tus necesidades.",
+        "url": "/sistemas/",
+        "cta": "Ver sistemas",
     },
     {
-        "title": "Sistemas internos",
-        "description": "Herramientas privadas para ordenar operaciones, reportes, documentos, inventario, procesos y equipos.",
-    },
-    {
-        "title": "Dashboards e integraciones",
-        "description": "Visualización de datos, conexión con APIs, automatizaciones y tableros para tomar mejores decisiones.",
-    },
-    {
-        "title": "Mantención y mejoras",
-        "description": "Optimización, soporte, seguridad, evolución funcional, hosting, dominio y correo según necesidad.",
+        "title": "Automatizaciones de procesos",
+        "description": "Alertas, lectura de documentos, reportes e integraciones para dejar de repetir tareas manuales.",
+        "url": "/automatizaciones/",
+        "cta": "Ver ejemplos",
     },
 ]
+
+
+PROJECT_STATIC_PREVIEWS = {
+    "adp-seguridad": {"image": "portfolio/images/adp-seguridad.png"},
+    "ficha-clinica-renmai": {"image": "portfolio/images/renmai-ficha-clinica.png"},
+    "likan-propiedades": {"image": "portfolio/images/likan-propiedades.png"},
+    "ns-security": {"image": "portfolio/images/ns-security.png"},
+    "rulkanis": {"image": "portfolio/images/rulkanis.png"},
+    "solitario": {"video": "portfolio/videos/solitario.mp4"},
+}
+
+
+def attach_static_previews(projects):
+    projects = list(projects)
+    for project in projects:
+        preview = PROJECT_STATIC_PREVIEWS.get(project.slug, {})
+        project.static_image = preview.get("image", "")
+        project.static_video = preview.get("video", "")
+    return projects
+
+
+CASE_STUDIES = [
+    {
+        "project_title": "ADP Seguridad",
+        "image": "portfolio/images/adp-seguridad.png",
+        "value_statement": "Una presencia digital más clara para respaldar prospección y contacto comercial.",
+        "solution_type": "Web corporativa",
+        "problem": "La empresa necesitaba presentar sus servicios de seguridad y habilitar un canal comercial profesional.",
+        "solution": "Se diseñó y desarrolló una plataforma web enfocada en explicar la oferta y facilitar el contacto.",
+        "built": "Sitio corporativo, arquitectura de contenidos, páginas de servicios y llamados a la acción.",
+        "benefit": "Presencia digital propia y un punto central para respaldar la prospección comercial.",
+    },
+    {
+        "project_title": "Ficha Clínica Renmai",
+        "display_title": "Renmai",
+        "image": "portfolio/images/renmai-ficha-clinica.png",
+        "value_statement": "Una herramienta privada para ordenar información clínica en un flujo web dedicado.",
+        "solution_type": "Sistema privado",
+        "problem": "La gestión de información clínica requería un espacio privado, ordenado y accesible vía web.",
+        "solution": "Se construyó una aplicación web separada del sitio público para apoyar el flujo interno.",
+        "built": "Subdominio privado, fichas de información y flujo de gestión web.",
+        "benefit": "Información clínica centralizada en una herramienta dedicada al proceso.",
+    },
+    {
+        "project_title": "Likan Propiedades",
+        "image": "portfolio/images/likan-propiedades.png",
+        "value_statement": "Un catálogo inmobiliario propio para mostrar propiedades y recibir consultas más ordenadas.",
+        "solution_type": "Catálogo inmobiliario",
+        "problem": "La oferta inmobiliaria necesitaba exhibirse de forma clara y conectar cada propiedad con consultas de potenciales clientes.",
+        "solution": "Se desarrolló un sitio inmobiliario para publicar propiedades y facilitar el contacto.",
+        "built": "Catálogo de propiedades, fichas, navegación y canales de consulta.",
+        "benefit": "Un catálogo web propio para mostrar la oferta y recibir contactos de manera más ordenada.",
+    },
+]
+
+
+def systems(request):
+    return render(request, "portfolio/systems.html")
 
 
 def erp(request):
@@ -73,20 +149,44 @@ def erp(request):
 
 
 def web_development_projects(request):
-    projects = Project.objects.filter(status="published")
-    return render(request, "portfolio/web_development_projects.html", {"projects": projects})
+    published_projects = Project.objects.filter(status="published")
+    projects = attach_static_previews(published_projects.exclude(title__iexact="Solitario"))
+    lab_projects = attach_static_previews(published_projects.filter(title__iexact="Solitario"))
+    return render(
+        request,
+        "portfolio/web_development_projects.html",
+        {"projects": projects, "lab_projects": lab_projects},
+    )
+
+
+def catalog(request):
+    return render(request, "portfolio/catalog.html")
 
 
 def automations(request):
-    return render(request, "portfolio/automations.html", {"automation_projects": AUTOMATION_PROJECTS})
+    return render(request, "portfolio/automations.html", {"automation_examples": AUTOMATION_EXAMPLES})
 
 
 def projects_hub(request):
-    return redirect("/#proyectos")
+    return redirect("/desarrollo-web/#galeria")
+
+
+def custom_404(request, exception):
+    return render(request, "404.html", status=404)
 
 
 def home(request):
-    projects = Project.objects.filter(status="published")[:6]
+    project_lookup = {
+        project.title: project
+        for project in Project.objects.filter(
+            status="published",
+            title__in=[case["project_title"] for case in CASE_STUDIES],
+        )
+    }
+    case_studies = [
+        {**case, "project": project_lookup.get(case["project_title"])}
+        for case in CASE_STUDIES
+    ]
     form = ContactInquiryForm(request.POST or None)
 
     if request.method == "POST":
@@ -122,8 +222,8 @@ def home(request):
         request,
         "portfolio/home.html",
         {
-            "projects": projects,
             "services": SERVICES,
+            "case_studies": case_studies,
             "form": form,
         },
     )

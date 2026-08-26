@@ -1,0 +1,152 @@
+{% load static %}
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sistemas listos para empresas y formación | l-lab.cl</title>
+    <meta name="description" content="Conoce los sistemas de l-lab: un ERP para ordenar la operación de empresas y un aula virtual para gestionar cursos, contenidos y estudiantes.">
+    <link rel="canonical" href="https://l-lab.cl/sistemas/">
+    <meta property="og:type" content="website"><meta property="og:locale" content="es_CL"><meta property="og:site_name" content="l-lab.cl">
+    <meta property="og:title" content="Sistemas listos para usar y adaptar | l-lab.cl"><meta property="og:description" content="Soluciones que ya existen: ERP Empresas y Aula Virtual."><meta property="og:url" content="https://l-lab.cl/sistemas/"><meta property="og:image" content="https://l-lab.cl/static/portfolio/images/erp-dashboard.png">
+    <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Sistemas | l-lab.cl"><meta name="twitter:description" content="ERP Empresas y Aula Virtual: soluciones construidas y listas para adaptar."><meta name="twitter:image" content="https://l-lab.cl/static/portfolio/images/erp-dashboard.png">
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","name":"Sistemas disponibles de l-lab.cl","numberOfItems":2,"itemListElement":[{"@type":"ListItem","position":1,"name":"ERP Empresas","url":"https://l-lab.cl/erp/"},{"@type":"ListItem","position":2,"name":"Aula Virtual"}]}</script>
+    <link rel="icon" type="image/png" href="/static/portfolio/brand/logo-l-lab.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { graphite:'#171717', smoke:'#f4f1ec', ash:'#d8d2c8', ember:'#ff6a2a', copper:'#b64a22' },
+                    fontFamily: { display:['IBM Plex Mono','monospace'], sans:['DM Sans','sans-serif'], mono:['IBM Plex Mono','monospace'] },
+                    boxShadow: { glow:'0 0 60px rgba(255,106,42,.18)' }
+                }
+            }
+        }
+    </script>
+    <script>if (localStorage.getItem('l-lab-theme') === 'light') document.documentElement.classList.add('light-theme');</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body { background:#171717; color:#f4f1ec; transition:background .35s ease,color .35s ease; }
+        .grain:before { content:""; position:fixed; inset:0; pointer-events:none; opacity:.13; z-index:50; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E"); }
+        .systems-grid { position:relative; overflow:hidden; }
+        .systems-grid::before { content:""; position:absolute; inset:0; pointer-events:none; opacity:.65; background-image:linear-gradient(rgba(255,106,42,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,106,42,.07) 1px,transparent 1px); background-size:72px 72px; mask-image:radial-gradient(ellipse at 75% 35%,black 0%,transparent 72%); }
+        .systems-grid > * { position:relative; z-index:1; }
+        .product-card { transition:transform .3s ease,border-color .3s ease; }
+        .product-card:hover { transform:translateY(-4px); }
+        .screen-shell { box-shadow:0 28px 80px rgba(0,0,0,.35); }
+        .light-theme body { background:#f4f1ec; color:#171717; }
+        .light-theme .grain:before { opacity:.07; }
+        .light-theme header { background:rgba(244,241,236,.78) !important; border-color:rgba(23,23,23,.1) !important; }
+        .light-theme header [class*="bg-graphite/95"],.light-theme #mobile-menu { background:rgba(244,241,236,.96) !important; }
+        .light-theme .text-smoke { color:#171717 !important; }
+        .light-theme .text-smoke\/75,.light-theme .text-smoke\/72,.light-theme .text-smoke\/70,.light-theme .text-smoke\/65,.light-theme .text-smoke\/60,.light-theme .text-smoke\/55,.light-theme .text-smoke\/50,.light-theme .text-smoke\/45 { color:rgba(23,23,23,.64) !important; }
+        .light-theme [class*="bg-white/[."] { background:rgba(23,23,23,.035) !important; }
+        .light-theme [class*="border-white/"] { border-color:rgba(23,23,23,.12) !important; }
+        .light-theme .dark-panel { background:#171717 !important; color:#f4f1ec !important; }
+        .light-theme .dark-panel .text-smoke { color:#f4f1ec !important; }
+        @media (prefers-reduced-motion:reduce) { .product-card { transition:none; } .product-card:hover { transform:none; } }
+    </style>
+</head>
+<body class="grain font-sans selection:bg-ember selection:text-graphite">
+    {% include "portfolio/_header.html" %}
+
+    <main>
+        <section class="systems-grid border-b border-white/10">
+            <div class="mx-auto grid min-h-[64vh] max-w-7xl items-center gap-12 px-5 py-20 lg:grid-cols-[1fr_.72fr] lg:px-8">
+                <div>
+                    <p class="font-mono text-xs uppercase tracking-[.45em] text-ember">Sistemas disponibles</p>
+                    <h1 class="mt-6 max-w-5xl font-mono text-5xl font-medium uppercase leading-[.93] tracking-[-.08em] md:text-7xl">No partimos de cero cuando la solución ya existe.</h1>
+                    <p class="mt-8 max-w-2xl text-lg leading-8 text-smoke/70">Tenemos sistemas construidos para resolver necesidades concretas. Los configuramos según tu operación, tus usuarios y la forma en que trabaja tu equipo.</p>
+                </div>
+                <div class="dark-panel rounded-[2rem] border border-white/10 bg-[#0b0b0b] p-7 screen-shell md:p-9">
+                    <div class="flex items-end justify-between border-b border-white/10 pb-6">
+                        <strong class="font-mono text-7xl font-medium tracking-[-.1em] text-ember">02</strong>
+                        <span class="pb-2 text-right font-mono text-[10px] uppercase leading-5 tracking-[.24em] text-smoke/45">soluciones<br>operativas</span>
+                    </div>
+                    <p class="mt-6 text-sm leading-6 text-smoke/60">Software web desarrollado por l-lab, con implementación y acompañamiento directo.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mx-auto max-w-7xl px-5 py-20 lg:px-8" aria-labelledby="productos-title">
+            <div class="mb-12 grid gap-5 md:grid-cols-[.7fr_1.3fr] md:items-end">
+                <p class="font-mono text-xs uppercase tracking-[.35em] text-ember">Soluciones creadas</p>
+                <h2 id="productos-title" class="font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-6xl">Elige el sistema que se acerca a lo que necesitas.</h2>
+            </div>
+
+            <div class="grid gap-7 lg:grid-cols-2">
+                <article class="product-card overflow-hidden rounded-[2rem] border border-yellow-300/25 bg-yellow-300/[.055] hover:border-yellow-300/50">
+                    <div class="p-7 md:p-9">
+                        <div class="flex items-center justify-between gap-4 font-mono text-[10px] uppercase tracking-[.24em]"><span class="text-yellow-300">Operación empresarial</span><span class="text-smoke/40">SYS—01</span></div>
+                        <h3 class="mt-8 font-mono text-4xl font-medium uppercase tracking-[-.07em] md:text-5xl">ERP Empresas</h3>
+                        <p class="mt-5 text-lg leading-8 text-smoke/70">Centraliza clientes, cotizaciones, pedidos, inventario, facturas, pagos, tareas y personal en una sola plataforma multiempresa.</p>
+                        <ul class="mt-7 grid gap-3 text-sm text-smoke/65 sm:grid-cols-2">
+                            <li class="border-t border-yellow-300/20 pt-3">Ventas e inventario</li>
+                            <li class="border-t border-yellow-300/20 pt-3">Finanzas y documentos</li>
+                            <li class="border-t border-yellow-300/20 pt-3">Usuarios y permisos</li>
+                            <li class="border-t border-yellow-300/20 pt-3">Reportes y trazabilidad</li>
+                        </ul>
+                        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+                            <a href="/erp/" class="rounded-full bg-yellow-300 px-6 py-4 text-center font-bold text-graphite transition hover:-translate-y-0.5 hover:bg-white">Conocer ERP Empresas</a>
+                            <a href="https://wa.me/56934821394?text=Hola%20l-lab%2C%20quiero%20conocer%20ERP%20Empresas" target="_blank" rel="noopener" class="rounded-full border border-white/15 px-6 py-4 text-center font-bold transition hover:border-yellow-300 hover:text-yellow-300">Solicitar una demo</a>
+                        </div>
+                    </div>
+                    <div class="dark-panel border-t border-yellow-300/15 bg-[#0b0b0b] p-3">
+                        <img src="{% static 'portfolio/images/erp-dashboard.png' %}" alt="Dashboard real de ERP Empresas" width="1350" height="1754" loading="lazy" class="max-h-72 w-full rounded-2xl object-cover object-top">
+                    </div>
+                </article>
+
+                <article class="product-card overflow-hidden rounded-[2rem] border border-cyan-300/25 bg-cyan-300/[.055] hover:border-cyan-300/50">
+                    <div class="p-7 md:p-9">
+                        <div class="flex items-center justify-between gap-4 font-mono text-[10px] uppercase tracking-[.24em]"><span class="text-cyan-200">Formación en línea</span><span class="text-smoke/40">SYS—02</span></div>
+                        <h3 class="mt-8 font-mono text-4xl font-medium uppercase tracking-[-.07em] md:text-5xl">Aula Virtual</h3>
+                        <p class="mt-5 text-lg leading-8 text-smoke/70">Un espacio privado para publicar cursos, organizar contenidos y acompañar el avance de estudiantes desde cualquier dispositivo.</p>
+                        <ul class="mt-7 grid gap-3 text-sm text-smoke/65 sm:grid-cols-2">
+                            <li class="border-t border-cyan-300/20 pt-3">Cursos y módulos</li>
+                            <li class="border-t border-cyan-300/20 pt-3">Material de estudio</li>
+                            <li class="border-t border-cyan-300/20 pt-3">Acceso por usuario</li>
+                            <li class="border-t border-cyan-300/20 pt-3">Seguimiento de avance</li>
+                        </ul>
+                        <a href="https://wa.me/56934821394?text=Hola%20l-lab%2C%20quiero%20conocer%20el%20Aula%20Virtual" target="_blank" rel="noopener" class="mt-8 inline-flex rounded-full bg-cyan-200 px-6 py-4 text-center font-bold text-graphite transition hover:-translate-y-0.5 hover:bg-white">Consultar por Aula Virtual</a>
+                    </div>
+                    <div class="dark-panel border-t border-cyan-300/15 bg-[#0b0b0b] p-6 md:p-8" aria-label="Vista conceptual del Aula Virtual">
+                        <div class="rounded-2xl border border-white/10 bg-white/[.04] p-5">
+                            <div class="flex items-center justify-between border-b border-white/10 pb-4 font-mono text-[10px] uppercase tracking-[.18em] text-smoke/45"><span>Mi aprendizaje</span><span class="text-cyan-200">En curso</span></div>
+                            <div class="mt-5 grid gap-3">
+                                <div class="rounded-xl bg-cyan-300/10 p-4"><div class="flex justify-between text-sm"><strong>Introducción</strong><span class="text-cyan-200">Completo</span></div><div class="mt-3 h-1.5 rounded-full bg-white/10"><div class="h-full w-full rounded-full bg-cyan-200"></div></div></div>
+                                <div class="rounded-xl bg-white/[.04] p-4"><div class="flex justify-between text-sm"><strong>Módulo principal</strong><span class="text-smoke/45">60%</span></div><div class="mt-3 h-1.5 rounded-full bg-white/10"><div class="h-full w-3/5 rounded-full bg-ember"></div></div></div>
+                                <div class="flex gap-3"><span class="flex-1 rounded-xl border border-white/10 p-3 font-mono text-[10px] uppercase tracking-[.16em] text-smoke/50">Video</span><span class="flex-1 rounded-xl border border-white/10 p-3 font-mono text-[10px] uppercase tracking-[.16em] text-smoke/50">Lectura</span><span class="flex-1 rounded-xl border border-white/10 p-3 font-mono text-[10px] uppercase tracking-[.16em] text-smoke/50">Evaluación</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="mx-auto max-w-7xl px-5 pb-20 lg:px-8">
+            <div class="rounded-[2rem] border border-ember/25 bg-ember/10 p-8 md:flex md:items-center md:justify-between md:gap-10 md:p-10">
+                <div><p class="font-mono text-xs uppercase tracking-[.3em] text-ember">Implementación directa</p><h2 class="mt-4 font-mono text-3xl font-medium uppercase tracking-[-.06em] md:text-5xl">Primero revisamos si uno de estos sistemas encaja contigo.</h2><p class="mt-5 max-w-3xl leading-7 text-smoke/70">Si sirve, definimos configuración, usuarios, carga inicial e integraciones. Si no sirve, te lo decimos antes de comenzar.</p></div>
+                <a href="https://wa.me/56934821394?text=Hola%20l-lab%2C%20quiero%20revisar%20qu%C3%A9%20sistema%20se%20ajusta%20a%20mi%20necesidad" target="_blank" rel="noopener" class="mt-8 inline-flex shrink-0 rounded-full bg-ember px-6 py-4 font-bold text-graphite transition hover:-translate-y-0.5 hover:bg-[#ff7d45] md:mt-0">Agenda un diagnóstico</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="border-t border-white/10 px-5 py-8 text-center font-mono text-xs uppercase tracking-[.2em] text-smoke/45">© {% now "Y" %} l-lab.cl — sistemas y soluciones digitales</footer>
+
+    <script>
+        const themeToggle=document.querySelector('#theme-toggle');
+        const themeMoon=document.querySelector('#theme-moon');
+        const themeSun=document.querySelector('#theme-sun');
+        const mobileMenuToggle=document.querySelector('#mobile-menu-toggle');
+        const mobileMenu=document.querySelector('#mobile-menu');
+        function applyTheme(theme){const isLight=theme==='light';document.documentElement.classList.toggle('light-theme',isLight);localStorage.setItem('l-lab-theme',theme);if(themeToggle){themeToggle.setAttribute('aria-label',isLight?'Cambiar a tema oscuro':'Cambiar a tema claro');themeToggle.setAttribute('aria-pressed',String(isLight));}themeMoon?.classList.toggle('hidden',isLight);themeSun?.classList.toggle('hidden',!isLight);}
+        applyTheme(localStorage.getItem('l-lab-theme')||'dark');
+        themeToggle?.addEventListener('click',()=>applyTheme(document.documentElement.classList.contains('light-theme')?'dark':'light'));
+        mobileMenuToggle?.addEventListener('click',()=>{const isOpen=!mobileMenu?.classList.contains('hidden');mobileMenu?.classList.toggle('hidden',isOpen);mobileMenuToggle.setAttribute('aria-expanded',String(!isOpen));mobileMenuToggle.textContent=isOpen?'☰':'×';});
+        mobileMenu?.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{mobileMenu.classList.add('hidden');mobileMenuToggle?.setAttribute('aria-expanded','false');if(mobileMenuToggle)mobileMenuToggle.textContent='☰';}));
+    </script>
+</body>
+</html>

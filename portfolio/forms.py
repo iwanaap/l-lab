@@ -13,13 +13,14 @@ class ContactInquiryForm(forms.ModelForm):
             "phone": forms.TextInput(attrs={"placeholder": "+56 9 ..."}),
             "service": forms.Select(
                 choices=[
-                    ("", "Selecciona un plan o servicio"),
-                    ("Plan Web Esencial", "Plan Web Esencial"),
-                    ("Plan Empresa", "Plan Empresa"),
-                    ("Plan Automatización", "Plan Automatización"),
+                    ("", "Selecciona una solución"),
+                    ("Diagnóstico general", "Diagnóstico general (15 min)"),
+                    ("Web profesional", "Web profesional"),
+                    ("Catálogo web", "Catálogo web"),
+                    ("ERP para pymes", "ERP para pymes"),
+                    ("Automatización", "Automatización de procesos"),
                     ("Desarrollo a medida", "Desarrollo a medida"),
-                    ("Mantención web", "Mantención web"),
                 ]
             ),
-            "message": forms.Textarea(attrs={"placeholder": "Cuéntame qué necesitas construir, mejorar o automatizar.", "rows": 5}),
+            "message": forms.Textarea(attrs={"placeholder": "¿Qué proceso quieres ordenar, vender mejor o dejar de hacer manualmente?", "rows": 5}),
         }

@@ -1,11 +1,25 @@
+{% load static %}
 <!doctype html>
 <html lang="es" class="scroll-smooth">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ERP empresarial | l-lab.cl</title>
-    <meta name="description" content="ERP empresarial para ordenar tareas, cotizaciones, órdenes de compra, facturas, pagos, usuarios y procesos internos.">
-    <link rel="icon" type="image/png" href="/media/logo_l-lab.png">
+    <title>ERP Empresas: ventas, inventario y finanzas | l-lab.cl</title>
+    <meta name="description" content="ERP web multiempresa para centralizar clientes, cotizaciones, pedidos, inventario, facturas, pagos, tareas, RR. HH. y catálogos públicos.">
+    <link rel="canonical" href="https://l-lab.cl/erp/">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_CL">
+    <meta property="og:site_name" content="l-lab.cl">
+    <meta property="og:title" content="ERP Empresas: tu operación bajo control | l-lab.cl">
+    <meta property="og:description" content="Conecta ventas, pedidos, inventario, finanzas y administración en una plataforma web multiempresa.">
+    <meta property="og:url" content="https://l-lab.cl/erp/">
+    <meta property="og:image" content="https://l-lab.cl/static/portfolio/images/erp-dashboard.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ERP Empresas | l-lab.cl">
+    <meta name="twitter:description" content="Una sola plataforma para seguir cada operación desde la cotización hasta el pago.">
+    <meta name="twitter:image" content="https://l-lab.cl/static/portfolio/images/erp-dashboard.png">
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"ERP Empresas","applicationCategory":"BusinessApplication","operatingSystem":"Web","provider":{"@type":"Organization","name":"l-lab.cl","url":"https://l-lab.cl/"},"description":"Plataforma web multiempresa para ventas, pedidos, inventario, finanzas, administración y recursos humanos."}</script>
+    <link rel="icon" type="image/png" href="/static/portfolio/brand/logo-l-lab.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -25,16 +39,14 @@
                     },
                     boxShadow: {
                         glow: '0 0 60px rgba(255,106,42,.18)',
-                        cyan: '0 0 70px rgba(103,232,249,.12)'
+                        gold: '0 28px 80px rgba(240,184,45,.14)'
                     }
                 }
             }
         }
     </script>
     <script>
-        if (localStorage.getItem('l-lab-theme') === 'light') {
-            document.documentElement.classList.add('light-theme');
-        }
+        if (localStorage.getItem('l-lab-theme') === 'light') document.documentElement.classList.add('light-theme');
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,157 +55,190 @@
         body { background:#171717; color:#f4f1ec; transition:background .35s ease, color .35s ease; }
         .grain:before { content:""; position:fixed; inset:0; pointer-events:none; opacity:.13; z-index:50; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E"); }
         .erp-grid { position:relative; overflow:hidden; }
-        .erp-grid::before { content:""; position:absolute; inset:0; opacity:.55; pointer-events:none; background-image:linear-gradient(rgba(103,232,249,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(103,232,249,.08) 1px, transparent 1px); background-size:64px 64px; mask-image:radial-gradient(ellipse at 48% 24%, black 0%, black 45%, transparent 78%); }
+        .erp-grid::before { content:""; position:absolute; inset:0; opacity:.7; pointer-events:none; background-image:linear-gradient(rgba(240,184,45,.075) 1px, transparent 1px),linear-gradient(90deg, rgba(240,184,45,.075) 1px, transparent 1px); background-size:68px 68px; mask-image:radial-gradient(ellipse at 72% 38%, black 0%, black 32%, transparent 72%); }
         .erp-grid > * { position:relative; z-index:1; }
-        .theme-toggle-dot { transform:translateX(0); transition:transform .25s ease, background .25s ease; }
-        .light-theme .theme-toggle-dot { transform:translateX(1.45rem); background:#171717; }
+        .screen-frame { box-shadow:0 30px 90px rgba(0,0,0,.42),0 0 0 1px rgba(240,184,45,.14); }
+        .module-row { transition:border-color .25s ease, background .25s ease, transform .25s ease; }
+        .module-row:hover { transform:translateX(4px); border-color:rgba(240,184,45,.45); background:rgba(255,255,255,.055); }
         .light-theme body { background:#f4f1ec; color:#171717; }
         .light-theme .grain:before { opacity:.07; }
         .light-theme header { background:rgba(244,241,236,.78) !important; border-color:rgba(23,23,23,.1) !important; }
         .light-theme header [class*="bg-graphite/95"], .light-theme #mobile-menu { background:rgba(244,241,236,.96) !important; }
         .light-theme .text-smoke { color:#171717 !important; }
-        .light-theme .text-smoke\/75, .light-theme .text-smoke\/72, .light-theme .text-smoke\/70, .light-theme .text-smoke\/62, .light-theme .text-smoke\/55, .light-theme .text-smoke\/50, .light-theme .text-smoke\/45 { color:rgba(23,23,23,.64) !important; }
+        .light-theme .text-smoke\/75, .light-theme .text-smoke\/72, .light-theme .text-smoke\/70, .light-theme .text-smoke\/65, .light-theme .text-smoke\/62, .light-theme .text-smoke\/55, .light-theme .text-smoke\/50, .light-theme .text-smoke\/45 { color:rgba(23,23,23,.64) !important; }
         .light-theme [class*="bg-white/[."] { background:rgba(23,23,23,.035) !important; }
         .light-theme [class*="border-white/"] { border-color:rgba(23,23,23,.12) !important; }
         .light-theme .dark-panel { background:#171717 !important; color:#f4f1ec !important; }
         .light-theme .dark-panel .text-smoke { color:#f4f1ec !important; }
-        .light-theme .dark-panel .text-smoke\/62, .light-theme .dark-panel .text-smoke\/55 { color:rgba(244,241,236,.62) !important; }
-        .light-theme #erp-soluciones { background:#e8e2d8 !important; color:#171717 !important; border-color:rgba(23,23,23,.1) !important; }
+        .light-theme .dark-panel .text-smoke\/70, .light-theme .dark-panel .text-smoke\/55, .light-theme .dark-panel .text-smoke\/45 { color:rgba(244,241,236,.64) !important; }
+        .light-theme #modulos, .light-theme #interfaz-erp { background:#e8e2d8 !important; color:#171717 !important; border-color:rgba(23,23,23,.1) !important; }
+        @media (prefers-reduced-motion:reduce) { .module-row { transition:none; } .module-row:hover { transform:none; } }
     </style>
 </head>
-<body class="grain font-sans selection:bg-cyan-200 selection:text-graphite">
-    <div class="absolute inset-0 -z-10 overflow-hidden">
-        <div class="absolute left-[-14rem] top-[-12rem] h-[34rem] w-[34rem] rounded-full bg-cyan-300/10 blur-3xl"></div>
-        <div class="absolute right-[-16rem] top-[18rem] h-[38rem] w-[38rem] rounded-full bg-ember/10 blur-3xl"></div>
+<body class="grain font-sans selection:bg-yellow-300 selection:text-graphite">
+    <div class="absolute inset-x-0 top-0 -z-10 h-[60rem] overflow-hidden">
+        <div class="absolute left-[-14rem] top-[-12rem] h-[34rem] w-[34rem] rounded-full bg-yellow-300/10 blur-3xl"></div>
+        <div class="absolute right-[-16rem] top-[18rem] h-[38rem] w-[38rem] rounded-full bg-cyan-300/10 blur-3xl"></div>
     </div>
 
-    <header class="sticky top-0 z-40 border-b border-white/10 bg-graphite/78 backdrop-blur-xl">
-        <nav class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
-            <a href="/" class="group flex items-baseline gap-2">
-                <span class="font-display text-3xl leading-none tracking-tight">l-lab</span>
-                <span class="font-mono text-xs uppercase tracking-[.35em] text-ember">cl</span>
-            </a>
-            <div class="hidden items-center gap-8 font-mono text-xs uppercase tracking-[.18em] text-smoke/70 md:flex">
-                <a class="transition hover:text-ember" href="/#inicio">Inicio</a>
-                <a class="transition hover:text-ember" href="/#servicios">Servicios</a>
-                <div class="group relative py-2">
-                    <a class="transition hover:text-ember" href="/#proyectos">Proyectos</a>
-                    <div class="invisible absolute left-1/2 top-full w-60 -translate-x-1/2 rounded-2xl border border-white/10 bg-graphite/95 p-2 opacity-0 shadow-2xl backdrop-blur-xl transition group-hover:visible group-hover:opacity-100">
-                        <a class="block rounded-xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/desarrollo-web/">Desarrollo web</a>
-                        <a class="block rounded-xl px-4 py-3 transition hover:bg-white/[.06] hover:text-cyan-200" href="/automatizaciones/">Automatizaciones</a>
-                    </div>
-                </div>
-                <a class="transition hover:text-ember" href="/#nosotros">Nosotros</a>
-                <a class="transition hover:text-ember" href="/#precios">Precios</a>
-                <a class="transition hover:text-ember" href="/#contacto">Contacto</a>
-            </div>
-            <div class="flex items-center gap-3">
-                <button id="theme-toggle" type="button" class="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-lg text-smoke/70 transition hover:border-ember/60 hover:text-ember" aria-label="Cambiar a tema claro" aria-pressed="false">
-                    <span id="theme-moon" aria-hidden="true">☾</span>
-                    <span id="theme-sun" class="hidden" aria-hidden="true">☀</span>
-                </button>
-                <a href="https://wa.me/56934821394?text=Hola%20l-lab%2C%20quiero%20conocer%20m%C3%A1s%20sobre%20el%20ERP" target="_blank" class="hidden rounded-full sm:inline-flex border border-cyan-300/60 px-4 py-2 font-mono text-xs uppercase tracking-[.16em] text-cyan-200 transition hover:bg-cyan-200 hover:text-graphite">Consultar</a>
-                <button id="mobile-menu-toggle" type="button" class="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 font-mono text-lg text-smoke/70 transition hover:border-ember/60 hover:text-ember md:hidden" aria-label="Abrir menú" aria-expanded="false">☰</button>
-            </div>
-        </nav>
-        <div id="mobile-menu" class="hidden border-t border-white/10 bg-graphite/95 px-5 py-5 backdrop-blur-xl md:hidden">
-            <div class="mx-auto grid max-w-7xl gap-2 font-mono text-xs uppercase tracking-[.18em] text-smoke/70">
-                <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/#inicio">Inicio</a>
-                <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/#servicios">Servicios</a>
-                <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/#proyectos">Proyectos</a>
-                <div class="grid gap-2 border-l border-white/10 pl-4">
-                    <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/desarrollo-web/">Desarrollo web</a>
-                    <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-cyan-200" href="/automatizaciones/">Automatizaciones</a>
-                </div>
-                <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/#nosotros">Nosotros</a>
-                <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/#precios">Precios</a>
-                <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/#contacto">Contacto</a>
-            </div>
-        </div>
-    </header>
+    {% include "portfolio/_header.html" %}
 
     <main>
-        <section class="erp-grid mx-auto grid min-h-[78vh] max-w-7xl items-center gap-12 px-5 py-20 lg:grid-cols-[1.05fr_.95fr] lg:px-8">
+        <section class="erp-grid mx-auto grid min-h-[82vh] max-w-7xl items-center gap-12 px-5 py-20 lg:grid-cols-[.88fr_1.12fr] lg:px-8">
             <div>
-                <p class="font-mono text-xs uppercase tracking-[.45em] text-cyan-200">ERP empresarial</p>
-                <h1 class="mt-6 max-w-4xl font-mono text-5xl font-medium uppercase leading-[.95] tracking-[-.08em] text-smoke md:text-7xl lg:text-8xl">Ordena tu operación en un solo lugar.</h1>
-                <p class="mt-8 max-w-2xl text-lg leading-8 text-smoke/72">Un ERP ayuda a centralizar tareas, documentos, cotizaciones, compras, facturas, pagos y usuarios para que tu empresa trabaje con más control, trazabilidad y menos procesos dispersos.</p>
+                <p class="font-mono text-xs uppercase tracking-[.45em] text-yellow-300">ERP Empresas · l-lab.cl</p>
+                <h1 class="mt-6 max-w-4xl font-mono text-5xl font-medium uppercase leading-[.93] tracking-[-.08em] text-smoke md:text-7xl">Tu operación, bajo control.</h1>
+                <p class="mt-8 max-w-2xl text-lg leading-8 text-smoke/72">Conecta clientes, cotizaciones, pedidos, inventario, facturas, pagos, tareas y personal en una plataforma web multiempresa. Sin volver a digitar la misma información en cada etapa.</p>
                 <div class="mt-10 flex flex-col gap-3 sm:flex-row">
-                    <a href="/#precios" class="rounded-full bg-cyan-200 px-6 py-4 text-center font-bold text-graphite transition hover:-translate-y-0.5 hover:bg-white">Ver plan Empresa</a>
-                    <a href="https://wa.me/56934821394?text=Hola%20l-lab%2C%20quiero%20conocer%20el%20ERP%20empresarial" target="_blank" class="rounded-full border border-white/15 px-6 py-4 text-center font-bold text-smoke transition hover:border-cyan-200 hover:text-cyan-200">Solicitar demo</a>
+                    <a href="https://wa.me/56934821394?text=Hola%20l-lab%2C%20quiero%20un%20diagn%C3%B3stico%20gratis%20para%20ordenar%20mi%20operaci%C3%B3n%20con%20ERP%20Empresas" target="_blank" rel="noopener" class="rounded-full bg-yellow-300 px-6 py-4 text-center font-bold text-graphite transition hover:-translate-y-0.5 hover:bg-white">Agenda un diagnóstico</a>
+                    <a href="#modulos" class="rounded-full border border-white/15 px-6 py-4 text-center font-bold text-smoke transition hover:border-yellow-300 hover:text-yellow-300">Explorar funciones</a>
+                </div>
+                <div class="mt-8 flex flex-wrap gap-x-6 gap-y-3 font-mono text-[11px] uppercase tracking-[.14em] text-smoke/50">
+                    <span>Multiempresa</span><span>Permisos por usuario</span><span>Web y móvil</span>
                 </div>
             </div>
-            <div class="dark-panel rounded-[2rem] border border-white/10 bg-[#0b0b0b] p-5 shadow-cyan">
-                <div class="mb-5 flex items-center justify-between border-b border-white/10 pb-4 font-mono text-xs text-smoke/55">
-                    <span>erp.l-lab/modules</span><span class="text-cyan-200">activo</span>
+            <figure class="dark-panel screen-frame overflow-hidden rounded-[1.6rem] border border-white/10 bg-[#111] p-2">
+                <div class="flex items-center justify-between px-3 py-2 font-mono text-[10px] uppercase tracking-[.18em] text-smoke/45">
+                    <span>Acceso seguro</span><span class="text-yellow-300">erp.l-lab.cl</span>
                 </div>
-                <div class="grid gap-3">
-                    <div class="rounded-2xl border border-cyan-300/20 bg-cyan-300/10 p-4"><p class="font-mono text-xs uppercase tracking-[.22em] text-cyan-200">Tareas</p><p class="mt-2 text-smoke/62">Asigna responsables, fechas y avances.</p></div>
-                    <div class="grid gap-3 sm:grid-cols-2">
-                        <div class="rounded-2xl border border-white/10 bg-white/[.045] p-4"><p class="font-mono text-xs uppercase tracking-[.22em] text-ember">Cotizaciones</p><p class="mt-2 text-smoke/62">Crea y controla propuestas.</p></div>
-                        <div class="rounded-2xl border border-white/10 bg-white/[.045] p-4"><p class="font-mono text-xs uppercase tracking-[.22em] text-lime-200">Pagos</p><p class="mt-2 text-smoke/62">Registra estados y seguimiento.</p></div>
-                    </div>
-                    <div class="grid gap-3 sm:grid-cols-2">
-                        <div class="rounded-2xl border border-white/10 bg-white/[.045] p-4"><p class="font-mono text-xs uppercase tracking-[.22em] text-smoke">Órdenes</p><p class="mt-2 text-smoke/62">Ordenes de compra y control interno.</p></div>
-                        <div class="rounded-2xl border border-white/10 bg-white/[.045] p-4"><p class="font-mono text-xs uppercase tracking-[.22em] text-smoke">Usuarios</p><p class="mt-2 text-smoke/62">Perfiles, permisos y administración.</p></div>
-                    </div>
-                </div>
-            </div>
+                <img src="{% static 'portfolio/images/erp-login.png' %}" alt="Pantalla real de acceso de ERP Empresas" width="1365" height="890" fetchpriority="high" class="w-full rounded-xl">
+                <figcaption class="px-3 py-3 text-xs leading-5 text-smoke/55">Acceso restringido: cada usuario entra a los módulos y empresas que tiene autorizados.</figcaption>
+            </figure>
         </section>
 
-        <section class="mx-auto max-w-7xl px-5 py-20 lg:px-8">
-            <div class="mb-12 max-w-3xl">
-                <p class="font-mono text-xs uppercase tracking-[.35em] text-ember">Utilidades</p>
-                <h2 class="mt-4 font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-6xl">¿Para qué sirve?</h2>
-                <p class="mt-6 text-lg leading-8 text-smoke/70">Sirve para transformar información dispersa en procesos claros. En vez de depender de planillas, chats y documentos sueltos, el ERP concentra la operación y deja registro de cada movimiento.</p>
-            </div>
-            <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-                <article class="rounded-[1.5rem] border border-white/10 bg-white/[.035] p-6"><span class="font-mono text-3xl tracking-[-.08em] text-cyan-200">01</span><h3 class="mt-5 text-xl font-bold">Control</h3><p class="mt-3 leading-7 text-smoke/62">Permite saber qué está pendiente, quién es responsable y en qué estado va cada proceso.</p></article>
-                <article class="rounded-[1.5rem] border border-white/10 bg-white/[.035] p-6"><span class="font-mono text-3xl tracking-[-.08em] text-ember">02</span><h3 class="mt-5 text-xl font-bold">Orden</h3><p class="mt-3 leading-7 text-smoke/62">Centraliza documentos, clientes, movimientos y tareas para evitar pérdida de información.</p></article>
-                <article class="rounded-[1.5rem] border border-white/10 bg-white/[.035] p-6"><span class="font-mono text-3xl tracking-[-.08em] text-lime-200">03</span><h3 class="mt-5 text-xl font-bold">Seguimiento</h3><p class="mt-3 leading-7 text-smoke/62">Facilita revisar cotizaciones, órdenes, facturas, pagos y avances desde un mismo panel.</p></article>
-                <article class="rounded-[1.5rem] border border-white/10 bg-white/[.035] p-6"><span class="font-mono text-3xl tracking-[-.08em] text-fuchsia-200">04</span><h3 class="mt-5 text-xl font-bold">Escalabilidad</h3><p class="mt-3 leading-7 text-smoke/62">Se puede adaptar con nuevos módulos según la evolución del negocio.</p></article>
-            </div>
-        </section>
-
-        <section id="erp-soluciones" class="border-y border-white/10 bg-[#121110]">
+        <section class="border-y border-white/10">
             <div class="mx-auto max-w-7xl px-5 py-20 lg:px-8">
-                <div class="grid gap-10 lg:grid-cols-[.78fr_1.22fr]">
-                    <div>
-                        <p class="font-mono text-xs uppercase tracking-[.35em] text-cyan-200">Soluciones</p>
-                        <h2 class="mt-4 font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-6xl">Menos desorden. Más decisiones.</h2>
+                <div class="grid gap-12 lg:grid-cols-[.72fr_1.28fr] lg:items-start">
+                    <div class="lg:sticky lg:top-28">
+                        <p class="font-mono text-xs uppercase tracking-[.35em] text-yellow-300">Un flujo conectado</p>
+                        <h2 class="mt-4 font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-6xl">De cotizar a cobrar, sin perder el hilo.</h2>
+                        <p class="mt-6 text-lg leading-8 text-smoke/70">Cada documento conserva su origen y su estado. Puedes revisar qué se ofreció, qué se preparó, qué salió de bodega, qué se facturó y cuánto falta por pagar.</p>
                     </div>
-                    <div class="grid gap-4 md:grid-cols-2">
-                        <div class="rounded-[1.4rem] border border-white/10 bg-white/[.04] p-5"><h3 class="text-xl font-bold">Gestión de tareas</h3><p class="mt-3 leading-7 text-smoke/62">Organiza pendientes, responsables, prioridades y estados de avance.</p></div>
-                        <div class="rounded-[1.4rem] border border-white/10 bg-white/[.04] p-5"><h3 class="text-xl font-bold">Área comercial</h3><p class="mt-3 leading-7 text-smoke/62">Administra cotizaciones, clientes y seguimiento de oportunidades.</p></div>
-                        <div class="rounded-[1.4rem] border border-white/10 bg-white/[.04] p-5"><h3 class="text-xl font-bold">Compras y documentos</h3><p class="mt-3 leading-7 text-smoke/62">Ordena órdenes de compra, facturas, pagos y registros administrativos.</p></div>
-                        <div class="rounded-[1.4rem] border border-white/10 bg-white/[.04] p-5"><h3 class="text-xl font-bold">Usuarios y permisos</h3><p class="mt-3 leading-7 text-smoke/62">Crea usuarios, perfiles y un administrador para controlar accesos.</p></div>
+                    <div class="dark-panel overflow-hidden rounded-[2rem] border border-white/10 bg-[#0b0b0b] p-6 md:p-8">
+                        <div class="grid gap-3 md:grid-cols-5 md:items-center">
+                            <div class="rounded-2xl border border-yellow-300/35 bg-yellow-300/10 p-4"><span class="font-mono text-[10px] text-yellow-300">01</span><strong class="mt-2 block text-smoke">Cliente</strong></div>
+                            <div class="rounded-2xl border border-white/10 bg-white/[.045] p-4"><span class="font-mono text-[10px] text-smoke/45">02</span><strong class="mt-2 block text-smoke">Cotización</strong></div>
+                            <div class="rounded-2xl border border-white/10 bg-white/[.045] p-4"><span class="font-mono text-[10px] text-smoke/45">03</span><strong class="mt-2 block text-smoke">Pedido</strong></div>
+                            <div class="rounded-2xl border border-white/10 bg-white/[.045] p-4"><span class="font-mono text-[10px] text-smoke/45">04</span><strong class="mt-2 block text-smoke">Entrega</strong></div>
+                            <div class="rounded-2xl border border-cyan-300/30 bg-cyan-300/10 p-4"><span class="font-mono text-[10px] text-cyan-200">05</span><strong class="mt-2 block text-smoke">Pago</strong></div>
+                        </div>
+                        <div class="mt-6 grid gap-3 border-t border-white/10 pt-6 sm:grid-cols-3">
+                            <p class="rounded-xl bg-white/[.035] p-4 text-sm text-smoke/70"><strong class="block text-smoke">Rentabilidad antes de aprobar</strong><span class="mt-1 block">Costo, venta, IVA y ganancia calculados en la cotización.</span></p>
+                            <p class="rounded-xl bg-white/[.035] p-4 text-sm text-smoke/70"><strong class="block text-smoke">Stock con trazabilidad</strong><span class="mt-1 block">La entrega descuenta existencias y registra el movimiento.</span></p>
+                            <p class="rounded-xl bg-white/[.035] p-4 text-sm text-smoke/70"><strong class="block text-smoke">Cobranza visible</strong><span class="mt-1 block">Pagos parciales, saldos y conciliación por cliente y monto.</span></p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="mx-auto max-w-7xl px-5 py-20 lg:px-8">
-            <div class="rounded-[2rem] border border-ember/25 bg-ember/10 p-8 md:p-10">
-                <div class="grid gap-8 lg:grid-cols-[1fr_.8fr] lg:items-center">
+        <section id="modulos" class="border-b border-white/10 bg-[#121110]">
+            <div class="mx-auto max-w-7xl px-5 py-20 lg:px-8">
+                <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
                     <div>
-                        <p class="font-mono text-xs uppercase tracking-[.35em] text-ember">Por qué usarlo</p>
-                        <h2 class="mt-4 font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-5xl">Porque una empresa ordenada responde mejor.</h2>
-                        <p class="mt-6 max-w-3xl text-lg leading-8 text-smoke/70">Un ERP reduce errores, evita duplicar información y entrega una mirada más clara del funcionamiento diario. Además, permite capacitar equipos, crear hábitos de gestión y preparar la empresa para crecer.</p>
+                        <p class="font-mono text-xs uppercase tracking-[.35em] text-cyan-200">Funciones reales</p>
+                        <h2 class="mt-4 max-w-4xl font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-6xl">Una plataforma. Ocho áreas conectadas.</h2>
                     </div>
-                    <div class="space-y-3 font-mono text-sm">
-                        <p class="rounded-2xl border border-white/10 bg-white/[.035] p-4">✓ Incluido en Plan Empresa</p>
-                        <p class="rounded-2xl border border-white/10 bg-white/[.035] p-4">✓ Creación de usuarios y administrador</p>
-                        <p class="rounded-2xl border border-white/10 bg-white/[.035] p-4">✓ Capacitación de uso incluida</p>
+                    <p class="max-w-md text-sm leading-6 text-smoke/62">El menú se adapta por empresa y usuario. Se habilitan únicamente los módulos y acciones que cada equipo necesita.</p>
+                </div>
+                <div class="mt-12 grid gap-x-10 lg:grid-cols-2">
+                    <article class="module-row grid gap-4 border-t border-white/10 py-7 sm:grid-cols-[3rem_1fr]">
+                        <span class="font-mono text-xs text-yellow-300">01</span><div><h3 class="text-2xl font-bold">Clientes, productos y cotizaciones</h3><p class="mt-3 leading-7 text-smoke/62">Fichas con contactos e historial; productos con variantes, imágenes y documentos; cotizaciones en PDF con estados, costos, IVA, margen y duplicación.</p></div>
+                    </article>
+                    <article class="module-row grid gap-4 border-t border-white/10 py-7 sm:grid-cols-[3rem_1fr]">
+                        <span class="font-mono text-xs text-yellow-300">02</span><div><h3 class="text-2xl font-bold">Pedidos, preparación y venta rápida</h3><p class="mt-3 leading-7 text-smoke/62">Pedidos desde cotizaciones, estados de preparación, separación por scanner, validación de entrega y venta rápida con cámara, lector USB o SKU.</p></div>
+                    </article>
+                    <article class="module-row grid gap-4 border-t border-white/10 py-7 sm:grid-cols-[3rem_1fr]">
+                        <span class="font-mono text-xs text-yellow-300">03</span><div><h3 class="text-2xl font-bold">Inventario por bodega y variante</h3><p class="mt-3 leading-7 text-smoke/62">Stock por producto, color, talla o variante; entradas, salidas, ajustes y transferencias; lotes, vencimientos, costos, etiquetas QR e historial de movimientos.</p></div>
+                    </article>
+                    <article class="module-row grid gap-4 border-t border-white/10 py-7 sm:grid-cols-[3rem_1fr]">
+                        <span class="font-mono text-xs text-yellow-300">04</span><div><h3 class="text-2xl font-bold">Compras, facturas y pagos</h3><p class="mt-3 leading-7 text-smoke/62">Órdenes de compra vinculadas, facturas pendientes o pagadas, pagos aplicados a una o varias facturas, conciliación y cuentas por cobrar.</p></div>
+                    </article>
+                    <article class="module-row grid gap-4 border-t border-white/10 py-7 sm:grid-cols-[3rem_1fr]">
+                        <span class="font-mono text-xs text-cyan-200">05</span><div><h3 class="text-2xl font-bold">Tareas, notificaciones y agenda</h3><p class="mt-3 leading-7 text-smoke/62">Responsables, prioridades y vencimientos; alertas de seguimiento; agenda con reservas y confirmaciones por WhatsApp; mural de notas internas.</p></div>
+                    </article>
+                    <article class="module-row grid gap-4 border-t border-white/10 py-7 sm:grid-cols-[3rem_1fr]">
+                        <span class="font-mono text-xs text-cyan-200">06</span><div><h3 class="text-2xl font-bold">Personas y documentos laborales</h3><p class="mt-3 leading-7 text-smoke/62">Trabajadores, contratos, vacaciones, asistencia, remuneraciones y archivos privados protegidos según empresa y permisos.</p></div>
+                    </article>
+                    <article class="module-row grid gap-4 border-t border-white/10 py-7 sm:grid-cols-[3rem_1fr]">
+                        <span class="font-mono text-xs text-cyan-200">07</span><div><h3 class="text-2xl font-bold">Catálogo, pedidos web e integraciones</h3><p class="mt-3 leading-7 text-smoke/62">Publica precios, stock y variantes por canal; recibe pedidos externos; conecta sitios y aplicaciones mediante API REST y webhooks.</p></div>
+                    </article>
+                    <article class="module-row grid gap-4 border-y border-white/10 py-7 sm:grid-cols-[3rem_1fr] lg:border-b">
+                        <span class="font-mono text-xs text-cyan-200">08</span><div><h3 class="text-2xl font-bold">Multiempresa, permisos y auditoría</h3><p class="mt-3 leading-7 text-smoke/62">Datos separados por empresa, permisos para ver, crear, editar, eliminar o aprobar, archivos protegidos y registro de accesos y cambios relevantes.</p></div>
+                    </article>
+                </div>
+                <div class="mt-10 rounded-[1.6rem] border border-yellow-300/25 bg-yellow-300/10 p-6 md:flex md:items-center md:justify-between md:gap-8">
+                    <div><p class="font-mono text-xs uppercase tracking-[.24em] text-yellow-300">También para gastronomía</p><p class="mt-2 max-w-3xl leading-7 text-smoke/70">Toma rápida de pedidos por producto y mesa, observaciones, modalidad, medio de pago, tablero de cocina y ticket imprimible.</p></div>
+                    <span class="mt-4 inline-flex shrink-0 rounded-full border border-yellow-300/30 px-4 py-2 font-mono text-xs text-yellow-300 md:mt-0">Pedido → Cocina → Listo</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="interfaz-erp" class="border-b border-white/10 bg-[#121110]">
+            <div class="mx-auto max-w-7xl px-5 py-20 lg:px-8">
+                <div class="grid gap-10 lg:grid-cols-[.7fr_1.3fr] lg:items-end">
+                    <div>
+                        <p class="font-mono text-xs uppercase tracking-[.35em] text-yellow-300">El sistema real</p>
+                        <h2 class="mt-4 font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-6xl">Dashboard general.</h2>
+                        <p class="mt-6 text-lg leading-8 text-smoke/70">Una vista por período con clientes, productos, cotizaciones, pedidos, facturación, tareas, evolución comercial e indicadores. Los accesos visibles dependen del rol.</p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3 font-mono text-[10px] uppercase tracking-[.16em] text-smoke/55 sm:grid-cols-4">
+                        <span class="border-t border-yellow-300/40 pt-3">Actividad</span><span class="border-t border-yellow-300/40 pt-3">Documentos</span><span class="border-t border-cyan-300/40 pt-3">Inventario</span><span class="border-t border-cyan-300/40 pt-3">Finanzas</span>
                     </div>
                 </div>
-                <a href="https://wa.me/56934821394?text=Hola%20l-lab%2C%20quiero%20solicitar%20una%20demo%20del%20ERP" target="_blank" class="mt-8 inline-flex rounded-full bg-ember px-6 py-4 font-bold text-graphite transition hover:-translate-y-0.5 hover:bg-[#ff7d45]">Solicitar demo del ERP</a>
+                <figure class="dark-panel screen-frame mt-10 overflow-hidden rounded-[1.8rem] border border-white/10 bg-[#0b0b0b] p-2 md:p-3">
+                    <div class="flex items-center justify-between px-3 py-3 font-mono text-[10px] uppercase tracking-[.18em] text-smoke/45"><span>ERP Empresas / Resumen general</span><span class="text-yellow-300">Vista real</span></div>
+                    <a href="{% static 'portfolio/images/erp-dashboard.png' %}" target="_blank" rel="noopener" class="group relative block max-h-[52rem] overflow-hidden rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-yellow-300">
+                        <img src="{% static 'portfolio/images/erp-dashboard.png' %}" alt="Dashboard real de ERP Empresas con menú de módulos e indicadores comerciales" width="1350" height="1754" loading="lazy" class="w-full">
+                        <span class="absolute inset-x-0 bottom-0 flex h-32 items-end justify-center bg-gradient-to-t from-black/90 to-transparent pb-6 font-mono text-xs uppercase tracking-[.2em] text-yellow-300">Abrir captura completa ↗</span>
+                    </a>
+                    <figcaption class="px-3 py-4 text-sm leading-6 text-smoke/55">Captura de un entorno demostrativo sin información comercial real.</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section class="mx-auto max-w-7xl px-5 py-20 lg:px-8">
+            <div class="grid gap-5 lg:grid-cols-[1.1fr_.9fr]">
+                <div class="rounded-[2rem] border border-white/10 bg-white/[.035] p-7 md:p-9">
+                    <p class="font-mono text-xs uppercase tracking-[.35em] text-cyan-200">Control que se nota</p>
+                    <h2 class="mt-4 font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-5xl">Menos digitación. Más trazabilidad.</h2>
+                    <div class="mt-8 grid gap-5 sm:grid-cols-2">
+                        <div><h3 class="font-bold">Una sola fuente de información</h3><p class="mt-2 leading-7 text-smoke/62">Clientes, productos y documentos se reutilizan sin copiar datos entre planillas.</p></div>
+                        <div><h3 class="font-bold">Historial sin sacrificar orden</h3><p class="mt-2 leading-7 text-smoke/62">Desactiva clientes o productos para operaciones nuevas sin borrar documentos anteriores.</p></div>
+                        <div><h3 class="font-bold">Control por responsabilidad</h3><p class="mt-2 leading-7 text-smoke/62">Cada persona ve y modifica solamente lo que corresponde a su función.</p></div>
+                        <div><h3 class="font-bold">Acceso desde navegador</h3><p class="mt-2 leading-7 text-smoke/62">Funciona en computadores, tablets y teléfonos, sin instalar una aplicación por equipo.</p></div>
+                    </div>
+                </div>
+                <div class="rounded-[2rem] border border-yellow-300/25 bg-yellow-300/10 p-7 md:p-9">
+                    <p class="font-mono text-xs uppercase tracking-[.3em] text-yellow-300">¿Para quién sirve?</p>
+                    <p class="mt-5 text-xl font-bold">Comercio, distribución, vestuario, seguridad industrial, alimentos, servicios y equipos administrativos.</p>
+                    <p class="mt-4 leading-7 text-smoke/62">No necesitas ser una gran empresa. Sirve cuando tienes procesos repetidos, varias personas involucradas y necesitas saber qué ocurrió sin reconstruirlo desde chats.</p>
+                    <div class="mt-7 border-t border-yellow-300/20 pt-6 font-mono text-xs leading-6 text-smoke/55">Django · PostgreSQL · PDFs · API REST · Respaldos · Infraestructura local o controlada</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mx-auto max-w-7xl px-5 pb-20 lg:px-8">
+            <div class="dark-panel rounded-[2rem] border border-white/10 bg-[#0b0b0b] p-8 shadow-gold md:p-10">
+                <div class="grid gap-10 lg:grid-cols-[1fr_.85fr] lg:items-center">
+                    <div>
+                        <p class="font-mono text-xs uppercase tracking-[.35em] text-yellow-300">Implementación gradual</p>
+                        <h2 class="mt-4 font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] text-smoke md:text-5xl">Partimos por tu proceso, no por activar todo.</h2>
+                        <p class="mt-6 max-w-3xl text-lg leading-8 text-smoke/70">Revisamos el flujo actual, priorizamos módulos, configuramos permisos, migramos los datos acordados y capacitamos a quienes usarán el sistema.</p>
+                    </div>
+                    <div class="space-y-3 font-mono text-sm text-smoke">
+                        <p class="rounded-2xl border border-white/10 bg-white/[.045] p-4"><span class="mr-3 text-yellow-300">01</span>Levantamiento y alcance</p>
+                        <p class="rounded-2xl border border-white/10 bg-white/[.045] p-4"><span class="mr-3 text-yellow-300">02</span>Configuración y migración</p>
+                        <p class="rounded-2xl border border-white/10 bg-white/[.045] p-4"><span class="mr-3 text-yellow-300">03</span>Pruebas y capacitación</p>
+                        <p class="rounded-2xl border border-yellow-300/25 bg-yellow-300/10 p-4"><strong class="text-yellow-300">Implementación base desde $150.000.</strong><br><span class="mt-2 block text-smoke/55">El valor final depende de módulos, usuarios, migración e integraciones.</span></p>
+                    </div>
+                </div>
+                <a href="https://wa.me/56934821394?text=Hola%20l-lab%2C%20quiero%20solicitar%20una%20demo%20de%20ERP%20Empresas" target="_blank" rel="noopener" class="mt-9 inline-flex rounded-full bg-yellow-300 px-6 py-4 font-bold text-graphite transition hover:-translate-y-0.5 hover:bg-white">Agenda un diagnóstico</a>
             </div>
         </section>
     </main>
 
-    <footer class="border-t border-white/10 px-5 py-8 text-center font-mono text-xs uppercase tracking-[.2em] text-smoke/45">
-        © {% now "Y" %} l-lab.cl — ERP empresarial y soluciones digitales
-    </footer>
+    <footer class="border-t border-white/10 px-5 py-8 text-center font-mono text-xs uppercase tracking-[.2em] text-smoke/45">© {% now "Y" %} l-lab.cl — ERP Empresas y soluciones digitales</footer>
 
     <script>
         const themeToggle = document.querySelector('#theme-toggle');
@@ -215,25 +260,18 @@
         }
 
         applyTheme(localStorage.getItem('l-lab-theme') || 'dark');
-        themeToggle?.addEventListener('click', () => {
-            const nextTheme = document.documentElement.classList.contains('light-theme') ? 'dark' : 'light';
-            applyTheme(nextTheme);
-        });
-
+        themeToggle?.addEventListener('click', () => applyTheme(document.documentElement.classList.contains('light-theme') ? 'dark' : 'light'));
         mobileMenuToggle?.addEventListener('click', () => {
             const isOpen = !mobileMenu?.classList.contains('hidden');
             mobileMenu?.classList.toggle('hidden', isOpen);
             mobileMenuToggle.setAttribute('aria-expanded', String(!isOpen));
             mobileMenuToggle.textContent = isOpen ? '☰' : '×';
         });
-
-        mobileMenu?.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-                mobileMenuToggle?.setAttribute('aria-expanded', 'false');
-                if (mobileMenuToggle) mobileMenuToggle.textContent = '☰';
-            });
-        });
+        mobileMenu?.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+            mobileMenuToggle?.setAttribute('aria-expanded', 'false');
+            if (mobileMenuToggle) mobileMenuToggle.textContent = '☰';
+        }));
     </script>
 </body>
 </html>

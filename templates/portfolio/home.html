@@ -1,12 +1,26 @@
+{% load static %}
 <!doctype html>
 <html lang="es" class="scroll-smooth">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>l-lab.cl | Desarrollo web y aplicaciones a medida</title>
-    <meta name="description" content="Estudio tecnológico elegante para páginas web, aplicaciones web, sistemas internos, dashboards, automatizaciones y mantención.">
-    <link rel="icon" type="image/png" href="/media/logo_l-lab.png">
-    <link rel="apple-touch-icon" href="/media/logo_l-lab.png">
+    <title>Web, ERP y automatizaciones para pymes chilenas | l-lab</title>
+    <meta name="description" content="Webs, catálogos, ERP y automatizaciones para pymes que quieren captar clientes y ordenar ventas, tareas y procesos sin depender de Excel y WhatsApp.">
+    <link rel="canonical" href="https://l-lab.cl/">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_CL">
+    <meta property="og:site_name" content="l-lab.cl">
+    <meta property="og:title" content="Web, ERP y automatizaciones para pymes chilenas | l-lab">
+    <meta property="og:description" content="Ordena tu operación, capta clientes y automatiza tareas repetitivas con tecnología hecha para tu pyme.">
+    <meta property="og:url" content="https://l-lab.cl/">
+    <meta property="og:image" content="https://l-lab.cl/static/portfolio/brand/logo-l-lab.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Web, ERP y automatizaciones para pymes | l-lab">
+    <meta name="twitter:description" content="Tecnología práctica para vender y operar con menos trabajo manual.">
+    <meta name="twitter:image" content="https://l-lab.cl/static/portfolio/brand/logo-l-lab.png">
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfessionalService","name":"l-lab.cl","url":"https://l-lab.cl/","logo":"https://l-lab.cl/static/portfolio/brand/logo-l-lab.png","email":"contacto@l-lab.cl","telephone":"+56934821394","areaServed":{"@type":"Country","name":"Chile"},"description":"Desarrollo web, ERP, automatizaciones e integraciones para pymes chilenas.","sameAs":[]}</script>
+    <link rel="icon" type="image/png" href="/static/portfolio/brand/logo-l-lab.png">
+    <link rel="apple-touch-icon" href="/static/portfolio/brand/logo-l-lab.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -32,8 +46,13 @@
         }
     </script>
     <script>
-        if (localStorage.getItem('l-lab-theme') === 'light') {
-            document.documentElement.classList.add('light-theme');
+        // Storage can be unavailable in Safari private mode or restrictive mobile browsers.
+        try {
+            if (localStorage.getItem('l-lab-theme') === 'light') {
+                document.documentElement.classList.add('light-theme');
+            }
+        } catch (error) {
+            // Keep the default dark theme without blocking the rest of the page scripts.
         }
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -58,6 +77,7 @@
                 linear-gradient(rgba(244,241,236,.065) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(244,241,236,.065) 1px, transparent 1px);
             background-size: 72px 72px;
+            -webkit-mask-image: radial-gradient(ellipse at 52% 35%, black 0%, black 48%, transparent 78%);
             mask-image: radial-gradient(ellipse at 52% 35%, black 0%, black 48%, transparent 78%);
         }
         .hero-net::after {
@@ -70,6 +90,7 @@
             background-position: 0 35px, 160px 71px, 80px 0;
             filter: drop-shadow(0 0 10px rgba(255,106,42,.45));
             animation: signal-run 18s linear infinite;
+            -webkit-mask-image: radial-gradient(ellipse at 52% 35%, black 0%, black 42%, transparent 74%);
             mask-image: radial-gradient(ellipse at 52% 35%, black 0%, black 42%, transparent 74%);
         }
         .hero-net > * { position: relative; z-index: 1; }
@@ -77,8 +98,20 @@
             to { background-position: 432px 35px, -416px 71px, 440px 0; }
         }
         .terminal-output p { min-height: 1.5rem; white-space: pre-wrap; word-break: break-word; }
-        .terminal-cursor { display:inline-block; height:1em; width:.55em; translate:0 .16em; background:#ff6a2a; animation: cursor-blink .9s steps(1,end) infinite; }
+        .terminal-cursor { display:inline-block; height:1em; width:.55em; transform:translateY(.16em); background:#ff6a2a; animation: cursor-blink .9s steps(1,end) infinite; }
+        .typing-title-cursor { width:.1em; height:.82em; margin-left:.08em; transform:translateY(.08em); box-shadow:0 0 14px rgba(255,106,42,.55); }
         @keyframes cursor-blink { 50% { opacity:0; } }
+        .process-step {
+            animation: process-glow 8s ease-in-out infinite;
+            will-change: transform, box-shadow, background-color, border-color;
+        }
+        .process-step:nth-child(2) { animation-delay: 2s; }
+        .process-step:nth-child(3) { animation-delay: 4s; }
+        .process-step:nth-child(4) { animation-delay: 6s; }
+        @keyframes process-glow {
+            0%, 25%, 100% { transform:translateY(0); border-color:rgba(244,241,236,.1); background-color:transparent; box-shadow:0 0 0 rgba(255,106,42,0); }
+            5%, 20% { transform:translateY(-3px); border-color:rgba(255,106,42,.7); background-color:rgba(255,106,42,.1); box-shadow:0 0 30px rgba(255,106,42,.2); }
+        }
         .theme-toggle-dot { transform: translateX(0); transition: transform .25s ease, background .25s ease; }
         .light-theme .theme-toggle-dot { transform: translateX(1.45rem); background:#171717; }
         .light-theme body { background:#f4f1ec; color:#171717; }
@@ -95,10 +128,9 @@
         }
         .light-theme [class*="bg-white/[."] { background:rgba(23,23,23,.035) !important; }
         .light-theme [class*="border-white/"] { border-color:rgba(23,23,23,.12) !important; }
-        .light-theme #proyectos { background:#e8e2d8 !important; color:#171717 !important; }
-        .light-theme #proyectos article, .light-theme #proyectos .col-span-full { background:rgba(255,255,255,.42) !important; border-color:rgba(23,23,23,.1) !important; }
+        .light-theme #casos { background:#e8e2d8 !important; color:#171717 !important; border-color:rgba(23,23,23,.1) !important; }
         .light-theme #precios { background:#efe7dc !important; color:#171717 !important; border-color:rgba(23,23,23,.1) !important; }
-        .light-theme #precios article, .light-theme #precios > div > div:first-of-type { background:rgba(255,255,255,.42) !important; border-color:rgba(23,23,23,.1) !important; }
+        .light-theme #precios article { background:rgba(255,255,255,.42) !important; border-color:rgba(23,23,23,.1) !important; }
         .light-theme #precios [class*="bg-white/[."] { background:rgba(23,23,23,.035) !important; }
         .light-theme #precios [class*="border-white/"] { border-color:rgba(23,23,23,.12) !important; }
         .light-theme .terminal-panel { background:#0b0b0b !important; color:#f4f1ec !important; }
@@ -106,7 +138,10 @@
         .light-theme .terminal-panel .text-smoke\/40 { color:rgba(244,241,236,.4) !important; }
         .light-theme .terminal-panel [class*="border-white/"] { border-color:rgba(244,241,236,.1) !important; }
         .light-theme .field input, .light-theme .field textarea, .light-theme .field select { background:rgba(23,23,23,.04); border-color:rgba(23,23,23,.14); color:#171717; }
-        @media (prefers-reduced-motion: reduce) { .hero-net::after, .terminal-cursor { animation: none; } }
+        @media (prefers-reduced-motion: reduce) {
+            .hero-net::after, .terminal-cursor, .process-step { animation:none; }
+            .typing-title-cursor { display:none; }
+        }
     </style>
 </head>
 <body class="grain font-sans selection:bg-ember selection:text-graphite">
@@ -124,65 +159,24 @@
         <div class="absolute inset-0 bg-[linear-gradient(rgba(244,241,236,.045)_1px,transparent_1px),linear-gradient(90deg,rgba(244,241,236,.045)_1px,transparent_1px)] bg-[size:72px_72px]"></div>
     </div>
 
-    <header class="sticky top-0 z-40 border-b border-white/10 bg-graphite/78 backdrop-blur-xl">
-        <nav class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
-            <a href="#inicio" class="group flex items-baseline gap-2">
-                <span class="font-display text-3xl leading-none tracking-tight">l-lab</span>
-                <span class="font-mono text-xs uppercase tracking-[.35em] text-ember">cl</span>
-            </a>
-            <div class="hidden items-center gap-8 font-mono text-xs uppercase tracking-[.18em] text-smoke/70 md:flex">
-                <a class="transition hover:text-ember" href="#inicio">Inicio</a>
-                <a class="transition hover:text-ember" href="#servicios">Servicios</a>
-                <div class="group relative py-2">
-                    <a class="transition hover:text-ember" href="#proyectos">Proyectos</a>
-                    <div class="invisible absolute left-1/2 top-full w-60 -translate-x-1/2 rounded-2xl border border-white/10 bg-graphite/95 p-2 opacity-0 shadow-2xl backdrop-blur-xl transition group-hover:visible group-hover:opacity-100">
-                        <a class="block rounded-xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/desarrollo-web/">Desarrollo web</a>
-                        <a class="block rounded-xl px-4 py-3 transition hover:bg-white/[.06] hover:text-cyan-200" href="/automatizaciones/">Automatizaciones</a>
-                    </div>
-                </div>
-                <a class="transition hover:text-ember" href="#nosotros">Nosotros</a>
-                <a class="transition hover:text-ember" href="#precios">Precios</a>
-                <a class="transition hover:text-ember" href="#contacto">Contacto</a>
-            </div>
-            <div class="flex items-center gap-3">
-                <button id="theme-toggle" type="button" class="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-lg text-smoke/70 transition hover:border-ember/60 hover:text-ember" aria-label="Cambiar a tema claro" aria-pressed="false">
-                    <span id="theme-moon" aria-hidden="true">☾</span>
-                    <span id="theme-sun" class="hidden" aria-hidden="true">☀</span>
-                </button>
-                <a href="https://wa.me/56934821394" target="_blank" class="hidden rounded-full sm:inline-flex border border-ember/60 px-4 py-2 font-mono text-xs uppercase tracking-[.16em] text-ember transition hover:bg-ember hover:text-graphite">Cotizar</a>
-                <button id="mobile-menu-toggle" type="button" class="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 font-mono text-lg text-smoke/70 transition hover:border-ember/60 hover:text-ember md:hidden" aria-label="Abrir menú" aria-expanded="false">☰</button>
-            </div>
-        </nav>
-        <div id="mobile-menu" class="hidden border-t border-white/10 bg-graphite/95 px-5 py-5 backdrop-blur-xl md:hidden">
-            <div class="mx-auto grid max-w-7xl gap-2 font-mono text-xs uppercase tracking-[.18em] text-smoke/70">
-                <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="#inicio">Inicio</a>
-                <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="#servicios">Servicios</a>
-                <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="#proyectos">Proyectos</a>
-                <div class="grid gap-2 border-l border-white/10 pl-4">
-                    <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/desarrollo-web/">Desarrollo web</a>
-                    <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-cyan-200" href="/automatizaciones/">Automatizaciones</a>
-                </div>
-                <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="#nosotros">Nosotros</a>
-                <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="#precios">Precios</a>
-                <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="#contacto">Contacto</a>
-            </div>
-        </div>
-    </header>
+        {% include "portfolio/_header.html" %}
 
     <main id="inicio">
         <section class="hero-net mx-auto grid min-h-[86vh] max-w-7xl items-center gap-12 px-5 py-20 lg:grid-cols-[1.1fr_.9fr] lg:px-8">
             <div>
-                <p class="reveal font-mono text-xs uppercase tracking-[.45em] text-ember">Estudio tecnológico</p>
-                <h1 class="reveal delay-1 mt-6 max-w-4xl font-mono text-5xl font-medium uppercase leading-[.95] tracking-[-.08em] text-smoke md:text-7xl lg:text-8xl">
-                    Desarrollo digital a tu medida.
+                <p class="reveal font-mono text-xs uppercase tracking-[.45em] text-ember">Tecnología para pymes</p>
+                <h1 class="reveal delay-1 relative mt-6 max-w-4xl font-mono text-5xl font-medium uppercase leading-[.95] tracking-[-.08em] text-smoke md:text-7xl lg:text-8xl" aria-label="l-lab ordena tu operación, tu trabajo, tu negocio y tus datos.">
+                    <span class="invisible" aria-hidden="true">l-lab<br>ordena tu operación.</span>
+                    <span class="absolute inset-0" aria-hidden="true"><span id="typing-title" data-brand="l-lab" data-prefix="ordena " data-initial-ending="tu operación." data-endings="tu trabajo.|tu negocio.|tus datos.">l-lab<br>ordena tu operación.</span><span class="terminal-cursor typing-title-cursor"></span></span>
                 </h1>
                 <p class="reveal delay-2 mt-8 max-w-2xl text-lg leading-8 text-smoke/72">
-                    Diseño y desarrollo productos digitales para empresas que necesitan presencia, operación y crecimiento: sitios web, sistemas internos, dashboards, APIs y mantención evolutiva.
+                    Creamos webs, catálogos, ERP y automatizaciones para empresas que quieren captar clientes y ordenar cotizaciones, tareas, facturas y pagos sin depender de Excel y chats dispersos.
                 </p>
                 <div class="reveal delay-3 mt-10 flex flex-col gap-3 sm:flex-row">
-                    <a href="#contacto" class="rounded-full bg-ember px-6 py-4 text-center font-bold text-graphite shadow-glow transition hover:-translate-y-0.5 hover:bg-[#ff7d45]">Solicitar cotización</a>
-                    <a href="#proyectos" class="rounded-full border border-white/15 px-6 py-4 text-center font-bold text-smoke transition hover:border-ember/70 hover:text-ember">Ver proyectos</a>
+                    <a href="https://wa.me/56934821394?text=Hola%20l-lab%2C%20quiero%20agendar%20un%20diagn%C3%B3stico%20gratis%20de%2015%20minutos" target="_blank" rel="noopener" class="rounded-full bg-ember px-6 py-4 text-center font-bold text-graphite shadow-glow transition hover:-translate-y-0.5 hover:bg-[#ff7d45]">Agenda un diagnóstico</a>
+                    <a href="#servicios" class="rounded-full border border-white/15 px-6 py-4 text-center font-bold text-smoke transition hover:border-ember/70 hover:text-ember">Ver soluciones</a>
                 </div>
+                <p class="reveal delay-3 mt-5 font-mono text-xs leading-6 text-smoke/50">Revisamos y analizamos tus procesos actuales</p>
             </div>
             <div class="reveal delay-2 relative">
                 <div class="rounded-[2rem] border border-white/12 bg-white/[.045] p-5 shadow-2xl backdrop-blur">
@@ -204,229 +198,91 @@
             </div>
         </section>
 
-        <section id="servicios" class="mx-auto max-w-7xl px-5 py-24 lg:px-8">
-            <div class="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end">
-                <div><p class="font-mono text-xs uppercase tracking-[.35em] text-ember">Servicios</p><h2 class="mt-4 font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-6xl">Construcción digital completa.</h2></div>
-                <p class="max-w-md text-smoke/62">Desde una landing precisa hasta una aplicación web con flujos, usuarios e integraciones.</p>
+        <section id="servicios" class="mx-auto max-w-7xl px-5 py-20 lg:px-8">
+            <div class="mb-12">
+                <p class="font-mono text-xs uppercase tracking-[.35em] text-ember">Soluciones</p>
+                <h2 class="mt-4 font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-6xl">Formas para avanzar.</h2>
             </div>
-            <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <div class="grid gap-4 md:grid-cols-2">
                 {% for service in services %}
                 <article class="group rounded-[1.5rem] border border-white/10 bg-white/[.035] p-6 transition duration-300 hover:-translate-y-1 hover:border-ember/50 hover:bg-white/[.06]">
                     <div class="mb-8 h-1 w-12 rounded-full bg-ember transition group-hover:w-20"></div>
                     <h3 class="text-xl font-bold">{{ service.title }}</h3>
                     <p class="mt-4 leading-7 text-smoke/62">{{ service.description }}</p>
+                    <a href="{{ service.url }}" class="mt-6 inline-flex font-mono text-xs uppercase tracking-[.18em] text-ember transition hover:text-smoke">{{ service.cta }} →</a>
                 </article>
                 {% endfor %}
             </div>
         </section>
 
-        <section id="proyectos" class="border-y border-white/10 bg-[#1d1c1a] text-smoke">
+        <section id="proceso" class="mx-auto max-w-7xl px-5 pb-24 lg:px-8">
+            <div class="rounded-[2rem] border border-white/10 bg-white/[.035] p-7 md:p-10">
+                <p class="font-mono text-xs uppercase tracking-[.35em] text-ember">Cómo trabajamos</p>
+                <h2 class="mt-4 max-w-3xl font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-5xl">Un proceso simple, de principio a fin.</h2>
+                <ol class="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                    <li class="process-step flex min-h-28 items-center rounded-[1.4rem] border border-white/10 p-5"><h3 class="text-xl font-bold">Revisamos tu negocio</h3></li>
+                    <li class="process-step flex min-h-28 items-center rounded-[1.4rem] border border-white/10 p-5"><h3 class="text-xl font-bold">Proponemos una solución simple</h3></li>
+                    <li class="process-step flex min-h-28 items-center rounded-[1.4rem] border border-white/10 p-5"><h3 class="text-xl font-bold">Construimos y publicamos</h3></li>
+                    <li class="process-step flex min-h-28 items-center rounded-[1.4rem] border border-white/10 p-5"><h3 class="text-xl font-bold">Te acompañamos con soporte y mejoras</h3></li>
+                </ol>
+            </div>
+        </section>
+
+        <section id="casos" class="border-y border-white/10 bg-[#121110] text-smoke">
             <div class="mx-auto max-w-7xl px-5 py-24 lg:px-8">
-                <p class="font-mono text-xs uppercase tracking-[.35em] text-ember">Repositorio comercial</p>
-                <h2 class="mt-4 font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-6xl">Proyectos seleccionados.</h2>
-                <div class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-                    {% for project in projects %}
-                    <article class="group rounded-[1.6rem] border border-white/10 bg-white/[.045] p-5 shadow-sm transition hover:-translate-y-1 hover:border-ember/40 hover:bg-white/[.07] hover:shadow-glow">
-                        <div class="mb-5 flex aspect-[4/3] items-center justify-center overflow-hidden rounded-[1.2rem] bg-graphite text-smoke ring-1 ring-white/10">
-                            {% if project.preview_video %}
-                            <video src="{{ project.preview_video.url }}" class="project-video h-full w-full rounded-[1.2rem] object-cover transition duration-700 group-hover:scale-[1.03]" autoplay muted loop playsinline webkit-playsinline preload="auto" onmouseenter="this.play()" onmouseleave="this.pause(); this.currentTime = 0;"></video>
-                            {% elif project.image %}
-                            <img src="{{ project.image.url }}" alt="{{ project.title }}" class="h-full w-full rounded-[1.2rem] object-cover object-top transition-[object-position,transform] duration-[5000ms] ease-in-out group-hover:scale-[1.02] group-hover:object-bottom">
-                            {% else %}
-                            <span class="font-mono text-xs uppercase tracking-[.3em] text-smoke/55">sin captura</span>
-                            {% endif %}
-                        </div>
-                        <h3 class="text-2xl font-bold">{{ project.title }}</h3>
-                        <p class="mt-3 text-smoke/62">{{ project.short_description }}</p>
-                        <div class="mt-5 flex flex-wrap gap-2">
-                            {% for tech in project.technology_list %}<span class="rounded-full bg-smoke/8 px-3 py-1 font-mono text-xs text-smoke/70">{{ tech }}</span>{% endfor %}
-                        </div>
-                        {% if project.project_url %}
-                        <a href="{{ project.project_url }}" target="_blank" rel="noopener" class="mt-6 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[.18em] text-ember transition hover:text-smoke">
-                            Ver proyecto <span aria-hidden="true">↗</span>
-                        </a>
-                        {% endif %}
+                <p class="font-mono text-xs uppercase tracking-[.35em] text-ember">Casos de estudio</p>
+                <h2 class="mt-4 max-w-4xl font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-6xl">Problemas reales. Soluciones concretas.</h2>
+                <p class="mt-6 max-w-2xl text-lg leading-8 text-smoke/70">Tres soluciones creadas para necesidades reales.</p>
+                <div class="mt-12 grid gap-5 lg:grid-cols-3">
+                    {% for case in case_studies %}
+                    <article class="flex flex-col rounded-[1.6rem] border border-white/10 bg-white/[.045] p-6 transition hover:-translate-y-1 hover:border-ember/45">
+                        {% if case.image %}<img src="{% static case.image %}" alt="Captura del proyecto {{ case.display_title|default:case.project_title }}" class="mb-6 aspect-[16/10] w-full rounded-[1.2rem] object-cover object-top ring-1 ring-white/10" loading="lazy" decoding="async">{% endif %}
+                        <p class="font-mono text-xs uppercase tracking-[.25em] text-ember">{{ case.solution_type }}</p>
+                        <h3 class="mt-3 text-2xl font-bold">{{ case.display_title|default:case.project_title }}</h3>
+                        <p class="mt-4 flex-1 leading-7 text-smoke/70">{{ case.value_statement }}</p>
+                        <a href="https://wa.me/56934821394?text=Hola%20l-lab%2C%20quiero%20conversar%20sobre%20una%20soluci%C3%B3n%20similar%20a%20{{ case.display_title|default:case.project_title|urlencode }}" target="_blank" rel="noopener" class="mt-6 font-mono text-xs uppercase tracking-[.18em] text-cyan-200">Ver una solución similar →</a>
                     </article>
-                    {% empty %}
-                    <div class="col-span-full rounded-[1.6rem] border border-white/10 bg-white/[.045] p-8">
-                        <p class="font-mono text-xs uppercase tracking-[.3em] text-ember">Próximamente</p>
-                        <p class="mt-4 text-2xl font-bold">Los proyectos se cargarán desde el panel de administración.</p>
-                    </div>
                     {% endfor %}
                 </div>
             </div>
         </section>
 
-        <section id="nosotros" class="mx-auto max-w-7xl px-5 py-24 lg:px-8">
-            <div class="grid gap-10 lg:grid-cols-[.72fr_1.28fr]">
-                <div class="self-start lg:sticky lg:top-28">
-                    <p class="font-mono text-xs uppercase tracking-[.35em] text-ember">Nosotros</p>
-                    <div class="mt-8 rounded-[1.6rem] border border-white/10 bg-white/[.035] p-6 transition duration-300 hover:border-ember/50 hover:shadow-[0_0_34px_rgba(255,106,42,.12)]">
-                        <p class="font-mono text-xs uppercase tracking-[.22em] text-smoke/45">Desarrollador FullStack</p>
-                        <p class="mt-4 text-2xl font-bold">Nelson Landaeta</p>
-                        <p class="mt-3 leading-7 text-smoke/62">Python, Tailwind, React, JavaScript, Node.js y TypeScript.</p>
+        <section id="nosotros" class="mx-auto max-w-7xl px-5 py-20 lg:px-8">
+            <div class="grid gap-8 rounded-[2rem] border border-white/10 bg-white/[.035] p-7 md:p-10 lg:grid-cols-[.75fr_1.25fr] lg:items-center">
+                <div class="flex flex-col items-start gap-5 sm:flex-row sm:items-center">
+                    <img src="{% static 'portfolio/images/nelson-landaeta.jpg' %}" alt="Nelson Landaeta" width="700" height="700" loading="lazy" class="h-32 w-32 shrink-0 rounded-full border-2 border-ember/70 object-cover shadow-[0_0_0_6px_rgba(255,106,42,.08)]">
+                    <div>
+                        <p class="font-mono text-xs uppercase tracking-[.35em] text-ember">Trabajo humano</p>
+                        <h2 class="mt-3 text-2xl font-bold"><a href="https://www.linkedin.com/in/nelson-ignacio-landaeta-toro/" target="_blank" rel="noopener noreferrer" class="underline decoration-white/20 underline-offset-4 transition hover:text-cyan-200 hover:decoration-cyan-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-200">Nelson Landaeta ↗</a></h2>
+                        <p class="mt-2 max-w-md font-mono text-xs leading-5 tracking-[.08em] text-smoke/45">Full-Stack Developer | Web Development | AI &amp; Automation | Python · JavaScript · Go | Client Relations</p>
                     </div>
                 </div>
-                <div>
-                    <h2 class="font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-6xl">Tecnología simple. Crecimiento real.</h2>
-                    <div class="mt-8 max-w-4xl space-y-5 text-lg leading-8 text-smoke/70">
-                        <p>En l-lab.cl creemos que la tecnología debe ser clara, útil y accesible. Nuestra misión es ayudar a negocios, emprendedores y empresas a construir presencia digital, ordenar procesos y abrir nuevas oportunidades mediante soluciones web a medida.</p>
-                    </div>
-                    <div class="mt-10 grid gap-4 md:grid-cols-2">
-                        <article class="rounded-[1.4rem] border border-white/10 bg-white/[.035] p-5 transition duration-300 hover:-translate-y-1 hover:border-ember/70 hover:shadow-[0_0_34px_rgba(255,106,42,.16)]">
-                            <span class="font-mono text-3xl tracking-[-.08em] text-ember">01</span>
-                            <h3 class="mt-5 text-xl font-bold">Misión</h3>
-                            <p class="mt-3 leading-7 text-smoke/62">Crear soluciones digitales útiles, simples y adaptadas a la realidad de cada negocio.</p>
-                        </article>
-                        <article class="rounded-[1.4rem] border border-white/10 bg-white/[.035] p-5 transition duration-300 hover:-translate-y-1 hover:border-cyan-300/60 hover:shadow-[0_0_34px_rgba(103,232,249,.14)]">
-                            <span class="font-mono text-3xl tracking-[-.08em] text-ember">02</span>
-                            <h3 class="mt-5 text-xl font-bold">Visión</h3>
-                            <p class="mt-3 leading-7 text-smoke/62">Ser un aliado tecnológico cercano para empresas que buscan crecer con herramientas digitales.</p>
-                        </article>
-                        <article class="rounded-[1.4rem] border border-white/10 bg-white/[.035] p-5 transition duration-300 hover:-translate-y-1 hover:border-lime-300/60 hover:shadow-[0_0_34px_rgba(190,242,100,.13)]">
-                            <span class="font-mono text-3xl tracking-[-.08em] text-ember">03</span>
-                            <h3 class="mt-5 text-xl font-bold">Objetivo</h3>
-                            <p class="mt-3 leading-7 text-smoke/62">Convertir ideas, procesos y necesidades en plataformas web estables y mantenibles.</p>
-                        </article>
-                        <article class="rounded-[1.4rem] border border-white/10 bg-white/[.035] p-5 transition duration-300 hover:-translate-y-1 hover:border-fuchsia-300/60 hover:shadow-[0_0_34px_rgba(240,171,252,.13)]">
-                            <span class="font-mono text-3xl tracking-[-.08em] text-ember">04</span>
-                            <h3 class="mt-5 text-xl font-bold">Compromiso</h3>
-                            <p class="mt-3 leading-7 text-smoke/62">Acompañar cada proyecto con claridad, soporte y mejora continua.</p>
-                        </article>
-                    </div>
-                </div>
+                <p class="max-w-3xl text-lg leading-8 text-smoke/70">Soy Nelson. Trabajo directamente con pymes para crear webs, sistemas y automatizaciones simples de usar, mantenibles y pensadas para vender u ordenar procesos.</p>
             </div>
         </section>
 
         <section id="precios" class="border-y border-white/10 bg-[#121110]">
-            <div class="mx-auto max-w-7xl px-5 py-24 lg:px-8">
-                <div class="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end">
-                    <div>
-                        <p class="font-mono text-xs uppercase tracking-[.35em] text-ember">Precios</p>
-                        <h2 class="mt-4 font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-6xl">Planes para ti y tu negocio.</h2>
-                    </div>
-                    <p class="max-w-lg text-smoke/62">Soluciones con implementación, soporte y mantención.</p>
-                </div>
-
-                <div class="mb-8 rounded-[1.6rem] border border-ember/25 bg-ember/10 p-5 md:p-6">
-                    <div class="grid gap-5 md:grid-cols-[.7fr_1.3fr] md:items-center">
-                        <div>
-                            <p class="font-mono text-xs uppercase tracking-[.28em] text-ember">Mantención mensual</p>
-                            <h3 class="mt-2 text-2xl font-bold tracking-[-.04em] text-smoke">Incluida en todos los planes</h3>
-                        </div>
-                        <div class="grid gap-3 text-sm leading-6 text-smoke/70 md:grid-cols-2">
-                            <p>✓ Hosting activo, monitoreo básico, respaldo y soporte técnico.</p>
-                            <p>✓ Hasta <strong class="text-smoke">3 horas mensuales</strong> para modificaciones, implementaciones y cambios en la página web.</p>
-                        </div>
-                    </div>
-                    <p class="mt-4 border-t border-white/10 pt-4 text-sm leading-6 text-smoke/55">Las horas cubren ajustes de contenido, textos, imágenes, secciones pequeñas y mejoras menores. Nuevas funcionalidades grandes, rediseños completos, integraciones complejas o automatizaciones adicionales se cotizan aparte.</p>
-                </div>
-
-                <div class="grid gap-5 lg:grid-cols-3">
-                    <article class="group flex flex-col rounded-[1.8rem] border border-white/10 bg-white/[.04] p-6 transition duration-300 hover:-translate-y-1 hover:border-ember/60 hover:shadow-glow">
-                        <div class="flex items-start justify-between gap-4">
-                            <div>
-                                <p class="font-mono text-xs uppercase tracking-[.25em] text-ember">Plan web</p>
-                                <h3 class="mt-3 text-3xl font-bold tracking-[-.04em]">Esencial</h3>
-                            </div>
-                            <span class="rounded-full border border-ember/35 px-3 py-1 font-mono text-xs uppercase tracking-[.18em] text-ember">Base</span>
-                        </div>
-                        <div class="mt-8 rounded-[1.3rem] bg-ember p-5 text-graphite">
-                            <p class="font-mono text-xs uppercase tracking-[.2em]">Implementación</p>
-                            <p class="mt-2 font-mono text-4xl font-medium tracking-[-.08em]">$100.000</p>
-                        </div>
-                        <div class="mt-6 grid gap-3 font-mono text-sm">
-                            <div class="rounded-2xl border border-white/10 bg-white/[.035] p-4"><span class="text-smoke/55">Mantención mensual</span><br><strong class="text-xl text-smoke">$20.000</strong></div>
-                            <div class="rounded-2xl border border-ember/25 bg-ember/10 p-4"><span class="text-smoke/55">Pago anual mantención</span><br><strong class="text-xl text-ember">$100.000</strong> <span class="text-smoke/55">ahorras $40.000</span></div>
-                        </div>
-                        <ul class="mt-7 flex-1 space-y-3 leading-7 text-smoke/70">
-                            <li>✓ Página web a medida</li>
-                            <li>✓ Dominio .cl por 1 año</li>
-                            <li>✓ Creación de logo</li>
-                            <li>✓ 100 tarjetas de presentación con diseño incluido</li>
-                            <li>✓ Certificado SSL / HTTPS página segura</li>
-                            <li>✓ 1 correo corporativo con dominio propio de 10 GB de almacenamiento</li>
-                        </ul>
-                        <a href="https://wa.me/56934821394?text=Hola%20l-lab%2C%20quiero%20cotizar%20el%20Plan%20Web%20Esencial" target="_blank" class="mt-8 rounded-full border border-white/15 px-5 py-4 text-center font-bold text-smoke transition hover:border-ember hover:bg-ember hover:text-graphite">Cotizar Esencial</a>
+            <div class="mx-auto max-w-7xl px-5 py-20 lg:px-8">
+                <p class="font-mono text-xs uppercase tracking-[.35em] text-ember">Precios desde</p>
+                <h2 class="mt-4 max-w-3xl font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-6xl">Un punto de partida claro.</h2>
+                <div class="mt-10 grid gap-4 md:grid-cols-3">
+                    <article class="rounded-[1.6rem] border border-white/10 bg-white/[.04] p-6">
+                        <p class="font-mono text-xs uppercase tracking-[.22em] text-ember">Web profesional</p>
+                        <p class="mt-5 font-mono text-4xl font-medium tracking-[-.07em]"><span class="text-sm text-smoke/55">desde</span> $100.000</p>
+                        <a href="/desarrollo-web/" class="mt-7 inline-flex font-mono text-xs uppercase tracking-[.18em] text-ember">Ver desarrollo web →</a>
                     </article>
-
-                    <article class="group relative flex flex-col overflow-hidden rounded-[1.8rem] border border-ember/45 bg-white/[.06] p-6 shadow-glow transition duration-300 hover:-translate-y-1 hover:border-ember">
-                        <div class="absolute right-[-5rem] top-[-5rem] h-48 w-48 rounded-full bg-ember/20 blur-3xl"></div>
-                        <div class="relative flex items-start justify-between gap-4">
-                            <div>
-                                <p class="font-mono text-xs uppercase tracking-[.25em] text-ember">Plan operación</p>
-                                <h3 class="mt-3 text-3xl font-bold tracking-[-.04em]">Empresa</h3>
-                            </div>
-                            <a href="/erp/" class="rounded-full bg-ember px-3 py-1 font-mono text-xs uppercase tracking-[.18em] text-graphite transition hover:bg-smoke">ERP</a>
-                        </div>
-                        <div class="relative mt-8 rounded-[1.3rem] bg-smoke p-5 text-graphite">
-                            <p class="font-mono text-xs uppercase tracking-[.2em]">Implementación</p>
-                            <p class="mt-2 font-mono text-4xl font-medium tracking-[-.08em]">$150.000</p>
-                        </div>
-                        <div class="relative mt-6 rounded-2xl border border-white/10 bg-white/[.035] p-4 font-mono text-sm"><span class="text-smoke/55">Mantención mensual</span><br><strong class="text-xl text-smoke">$30.000</strong></div>
-                        <ul class="relative mt-7 flex-1 space-y-3 leading-7 text-smoke/70">
-                            <li>✓ Todo lo del Plan Web Esencial</li>
-                            <li>✓ +100 tarjetas de presentación</li>
-                            <li>✓ +3 correos corporativos personalizados de 10 GB de almacenamiento</li>
-                            <li>✓ Acceso a <a href="/erp/" class="text-ember underline decoration-ember/40 underline-offset-4 transition hover:text-smoke">ERP</a> empresarial</li>
-                            <li>✓ Módulos <a href="/erp/" class="text-ember underline decoration-ember/40 underline-offset-4 transition hover:text-smoke">ERP</a>: tareas, cotizaciones, órdenes de compra, facturas, pagos y más</li>
-                            <li>✓ Creación de usuarios y administrador del <a href="/erp/" class="text-ember underline decoration-ember/40 underline-offset-4 transition hover:text-smoke">ERP</a></li>
-                            <li>✓ Capacitación para uso del <a href="/erp/" class="text-ember underline decoration-ember/40 underline-offset-4 transition hover:text-smoke">ERP</a></li>
-                        </ul>
-                        <a href="https://wa.me/56934821394?text=Hola%20l-lab%2C%20quiero%20cotizar%20el%20Plan%20Empresa" target="_blank" class="relative mt-8 rounded-full bg-ember px-5 py-4 text-center font-bold text-graphite transition hover:-translate-y-0.5 hover:bg-[#ff7d45]">Cotizar Empresa</a>
+                    <article class="rounded-[1.6rem] border border-cyan-300/25 bg-cyan-300/10 p-6">
+                        <p class="font-mono text-xs uppercase tracking-[.22em] text-cyan-200">Sistema para tu negocio</p>
+                        <p class="mt-5 font-mono text-4xl font-medium tracking-[-.07em]"><span class="text-sm text-smoke/55">desde</span> $20.000.- <span class="text-sm tracking-normal text-smoke/55">mensual</span></p>
+                        <a href="/erp/" class="mt-7 inline-flex font-mono text-xs uppercase tracking-[.18em] text-cyan-200">Ver ERP →</a>
                     </article>
-
-                    <article class="group flex flex-col rounded-[1.8rem] border border-white/10 bg-white/[.04] p-6 transition duration-300 hover:-translate-y-1 hover:border-cyan-300/60 hover:shadow-[0_0_60px_rgba(103,232,249,.14)]">
-                        <div class="flex items-start justify-between gap-4">
-                            <div>
-                                <p class="font-mono text-xs uppercase tracking-[.25em] text-ember">Plan IA / Scripts</p>
-                                <h3 class="mt-3 text-3xl font-bold tracking-[-.04em]">Automatización</h3>
-                            </div>
-                            <span class="rounded-full border border-cyan-300/35 px-3 py-1 font-mono text-xs uppercase tracking-[.18em] text-cyan-200">Pro</span>
-                        </div>
-                        <div class="mt-8 rounded-[1.3rem] bg-cyan-200 p-5 text-graphite">
-                            <p class="font-mono text-xs uppercase tracking-[.2em]">Implementación</p>
-                            <p class="mt-2 font-mono text-4xl font-medium tracking-[-.08em]">$200.000</p>
-                        </div>
-                        <div class="mt-6 rounded-2xl border border-white/10 bg-white/[.035] p-4 font-mono text-sm"><span class="text-smoke/55">Mantención mensual</span><br><strong class="text-xl text-smoke">$35.000</strong></div>
-                        <ul class="mt-7 flex-1 space-y-3 leading-7 text-smoke/70">
-                            <li>✓ Todo lo del Plan Web Esencial y Plan Empresa</li>
-                            <li>✓ 1 automatización de tarea incluida</li>
-                            <li>✓ Diagnóstico de procesos de la empresa</li>
-                            <li>✓ Implementación con agentes de IA o script especial según la tarea</li>
-                        </ul>
-                        <div class="mt-7 rounded-[1.2rem] border border-cyan-300/20 bg-cyan-300/10 p-4 text-sm leading-6 text-smoke/70">
-                            <strong class="text-cyan-200">Automatización adicional:</strong> $50.000. Si requiere agente IA, suma $5.000 a la mantención mensual.
-                        </div>
-                        <a href="https://wa.me/56934821394?text=Hola%20l-lab%2C%20quiero%20cotizar%20el%20Plan%20Automatizaci%C3%B3n" target="_blank" class="mt-8 rounded-full border border-white/15 px-5 py-4 text-center font-bold text-smoke transition hover:border-cyan-200 hover:bg-cyan-200 hover:text-graphite">Cotizar Automatización</a>
+                    <article class="rounded-[1.6rem] border border-white/10 bg-white/[.04] p-6">
+                        <p class="font-mono text-xs uppercase tracking-[.22em] text-ember">Automatización</p>
+                        <p class="mt-5 font-mono text-4xl font-medium tracking-[-.07em]"><span class="text-sm text-smoke/55">desde</span> $50.000.-</p>
+                        <a href="/automatizaciones/" class="mt-7 inline-flex font-mono text-xs uppercase tracking-[.18em] text-ember">Ver automatizaciones →</a>
                     </article>
                 </div>
-
-                <div class="mt-8 rounded-[2.4rem] border border-cyan-300/20 bg-[radial-gradient(circle_at_12%_18%,rgba(103,232,249,.16),transparent_32%),linear-gradient(135deg,rgba(255,255,255,.055),rgba(255,255,255,.02))] p-6 shadow-[0_0_70px_rgba(103,232,249,.08)] md:p-8">
-                    <div class="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-                        <div class="max-w-3xl">
-                            <p class="font-mono text-xs uppercase tracking-[.35em] text-cyan-200">Proyecto especial</p>
-                            <h3 class="mt-4 font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] text-smoke md:text-6xl">Desarrollo a medida.</h3>
-                            <p class="mt-6 max-w-2xl text-lg leading-8 text-smoke/70">También realizamos trabajos personalizados y desarrollo de software específico para procesos que no calzan en un plan estándar.</p>
-                        </div>
-                        <div class="rounded-full border border-cyan-300/30 bg-cyan-300/10 px-5 py-3 font-mono text-xs uppercase tracking-[.22em] text-cyan-200">Cotización personalizada</div>
-                    </div>
-                    <div class="mt-8 grid gap-4 md:grid-cols-3">
-                        <div class="rounded-[1.4rem] border border-cyan-300/20 bg-cyan-300/10 p-5">
-                            <p class="font-mono text-xs uppercase tracking-[.22em] text-cyan-200">Software específico</p>
-                            <p class="mt-3 leading-7 text-smoke/70">Sistemas internos, paneles administrativos, flujos de trabajo, portales privados, reportes y herramientas operativas.</p>
-                        </div>
-                        <div class="rounded-[1.4rem] border border-white/10 bg-white/[.035] p-5">
-                            <p class="font-mono text-xs uppercase tracking-[.22em] text-ember">Evaluación previa</p>
-                            <p class="mt-3 leading-7 text-smoke/70">Levantamos requerimientos, definimos alcance, complejidad, tiempos y propuesta técnica antes de cotizar.</p>
-                        </div>
-                        <div class="rounded-[1.4rem] border border-lime-300/20 bg-lime-300/10 p-5">
-                            <p class="font-mono text-xs uppercase tracking-[.22em] text-lime-200">Valor</p>
-                            <p class="mt-3 text-2xl font-bold tracking-[-.04em] text-smoke">Precio sujeto a evaluación del proyecto.</p>
-                        </div>
-                    </div>
-                    <a href="https://wa.me/56934821394?text=Hola%20l-lab%2C%20quiero%20cotizar%20un%20desarrollo%20a%20medida" target="_blank" class="mt-7 inline-flex rounded-full border border-cyan-300/40 px-6 py-4 font-bold text-cyan-200 transition hover:-translate-y-0.5 hover:bg-cyan-200 hover:text-graphite">Solicitar evaluación</a>
-                </div>
+                <p class="mt-6 rounded-2xl border border-white/10 bg-white/[.035] p-4 text-sm leading-6 text-smoke/62"><strong class="text-smoke">Valores base.</strong> Proyectos completos se cotizan según alcance.</p>
             </div>
         </section>
 
@@ -434,7 +290,8 @@
             <div class="grid overflow-hidden rounded-[2rem] border border-white/10 bg-white/[.045] lg:grid-cols-[.9fr_1.1fr]">
                 <div class="bg-ember p-8 text-graphite md:p-10">
                     <p class="font-mono text-xs uppercase tracking-[.3em]">Contacto</p>
-                    <h2 class="mt-5 font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-5xl">Conversemos tu próxima cotización.</h2>
+                    <h2 class="mt-5 font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-5xl">Revisemos tu proceso actual.</h2>
+                    <p class="mt-5 leading-7">En 15 minutos identificamos qué conviene ordenar, automatizar o llevar a una web. Sin compromiso.</p>
                     <div class="mt-10 space-y-4 font-bold">
                         <a class="block rounded-2xl bg-graphite/10 p-4 transition hover:bg-graphite hover:text-smoke" href="mailto:contacto@l-lab.cl">contacto@l-lab.cl</a>
                         <a class="block rounded-2xl bg-graphite/10 p-4 transition hover:bg-graphite hover:text-smoke" href="https://wa.me/56934821394" target="_blank">WhatsApp +56 9 3482 1394</a>
@@ -446,14 +303,14 @@
                     <div class="grid gap-4 md:grid-cols-2">{{ form.name }}{{ form.email }}</div>
                     <div class="grid gap-4 md:grid-cols-2">{{ form.phone }}{{ form.service }}</div>
                     {{ form.message }}
-                    <button class="w-full rounded-full bg-smoke px-6 py-4 font-bold text-graphite transition hover:-translate-y-0.5 hover:bg-ember" type="submit">Enviar solicitud</button>
+                    <button class="w-full rounded-full bg-smoke px-6 py-4 font-bold text-graphite transition hover:-translate-y-0.5 hover:bg-ember" type="submit">Agenda un diagnóstico</button>
                 </form>
             </div>
         </section>
     </main>
 
-    <footer class="border-t border-white/10 px-5 py-8 text-center font-mono text-xs uppercase tracking-[.2em] text-smoke/45">
-        © {% now "Y" %} l-lab.cl — desarrollo web y aplicaciones a medida
+    <footer class="hero-net border-t border-white/10 px-5 py-10 text-center font-mono text-xs uppercase tracking-[.2em] text-smoke/45">
+        <span>© {% now "Y" %} l-lab.cl — desarrollo web y aplicaciones a medida</span>
     </footer>
 
     <script>
@@ -461,18 +318,22 @@
         const successModalClose = document.querySelector('#contact-success-close');
 
         function closeSuccessModal() {
-            successModal?.classList.add('hidden');
-            successModal?.classList.remove('flex');
+            if (successModal) {
+                successModal.classList.add('hidden');
+                successModal.classList.remove('flex');
+            }
         }
 
         if (new URLSearchParams(window.location.search).get('sent') === '1') {
-            successModal?.classList.remove('hidden');
-            successModal?.classList.add('flex');
+            if (successModal) {
+                successModal.classList.remove('hidden');
+                successModal.classList.add('flex');
+            }
             history.replaceState(null, '', `${window.location.pathname}#contacto`);
         }
 
-        successModalClose?.addEventListener('click', closeSuccessModal);
-        successModal?.addEventListener('click', event => {
+        if (successModalClose) successModalClose.addEventListener('click', closeSuccessModal);
+        if (successModal) successModal.addEventListener('click', event => {
             if (event.target === successModal) closeSuccessModal();
         });
         document.addEventListener('keydown', event => {
@@ -485,97 +346,54 @@
         const mobileMenuToggle = document.querySelector('#mobile-menu-toggle');
         const mobileMenu = document.querySelector('#mobile-menu');
 
+        function getStoredTheme() {
+            try {
+                return localStorage.getItem('l-lab-theme');
+            } catch (error) {
+                return null;
+            }
+        }
+
         function applyTheme(theme) {
             const isLight = theme === 'light';
             document.documentElement.classList.toggle('light-theme', isLight);
-            localStorage.setItem('l-lab-theme', theme);
+            try {
+                localStorage.setItem('l-lab-theme', theme);
+            } catch (error) {
+                // The visual toggle still works when persistent storage is blocked.
+            }
             if (themeToggle) {
                 themeToggle.setAttribute('aria-label', isLight ? 'Cambiar a tema oscuro' : 'Cambiar a tema claro');
                 themeToggle.setAttribute('aria-pressed', String(isLight));
             }
-            themeMoon?.classList.toggle('hidden', isLight);
-            themeSun?.classList.toggle('hidden', !isLight);
+            if (themeMoon) themeMoon.classList.toggle('hidden', isLight);
+            if (themeSun) themeSun.classList.toggle('hidden', !isLight);
         }
 
-        applyTheme(localStorage.getItem('l-lab-theme') || 'dark');
-        themeToggle?.addEventListener('click', () => {
+        applyTheme(getStoredTheme() || 'dark');
+        if (themeToggle) themeToggle.addEventListener('click', () => {
             const nextTheme = document.documentElement.classList.contains('light-theme') ? 'dark' : 'light';
             applyTheme(nextTheme);
         });
 
-        mobileMenuToggle?.addEventListener('click', () => {
-            const isOpen = !mobileMenu?.classList.contains('hidden');
-            mobileMenu?.classList.toggle('hidden', isOpen);
+        if (mobileMenuToggle) mobileMenuToggle.addEventListener('click', () => {
+            const isOpen = mobileMenu ? !mobileMenu.classList.contains('hidden') : false;
+            if (mobileMenu) mobileMenu.classList.toggle('hidden', isOpen);
             mobileMenuToggle.setAttribute('aria-expanded', String(!isOpen));
             mobileMenuToggle.textContent = isOpen ? '☰' : '×';
         });
 
-        mobileMenu?.querySelectorAll('a').forEach(link => {
+        if (mobileMenu) mobileMenu.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.add('hidden');
-                mobileMenuToggle?.setAttribute('aria-expanded', 'false');
-                if (mobileMenuToggle) mobileMenuToggle.textContent = '☰';
+                if (mobileMenuToggle) {
+                    mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                    mobileMenuToggle.textContent = '☰';
+                }
             });
         });
 
-        const projectVideos = document.querySelectorAll('.project-video');
-        const isTouchDevice = window.matchMedia('(hover: none), (pointer: coarse)').matches;
-
-        function prepareProjectVideo(video) {
-            video.muted = true;
-            video.defaultMuted = true;
-            video.playsInline = true;
-            video.setAttribute('muted', '');
-            video.setAttribute('playsinline', '');
-            video.setAttribute('webkit-playsinline', '');
-            if (isTouchDevice) video.setAttribute('autoplay', '');
-            video.load();
-        }
-
-        function playProjectVideo(video) {
-            video.muted = true;
-            video.defaultMuted = true;
-            video.setAttribute('muted', '');
-
-            const start = () => video.play().catch(() => {
-                video.controls = true;
-            });
-
-            if (video.readyState >= 2) start();
-            else video.addEventListener('loadeddata', start, { once: true });
-        }
-
-        projectVideos.forEach(video => {
-            prepareProjectVideo(video);
-
-            if (isTouchDevice) {
-                video.addEventListener('touchstart', () => playProjectVideo(video), { passive: true });
-                video.addEventListener('click', () => playProjectVideo(video));
-            } else {
-                video.pause();
-                video.currentTime = 0;
-            }
-        });
-
-        if (isTouchDevice && projectVideos.length) {
-            if ('IntersectionObserver' in window) {
-                const videoObserver = new IntersectionObserver(entries => {
-                    entries.forEach(entry => {
-                        const video = entry.target;
-                        if (entry.isIntersecting) {
-                            playProjectVideo(video);
-                        } else {
-                            video.pause();
-                        }
-                    });
-                }, { threshold: 0.15, rootMargin: '120px 0px' });
-
-                projectVideos.forEach(video => videoObserver.observe(video));
-            } else {
-                projectVideos.forEach(playProjectVideo);
-            }
-        }
-
+        const typingTitle = document.querySelector('#typing-title');
         const terminal = document.querySelector('#terminal-output');
         const terminalLines = [
             { prompt: 'nlandaeta@l-lab', path: ':~$ ', command: 'mkdir rulkanis_web' },
@@ -616,6 +434,52 @@
             }
         }
 
+        async function deleteText(target, amount, speed = 38) {
+            for (let index = 0; index < amount; index += 1) {
+                target.textContent = target.textContent.slice(0, -1);
+                await new Promise(resolve => setTimeout(resolve, speed + Math.random() * 24));
+            }
+        }
+
+        function shuffledEndings(endings, previousEnding) {
+            const shuffled = [...endings];
+            for (let index = shuffled.length - 1; index > 0; index -= 1) {
+                const randomIndex = Math.floor(Math.random() * (index + 1));
+                [shuffled[index], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[index]];
+            }
+            if (shuffled.length > 1 && shuffled[0] === previousEnding) {
+                [shuffled[0], shuffled[1]] = [shuffled[1], shuffled[0]];
+            }
+            return shuffled;
+        }
+
+        async function runTypingTitle() {
+            if (!typingTitle || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            const brand = typingTitle.dataset.brand || 'l-lab';
+            const prefix = typingTitle.dataset.prefix || 'ordena ';
+            const initialEnding = typingTitle.dataset.initialEnding || 'tu operación.';
+            const endings = (typingTitle.dataset.endings || 'tu trabajo.|tu negocio.|tus datos.').split('|');
+            while (typingTitle.firstChild) typingTitle.removeChild(typingTitle.firstChild);
+            await new Promise(resolve => setTimeout(resolve, 450));
+            await typeText(typingTitle, brand, 65);
+            typingTitle.appendChild(document.createElement('br'));
+            await new Promise(resolve => setTimeout(resolve, 700));
+            const messageLine = document.createElement('span');
+            typingTitle.appendChild(messageLine);
+            await typeText(messageLine, prefix + initialEnding, 65);
+
+            let currentEnding = initialEnding;
+            const round = shuffledEndings(endings, currentEnding);
+            for (const nextEnding of round) {
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                await deleteText(messageLine, currentEnding.length);
+                await typeText(messageLine, nextEnding, 65);
+                currentEnding = nextEnding;
+            }
+        }
+
+        runTypingTitle();
+
         async function runTerminal() {
             if (!terminal) return;
             await new Promise(resolve => setTimeout(resolve, 250));
@@ -652,7 +516,7 @@
             if ('IntersectionObserver' in window) {
                 const terminalObserver = new IntersectionObserver((entries, observer) => {
                     const entry = entries[0];
-                    if (!entry?.isIntersecting) return;
+                    if (!entry || !entry.isIntersecting) return;
                     observer.disconnect();
                     startTerminalOnce();
                 }, {

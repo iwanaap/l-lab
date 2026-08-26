@@ -1,0 +1,49 @@
+<header class="sticky top-0 z-40 border-b border-white/10 bg-graphite/78 backdrop-blur-xl">
+    <nav class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 lg:px-8" aria-label="Navegación principal">
+        <a href="/" class="group flex shrink-0 items-baseline gap-2" aria-label="l-lab.cl, inicio">
+            <span class="font-mono text-3xl leading-none tracking-tight">l-lab</span>
+            <span class="font-mono text-xs uppercase tracking-[.35em] text-ember">cl</span>
+        </a>
+
+        <div class="hidden items-center gap-7 font-mono text-xs uppercase tracking-[.16em] text-smoke/70 lg:flex">
+            <a class="transition hover:text-ember {% if request.resolver_match.url_name == 'home' %}text-ember{% endif %}" href="/">Inicio</a>
+            <div class="group relative py-2">
+                <a class="transition hover:text-ember group-focus-within:text-ember {% if request.resolver_match.url_name == 'web_development_projects' or request.resolver_match.url_name == 'automations' or request.resolver_match.url_name == 'systems' or request.resolver_match.url_name == 'erp' %}text-ember{% endif %}" href="/#servicios">Soluciones</a>
+                <div class="invisible absolute left-1/2 top-full w-64 -translate-x-1/2 rounded-2xl border border-white/10 bg-graphite/95 p-2 opacity-0 shadow-2xl backdrop-blur-xl transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                    <a class="block rounded-xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember {% if request.resolver_match.url_name == 'automations' %}bg-white/[.06] text-ember{% endif %}" href="/automatizaciones/" {% if request.resolver_match.url_name == 'automations' %}aria-current="page"{% endif %}>Automatizaciones</a>
+                    <a class="block rounded-xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember {% if request.resolver_match.url_name == 'web_development_projects' %}bg-white/[.06] text-ember{% endif %}" href="/desarrollo-web/" {% if request.resolver_match.url_name == 'web_development_projects' %}aria-current="page"{% endif %}>Desarrollo web</a>
+                    <a class="block rounded-xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember {% if request.resolver_match.url_name == 'systems' or request.resolver_match.url_name == 'erp' %}bg-white/[.06] text-ember{% endif %}" href="/sistemas/" {% if request.resolver_match.url_name == 'systems' %}aria-current="page"{% endif %}>Sistemas</a>
+                </div>
+            </div>
+            <a class="transition hover:text-ember" href="/#casos">Casos</a>
+            <a class="transition hover:text-ember" href="/#nosotros">Nosotros</a>
+            <a class="transition hover:text-ember" href="/#precios">Precios</a>
+            <a class="transition hover:text-ember" href="/#contacto">Contacto</a>
+        </div>
+
+        <div class="flex items-center gap-3">
+            <button id="theme-toggle" type="button" class="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-lg text-smoke/70 transition hover:border-ember/60 hover:text-ember" aria-label="Cambiar a tema claro" aria-pressed="false">
+                <span id="theme-moon" aria-hidden="true">☾</span><span id="theme-sun" class="hidden" aria-hidden="true">☀</span>
+            </button>
+            <a href="https://wa.me/56934821394?text=Hola%20l-lab%2C%20quiero%20agendar%20un%20diagn%C3%B3stico%20gratis%20de%2015%20minutos" target="_blank" rel="noopener" class="hidden rounded-full border border-ember/60 px-4 py-2 font-mono text-xs uppercase tracking-[.14em] text-ember transition hover:bg-ember hover:text-graphite xl:inline-flex">Agenda un diagnóstico</a>
+            <button id="mobile-menu-toggle" type="button" class="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 font-mono text-lg text-smoke/70 transition hover:border-ember/60 hover:text-ember lg:hidden" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">☰</button>
+        </div>
+    </nav>
+
+    <div id="mobile-menu" class="hidden border-t border-white/10 bg-graphite/95 px-5 py-5 backdrop-blur-xl lg:hidden">
+        <div class="mx-auto grid max-w-7xl gap-1 font-mono text-xs uppercase tracking-[.16em] text-smoke/70">
+            <a class="rounded-xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/">Inicio</a>
+            <p class="px-4 pb-1 pt-3 text-[10px] tracking-[.28em] text-smoke/40">Soluciones</p>
+            <div class="grid gap-1 border-l border-white/10 pl-3">
+                <a class="rounded-xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember {% if request.resolver_match.url_name == 'automations' %}bg-white/[.06] text-ember{% endif %}" href="/automatizaciones/">Automatizaciones</a>
+                <a class="rounded-xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember {% if request.resolver_match.url_name == 'web_development_projects' %}bg-white/[.06] text-ember{% endif %}" href="/desarrollo-web/">Desarrollo web</a>
+                <a class="rounded-xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember {% if request.resolver_match.url_name == 'systems' or request.resolver_match.url_name == 'erp' %}bg-white/[.06] text-ember{% endif %}" href="/sistemas/">Sistemas</a>
+            </div>
+            <a class="mt-2 rounded-xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/#casos">Casos</a>
+            <a class="rounded-xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/#nosotros">Nosotros</a>
+            <a class="rounded-xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/#precios">Precios</a>
+            <a class="rounded-xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/#contacto">Contacto</a>
+            <a href="https://wa.me/56934821394?text=Hola%20l-lab%2C%20quiero%20agendar%20un%20diagn%C3%B3stico%20gratis%20de%2015%20minutos" target="_blank" rel="noopener" class="mt-3 rounded-full bg-ember px-5 py-4 text-center font-sans text-sm font-bold normal-case tracking-normal text-graphite">Agenda un diagnóstico</a>
+        </div>
+    </div>
+</header>

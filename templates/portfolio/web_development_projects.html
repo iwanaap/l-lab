@@ -1,11 +1,16 @@
+{% load static %}
 <!doctype html>
 <html lang="es" class="scroll-smooth">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Desarrollo web | l-lab.cl</title>
-    <meta name="description" content="Proyectos realizados en desarrollo web por l-lab.cl: sitios corporativos, landing pages y aplicaciones web.">
-    <link rel="icon" type="image/png" href="/media/logo_l-lab.png">
+    <title>Desarrollo web para captar clientes en Chile | l-lab.cl</title>
+    <meta name="description" content="Páginas web corporativas y landing pages para pymes que necesitan explicar mejor sus servicios, generar confianza y recibir cotizaciones.">
+    <link rel="canonical" href="https://l-lab.cl/desarrollo-web/">
+    <meta property="og:type" content="website"><meta property="og:locale" content="es_CL"><meta property="og:site_name" content="l-lab.cl"><meta property="og:title" content="Desarrollo web para captar clientes | l-lab.cl"><meta property="og:description" content="Webs claras, rápidas y orientadas a convertir visitas en conversaciones comerciales."><meta property="og:url" content="https://l-lab.cl/desarrollo-web/"><meta property="og:image" content="https://l-lab.cl/static/portfolio/brand/logo-l-lab.png">
+    <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Desarrollo web para captar clientes | l-lab"><meta name="twitter:description" content="Tu oferta clara y una ruta directa para cotizar."><meta name="twitter:image" content="https://l-lab.cl/static/portfolio/brand/logo-l-lab.png">
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Service","name":"Desarrollo de páginas web corporativas","provider":{"@type":"Organization","name":"l-lab.cl","url":"https://l-lab.cl/"},"areaServed":"Chile","serviceType":"Diseño y desarrollo web para pymes"}</script>
+    <link rel="icon" type="image/png" href="/static/portfolio/brand/logo-l-lab.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -47,54 +52,17 @@
         <div class="absolute right-[-16rem] top-[18rem] h-[38rem] w-[38rem] rounded-full bg-white/5 blur-3xl"></div>
     </div>
 
-    <header class="sticky top-0 z-40 border-b border-white/10 bg-graphite/78 backdrop-blur-xl">
-        <nav class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
-            <a href="/" class="group flex items-baseline gap-2"><span class="font-display text-3xl leading-none tracking-tight">l-lab</span><span class="font-mono text-xs uppercase tracking-[.35em] text-ember">cl</span></a>
-            <div class="hidden items-center gap-8 font-mono text-xs uppercase tracking-[.18em] text-smoke/70 md:flex">
-                <a class="transition hover:text-ember" href="/#inicio">Inicio</a>
-                <a class="transition hover:text-ember" href="/#servicios">Servicios</a>
-                <div class="group relative py-2">
-                    <a class="text-ember transition hover:text-ember" href="/#proyectos">Proyectos</a>
-                    <div class="invisible absolute left-1/2 top-full w-60 -translate-x-1/2 rounded-2xl border border-white/10 bg-graphite/95 p-2 opacity-0 shadow-2xl backdrop-blur-xl transition group-hover:visible group-hover:opacity-100">
-                        <a class="block rounded-xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/desarrollo-web/">Desarrollo web</a>
-                        <a class="block rounded-xl px-4 py-3 transition hover:bg-white/[.06] hover:text-cyan-200" href="/automatizaciones/">Automatizaciones</a>
-                    </div>
-                </div>
-                <a class="transition hover:text-ember" href="/#nosotros">Nosotros</a>
-                <a class="transition hover:text-ember" href="/#precios">Precios</a>
-                <a class="transition hover:text-ember" href="/#contacto">Contacto</a>
-            </div>
-            <div class="flex items-center gap-3">
-                <button id="theme-toggle" type="button" class="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-lg text-smoke/70 transition hover:border-ember/60 hover:text-ember" aria-label="Cambiar a tema claro" aria-pressed="false"><span id="theme-moon" aria-hidden="true">☾</span><span id="theme-sun" class="hidden" aria-hidden="true">☀</span></button>
-                <a href="https://wa.me/56934821394?text=Hola%20l-lab%2C%20quiero%20cotizar%20desarrollo%20web" target="_blank" class="hidden rounded-full sm:inline-flex border border-ember/60 px-4 py-2 font-mono text-xs uppercase tracking-[.16em] text-ember transition hover:bg-ember hover:text-graphite">Cotizar</a>
-                <button id="mobile-menu-toggle" type="button" class="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 font-mono text-lg text-smoke/70 transition hover:border-ember/60 hover:text-ember md:hidden" aria-label="Abrir menú" aria-expanded="false">☰</button>
-            </div>
-        </nav>
-        <div id="mobile-menu" class="hidden border-t border-white/10 bg-graphite/95 px-5 py-5 backdrop-blur-xl md:hidden">
-            <div class="mx-auto grid max-w-7xl gap-2 font-mono text-xs uppercase tracking-[.18em] text-smoke/70">
-                <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/#inicio">Inicio</a>
-                <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/#servicios">Servicios</a>
-                <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/#proyectos">Proyectos</a>
-                <div class="grid gap-2 border-l border-white/10 pl-4">
-                    <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/desarrollo-web/">Desarrollo web</a>
-                    <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-cyan-200" href="/automatizaciones/">Automatizaciones</a>
-                </div>
-                <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/#nosotros">Nosotros</a>
-                <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/#precios">Precios</a>
-                <a class="rounded-2xl px-4 py-3 transition hover:bg-white/[.06] hover:text-ember" href="/#contacto">Contacto</a>
-            </div>
-        </div>
-    </header>
+        {% include "portfolio/_header.html" %}
 
     <main>
         <section class="web-grid mx-auto grid min-h-[70vh] max-w-7xl items-center gap-12 px-5 py-20 lg:grid-cols-[1.05fr_.95fr] lg:px-8">
             <div>
                 <p class="font-mono text-xs uppercase tracking-[.45em] text-ember">Desarrollo web</p>
-                <h1 class="mt-6 max-w-4xl font-mono text-5xl font-medium uppercase leading-[.95] tracking-[-.08em] text-smoke md:text-7xl lg:text-8xl">Sitios, landings y plataformas realizadas.</h1>
-                <p class="mt-8 max-w-2xl text-lg leading-8 text-smoke/72">Una colección de trabajos web construidos para presentar servicios, capturar clientes, ordenar contenido y crear presencia digital profesional.</p>
+                <h1 class="mt-6 max-w-4xl font-mono text-5xl font-medium uppercase leading-[.95] tracking-[-.08em] text-smoke md:text-7xl lg:text-8xl">Una web que explica, convence y abre conversaciones.</h1>
+                <p class="mt-8 max-w-2xl text-lg leading-8 text-smoke/72">Diseñamos sitios para pymes que necesitan comunicar mejor su oferta, generar confianza y llevar cada visita hacia una cotización, WhatsApp o formulario.</p>
                 <div class="mt-10 flex flex-col gap-3 sm:flex-row">
-                    <a href="#galeria" class="rounded-full bg-ember px-6 py-4 text-center font-bold text-graphite shadow-glow transition hover:-translate-y-0.5 hover:bg-[#ff7d45]">Ver galería</a>
-                    <a href="/automatizaciones/" class="rounded-full border border-white/15 px-6 py-4 text-center font-bold text-smoke transition hover:border-cyan-200 hover:text-cyan-200">Ver automatizaciones</a>
+                    <a href="https://wa.me/56934821394?text=Hola%20l-lab%2C%20quiero%20un%20diagn%C3%B3stico%20gratis%20para%20mi%20p%C3%A1gina%20web" target="_blank" rel="noopener" class="rounded-full bg-ember px-6 py-4 text-center font-bold text-graphite shadow-glow transition hover:-translate-y-0.5 hover:bg-[#ff7d45]">Agenda un diagnóstico</a>
+                    <a href="#galeria" class="rounded-full border border-white/15 px-6 py-4 text-center font-bold text-smoke transition hover:border-cyan-200 hover:text-cyan-200">Ver proyectos reales</a>
                 </div>
             </div>
             <div class="rounded-[2rem] border border-white/10 bg-white/[.045] p-5 shadow-2xl backdrop-blur">
@@ -109,6 +77,17 @@
             </div>
         </section>
 
+        <section class="mx-auto max-w-7xl px-5 py-20 lg:px-8">
+            <p class="font-mono text-xs uppercase tracking-[.35em] text-ember">La oferta</p>
+            <h2 class="mt-4 max-w-4xl font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-6xl">No solo una página bonita.</h2>
+            <div class="mt-10 grid gap-4 md:grid-cols-3">
+                <article class="rounded-[1.5rem] border border-white/10 bg-white/[.035] p-6"><h3 class="text-xl font-bold">Mensaje comercial claro</h3><p class="mt-3 leading-7 text-smoke/62">Ordenamos servicios, argumentos y llamados a la acción para que el cliente entienda qué haces y para quién.</p></article>
+                <article class="rounded-[1.5rem] border border-white/10 bg-white/[.035] p-6"><h3 class="text-xl font-bold">Captación conectada</h3><p class="mt-3 leading-7 text-smoke/62">Formularios y WhatsApp con mensajes según servicio para recibir consultas con más contexto.</p></article>
+                <article class="rounded-[1.5rem] border border-white/10 bg-white/[.035] p-6"><h3 class="text-xl font-bold">Base técnica sólida</h3><p class="mt-3 leading-7 text-smoke/62">Responsive, SEO básico, métricas, seguridad, dominio y una estructura preparada para crecer.</p></article>
+            </div>
+            <div class="mt-8 rounded-[1.5rem] border border-ember/25 bg-ember/10 p-6"><p class="font-mono text-xs uppercase tracking-[.25em] text-ember">Inversión</p><p class="mt-3 text-2xl font-bold">Web corporativa desde $100.000</p><p class="mt-2 text-smoke/62">El valor final depende de páginas, contenido, administración e integraciones. Tiendas, portales y sistemas se cotizan aparte.</p></div>
+        </section>
+
         <section id="galeria" class="border-y border-white/10 bg-[#1d1c1a] text-smoke">
             <div class="mx-auto max-w-7xl px-5 py-20 lg:px-8">
                 <p class="font-mono text-xs uppercase tracking-[.35em] text-ember">Repositorio web</p>
@@ -117,10 +96,14 @@
                     {% for project in projects %}
                     <article class="group rounded-[1.6rem] border border-white/10 bg-white/[.045] p-5 shadow-sm transition hover:-translate-y-1 hover:border-ember/40 hover:bg-white/[.07] hover:shadow-glow">
                         <div class="mb-5 flex aspect-[4/3] items-center justify-center overflow-hidden rounded-[1.2rem] bg-graphite text-smoke ring-1 ring-white/10">
-                            {% if project.preview_video %}
+                            {% if project.static_video %}
+                            <video src="{% static project.static_video %}" class="h-full w-full rounded-[1.2rem] object-cover transition duration-700 group-hover:scale-[1.03]" autoplay muted loop playsinline></video>
+                            {% elif project.preview_video %}
                             <video src="{{ project.preview_video.url }}" class="h-full w-full rounded-[1.2rem] object-cover transition duration-700 group-hover:scale-[1.03]" autoplay muted loop playsinline></video>
+                            {% elif project.static_image %}
+                            <img src="{% static project.static_image %}" alt="{{ project.title }}" class="h-full w-full rounded-[1.2rem] object-cover object-top transition-[object-position,transform] duration-[5000ms] ease-in-out group-hover:scale-[1.02] group-hover:object-bottom" loading="lazy" decoding="async">
                             {% elif project.image %}
-                            <img src="{{ project.image.url }}" alt="{{ project.title }}" class="h-full w-full rounded-[1.2rem] object-cover object-top transition-[object-position,transform] duration-[5000ms] ease-in-out group-hover:scale-[1.02] group-hover:object-bottom">
+                            <img src="{{ project.image.url }}" alt="{{ project.title }}" class="h-full w-full rounded-[1.2rem] object-cover object-top transition-[object-position,transform] duration-[5000ms] ease-in-out group-hover:scale-[1.02] group-hover:object-bottom" loading="lazy" decoding="async">
                             {% else %}
                             <span class="font-mono text-xs uppercase tracking-[.3em] text-smoke/55">sin captura</span>
                             {% endif %}
@@ -136,6 +119,24 @@
                 </div>
             </div>
         </section>
+
+        {% if lab_projects %}
+        <section id="laboratorio" class="mx-auto max-w-7xl px-5 pt-20 lg:px-8">
+            <div class="grid gap-8 rounded-[2rem] border border-dashed border-cyan-300/25 bg-cyan-300/[.045] p-7 md:p-9 lg:grid-cols-[.7fr_1.3fr]">
+                <div><p class="font-mono text-xs uppercase tracking-[.35em] text-cyan-200">Laboratorio</p><h2 class="mt-4 font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em]">Experimentos técnicos.</h2><p class="mt-5 leading-7 text-smoke/62">Pruebas de interacción y tecnología separadas de los casos comerciales.</p></div>
+                <div class="grid gap-4">
+                    {% for project in lab_projects %}
+                    <article class="grid gap-5 rounded-[1.5rem] border border-white/10 bg-[#0b0b0b] p-5 sm:grid-cols-[.8fr_1.2fr] sm:items-center">
+                        <div class="aspect-video overflow-hidden rounded-[1rem] ring-1 ring-white/10">{% if project.static_video %}<video src="{% static project.static_video %}" class="h-full w-full object-cover" autoplay muted loop playsinline></video>{% elif project.preview_video %}<video src="{{ project.preview_video.url }}" class="h-full w-full object-cover" autoplay muted loop playsinline></video>{% elif project.static_image %}<img src="{% static project.static_image %}" alt="Experimento {{ project.title }}" class="h-full w-full object-cover" loading="lazy">{% elif project.image %}<img src="{{ project.image.url }}" alt="Experimento {{ project.title }}" class="h-full w-full object-cover" loading="lazy">{% endif %}</div>
+                        <div><p class="font-mono text-[10px] uppercase tracking-[.22em] text-cyan-200">Experimento / no comercial</p><h3 class="mt-2 text-2xl font-bold text-smoke">{{ project.title }}</h3><p class="mt-3 text-smoke/62">{{ project.short_description }}</p>{% if project.project_url %}<a href="{{ project.project_url }}" target="_blank" rel="noopener" class="mt-5 inline-flex font-mono text-xs uppercase tracking-[.18em] text-cyan-200">Abrir experimento ↗</a>{% endif %}</div>
+                    </article>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+        {% endif %}
+
+        <section class="mx-auto max-w-7xl px-5 py-20 lg:px-8"><div class="rounded-[2rem] border border-ember/25 bg-ember/10 p-8 md:p-10"><p class="font-mono text-xs uppercase tracking-[.35em] text-ember">Revisión sin compromiso</p><h2 class="mt-4 max-w-4xl font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-6xl">¿Tu web actual no está generando consultas?</h2><p class="mt-6 max-w-2xl text-lg leading-8 text-smoke/70">Revisamos mensaje, navegación y puntos de contacto en un diagnóstico gratis de 15 minutos.</p><a href="https://wa.me/56934821394?text=Hola%20l-lab%2C%20quiero%20revisar%20mi%20web%20actual%20en%20un%20diagn%C3%B3stico%20gratis" target="_blank" rel="noopener" class="mt-8 inline-flex rounded-full bg-ember px-6 py-4 font-bold text-graphite">Agenda un diagnóstico</a></div></section>
     </main>
 
     <footer class="border-t border-white/10 px-5 py-8 text-center font-mono text-xs uppercase tracking-[.2em] text-smoke/45">© {% now "Y" %} l-lab.cl — desarrollo web y proyectos realizados</footer>

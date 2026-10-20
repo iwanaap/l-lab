@@ -18,7 +18,7 @@
     <meta name="twitter:title" content="Web, ERP y automatizaciones para pymes | l-lab">
     <meta name="twitter:description" content="Tecnología práctica para vender y operar con menos trabajo manual.">
     <meta name="twitter:image" content="https://l-lab.cl/static/portfolio/brand/logo-l-lab.png">
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfessionalService","name":"l-lab.cl","url":"https://l-lab.cl/","logo":"https://l-lab.cl/static/portfolio/brand/logo-l-lab.png","email":"contacto@l-lab.cl","telephone":"+56934821394","areaServed":{"@type":"Country","name":"Chile"},"description":"Desarrollo web, ERP, automatizaciones e integraciones para pymes chilenas.","sameAs":[]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfessionalService","name":"l-lab.cl","url":"https://l-lab.cl/","logo":"https://l-lab.cl/static/portfolio/brand/logo-l-lab.png","telephone":"+56934821394","contactPoint":{"@type":"ContactPoint","telephone":"+56934821394","contactType":"customer service","availableLanguage":"Spanish"},"areaServed":{"@type":"Country","name":"Chile"},"description":"Desarrollo web, ERP, automatizaciones e integraciones para pymes chilenas.","sameAs":[]}</script>
     <link rel="icon" type="image/png" href="/static/portfolio/brand/logo-l-lab.png">
     <link rel="apple-touch-icon" href="/static/portfolio/brand/logo-l-lab.png">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -102,15 +102,32 @@
         .typing-title-cursor { width:.1em; height:.82em; margin-left:.08em; transform:translateY(.08em); box-shadow:0 0 14px rgba(255,106,42,.55); }
         @keyframes cursor-blink { 50% { opacity:0; } }
         .process-step {
+            position:relative;
             animation: process-glow 8s ease-in-out infinite;
             will-change: transform, box-shadow, background-color, border-color;
         }
         .process-step:nth-child(2) { animation-delay: 2s; }
         .process-step:nth-child(3) { animation-delay: 4s; }
         .process-step:nth-child(4) { animation-delay: 6s; }
+        .process-arrow {
+            position:absolute; left:50%; bottom:-2.25rem; width:2rem; height:2rem;
+            color:#ff6a2a; transform:translateX(-50%) rotate(90deg); pointer-events:none;
+            opacity:.28; animation:process-flow 8s ease-in-out infinite;
+        }
+        .process-step:nth-child(1) .process-arrow { animation-delay:1.15s; }
+        .process-step:nth-child(2) .process-arrow { animation-delay:3.15s; }
+        .process-step:nth-child(3) .process-arrow { animation-delay:5.15s; }
+        .process-step:hover .process-arrow { opacity:1; filter:drop-shadow(0 0 7px rgba(255,106,42,.7)); }
+        @media (min-width:1024px) {
+            .process-arrow { left:auto; right:-1.75rem; bottom:auto; top:50%; transform:translateY(-50%); }
+        }
         @keyframes process-glow {
             0%, 25%, 100% { transform:translateY(0); border-color:rgba(244,241,236,.1); background-color:transparent; box-shadow:0 0 0 rgba(255,106,42,0); }
             5%, 20% { transform:translateY(-3px); border-color:rgba(255,106,42,.7); background-color:rgba(255,106,42,.1); box-shadow:0 0 30px rgba(255,106,42,.2); }
+        }
+        @keyframes process-flow {
+            0%, 12%, 100% { opacity:.28; filter:drop-shadow(0 0 0 rgba(255,106,42,0)); }
+            3%, 9% { opacity:1; filter:drop-shadow(0 0 7px rgba(255,106,42,.8)); }
         }
         .theme-toggle-dot { transform: translateX(0); transition: transform .25s ease, background .25s ease; }
         .light-theme .theme-toggle-dot { transform: translateX(1.45rem); background:#171717; }
@@ -139,20 +156,12 @@
         .light-theme .terminal-panel [class*="border-white/"] { border-color:rgba(244,241,236,.1) !important; }
         .light-theme .field input, .light-theme .field textarea, .light-theme .field select { background:rgba(23,23,23,.04); border-color:rgba(23,23,23,.14); color:#171717; }
         @media (prefers-reduced-motion: reduce) {
-            .hero-net::after, .terminal-cursor, .process-step { animation:none; }
+            .hero-net::after, .terminal-cursor, .process-step, .process-arrow { animation:none; }
             .typing-title-cursor { display:none; }
         }
     </style>
 </head>
 <body class="grain font-sans selection:bg-ember selection:text-graphite">
-    <div id="contact-success-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-graphite/75 px-5 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="contact-success-title">
-        <div class="max-w-md rounded-[2rem] border border-ember/30 bg-smoke p-8 text-center text-graphite shadow-glow">
-            <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-ember text-3xl font-bold">✓</div>
-            <h2 id="contact-success-title" class="mt-5 font-mono text-3xl font-medium uppercase tracking-[-.06em]">Mensaje enviado</h2>
-            <p class="mt-4 leading-7 text-graphite/70">Gracias por escribirnos. Te contactaremos pronto.</p>
-            <button id="contact-success-close" type="button" class="mt-7 w-full rounded-full bg-graphite px-6 py-4 font-bold text-smoke transition hover:bg-ember hover:text-graphite">Entendido</button>
-        </div>
-    </div>
     <div class="absolute inset-0 -z-10 overflow-hidden">
         <div class="absolute left-[-12rem] top-[-10rem] h-[32rem] w-[32rem] rounded-full bg-ember/10 blur-3xl"></div>
         <div class="absolute right-[-18rem] top-[20rem] h-[40rem] w-[40rem] rounded-full bg-white/5 blur-3xl"></div>
@@ -216,39 +225,36 @@
         </section>
 
         <section id="proceso" class="mx-auto max-w-7xl px-5 pb-24 lg:px-8">
-            <div class="rounded-[2rem] border border-white/10 bg-white/[.035] p-7 md:p-10">
-                <p class="font-mono text-xs uppercase tracking-[.35em] text-ember">Cómo trabajamos</p>
-                <h2 class="mt-4 max-w-3xl font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-5xl">Un proceso simple, de principio a fin.</h2>
-                <ol class="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-                    <li class="process-step flex min-h-28 items-center rounded-[1.4rem] border border-white/10 p-5"><h3 class="text-xl font-bold">Revisamos tu negocio</h3></li>
-                    <li class="process-step flex min-h-28 items-center rounded-[1.4rem] border border-white/10 p-5"><h3 class="text-xl font-bold">Proponemos una solución simple</h3></li>
-                    <li class="process-step flex min-h-28 items-center rounded-[1.4rem] border border-white/10 p-5"><h3 class="text-xl font-bold">Construimos y publicamos</h3></li>
-                    <li class="process-step flex min-h-28 items-center rounded-[1.4rem] border border-white/10 p-5"><h3 class="text-xl font-bold">Te acompañamos con soporte y mejoras</h3></li>
-                </ol>
-            </div>
+            <p class="font-mono text-xs uppercase tracking-[.35em] text-ember">Cómo trabajamos</p>
+            <h2 class="mt-4 max-w-3xl font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-5xl">Un proceso simple, de principio a fin.</h2>
+            <ol class="mt-8 grid gap-12 lg:grid-cols-4 lg:gap-6">
+                <li class="process-step flex min-h-28 items-center rounded-[1.4rem] border border-white/10 p-5"><h3 class="text-xl font-bold">Revisamos tu negocio</h3><span class="process-arrow" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M4 16h22M19 9l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></li>
+                <li class="process-step flex min-h-28 items-center rounded-[1.4rem] border border-white/10 p-5"><h3 class="text-xl font-bold">Proponemos una solución simple</h3><span class="process-arrow" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M4 16h22M19 9l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></li>
+                <li class="process-step flex min-h-28 items-center rounded-[1.4rem] border border-white/10 p-5"><h3 class="text-xl font-bold">Construimos y publicamos</h3><span class="process-arrow" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M4 16h22M19 9l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></li>
+                <li class="process-step flex min-h-28 items-center rounded-[1.4rem] border border-white/10 p-5"><h3 class="text-xl font-bold">Te acompañamos con soporte y mejoras</h3></li>
+            </ol>
         </section>
 
         <section id="casos" class="border-y border-white/10 bg-[#121110] text-smoke">
             <div class="mx-auto max-w-7xl px-5 py-24 lg:px-8">
                 <p class="font-mono text-xs uppercase tracking-[.35em] text-ember">Casos de estudio</p>
                 <h2 class="mt-4 max-w-4xl font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-6xl">Problemas reales. Soluciones concretas.</h2>
-                <p class="mt-6 max-w-2xl text-lg leading-8 text-smoke/70">Tres soluciones creadas para necesidades reales.</p>
-                <div class="mt-12 grid gap-5 lg:grid-cols-3">
+                <p class="mt-6 max-w-2xl text-lg leading-8 text-smoke/70">Dos soluciones creadas para necesidades reales.</p>
+                <div class="mt-12 grid gap-5 lg:grid-cols-2">
                     {% for case in case_studies %}
                     <article class="flex flex-col rounded-[1.6rem] border border-white/10 bg-white/[.045] p-6 transition hover:-translate-y-1 hover:border-ember/45">
                         {% if case.image %}<img src="{% static case.image %}" alt="Captura del proyecto {{ case.display_title|default:case.project_title }}" class="mb-6 aspect-[16/10] w-full rounded-[1.2rem] object-cover object-top ring-1 ring-white/10" loading="lazy" decoding="async">{% endif %}
                         <p class="font-mono text-xs uppercase tracking-[.25em] text-ember">{{ case.solution_type }}</p>
                         <h3 class="mt-3 text-2xl font-bold">{{ case.display_title|default:case.project_title }}</h3>
                         <p class="mt-4 flex-1 leading-7 text-smoke/70">{{ case.value_statement }}</p>
-                        <a href="https://wa.me/56934821394?text=Hola%20l-lab%2C%20quiero%20conversar%20sobre%20una%20soluci%C3%B3n%20similar%20a%20{{ case.display_title|default:case.project_title|urlencode }}" target="_blank" rel="noopener" class="mt-6 font-mono text-xs uppercase tracking-[.18em] text-cyan-200">Ver una solución similar →</a>
+                        <a href="{{ case.url }}" target="_blank" rel="noopener noreferrer" class="mt-6 font-mono text-xs uppercase tracking-[.18em] text-cyan-200">Visitar proyecto →</a>
                     </article>
                     {% endfor %}
                 </div>
             </div>
         </section>
 
-        <section id="nosotros" class="mx-auto max-w-7xl px-5 py-20 lg:px-8">
-            <div class="grid gap-8 rounded-[2rem] border border-white/10 bg-white/[.035] p-7 md:p-10 lg:grid-cols-[.75fr_1.25fr] lg:items-center">
+        <section id="nosotros" class="mx-auto grid max-w-7xl gap-8 px-5 py-20 lg:grid-cols-[.75fr_1.25fr] lg:items-center lg:px-8">
                 <div class="flex flex-col items-start gap-5 sm:flex-row sm:items-center">
                     <img src="{% static 'portfolio/images/nelson-landaeta.jpg' %}" alt="Nelson Landaeta" width="700" height="700" loading="lazy" class="h-32 w-32 shrink-0 rounded-full border-2 border-ember/70 object-cover shadow-[0_0_0_6px_rgba(255,106,42,.08)]">
                     <div>
@@ -257,8 +263,7 @@
                         <p class="mt-2 max-w-md font-mono text-xs leading-5 tracking-[.08em] text-smoke/45">Full-Stack Developer | Web Development | AI &amp; Automation | Python · JavaScript · Go | Client Relations</p>
                     </div>
                 </div>
-                <p class="max-w-3xl text-lg leading-8 text-smoke/70">Soy Nelson. Trabajo directamente con pymes para crear webs, sistemas y automatizaciones simples de usar, mantenibles y pensadas para vender u ordenar procesos.</p>
-            </div>
+            <p class="max-w-3xl text-lg leading-8 text-smoke/70">Soy Nelson. Trabajo directamente con pymes para crear webs, sistemas y automatizaciones simples de usar, mantenibles y pensadas para vender u ordenar procesos.</p>
         </section>
 
         <section id="precios" class="border-y border-white/10 bg-[#121110]">
@@ -272,9 +277,9 @@
                         <a href="/desarrollo-web/" class="mt-7 inline-flex font-mono text-xs uppercase tracking-[.18em] text-ember">Ver desarrollo web →</a>
                     </article>
                     <article class="rounded-[1.6rem] border border-cyan-300/25 bg-cyan-300/10 p-6">
-                        <p class="font-mono text-xs uppercase tracking-[.22em] text-cyan-200">Sistema para tu negocio</p>
+                        <p class="font-mono text-xs uppercase tracking-[.22em] text-cyan-200">Sistemas para tu negocio</p>
                         <p class="mt-5 font-mono text-4xl font-medium tracking-[-.07em]"><span class="text-sm text-smoke/55">desde</span> $20.000.- <span class="text-sm tracking-normal text-smoke/55">mensual</span></p>
-                        <a href="/erp/" class="mt-7 inline-flex font-mono text-xs uppercase tracking-[.18em] text-cyan-200">Ver ERP →</a>
+                        <a href="/erp/" class="mt-7 inline-flex font-mono text-xs uppercase tracking-[.18em] text-cyan-200">Ver Sistemas →</a>
                     </article>
                     <article class="rounded-[1.6rem] border border-white/10 bg-white/[.04] p-6">
                         <p class="font-mono text-xs uppercase tracking-[.22em] text-ember">Automatización</p>
@@ -292,18 +297,18 @@
                     <p class="font-mono text-xs uppercase tracking-[.3em]">Contacto</p>
                     <h2 class="mt-5 font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-5xl">Revisemos tu proceso actual.</h2>
                     <p class="mt-5 leading-7">En 15 minutos identificamos qué conviene ordenar, automatizar o llevar a una web. Sin compromiso.</p>
-                    <div class="mt-10 space-y-4 font-bold">
-                        <a class="block rounded-2xl bg-graphite/10 p-4 transition hover:bg-graphite hover:text-smoke" href="mailto:contacto@l-lab.cl">contacto@l-lab.cl</a>
-                        <a class="block rounded-2xl bg-graphite/10 p-4 transition hover:bg-graphite hover:text-smoke" href="https://wa.me/56934821394" target="_blank">WhatsApp +56 9 3482 1394</a>
+                    <div class="mt-10 font-bold">
+                        <a class="block rounded-2xl bg-graphite/10 p-4 transition hover:bg-graphite hover:text-smoke" href="https://wa.me/56934821394" target="_blank" rel="noopener noreferrer">WhatsApp +56 9 3482 1394</a>
                     </div>
                 </div>
                 <form method="post" class="field space-y-4 p-8 md:p-10">
                     {% csrf_token %}
                     {% if messages %}{% for message in messages %}<div class="rounded-2xl border border-ember/30 bg-ember/10 p-4 text-smoke">{{ message }}</div>{% endfor %}{% endif %}
-                    <div class="grid gap-4 md:grid-cols-2">{{ form.name }}{{ form.email }}</div>
-                    <div class="grid gap-4 md:grid-cols-2">{{ form.phone }}{{ form.service }}</div>
+                    <div class="grid gap-4 md:grid-cols-2">{{ form.name }}{{ form.phone }}</div>
+                    {{ form.service }}
                     {{ form.message }}
-                    <button class="w-full rounded-full bg-smoke px-6 py-4 font-bold text-graphite transition hover:-translate-y-0.5 hover:bg-ember" type="submit">Agenda un diagnóstico</button>
+                    <p class="text-sm leading-6 text-smoke/55">Al continuar se abrirá WhatsApp con tu solicitud lista para enviar.</p>
+                    <button class="w-full rounded-full bg-smoke px-6 py-4 font-bold text-graphite transition hover:-translate-y-0.5 hover:bg-ember" type="submit">Continuar en WhatsApp</button>
                 </form>
             </div>
         </section>
@@ -314,32 +319,6 @@
     </footer>
 
     <script>
-        const successModal = document.querySelector('#contact-success-modal');
-        const successModalClose = document.querySelector('#contact-success-close');
-
-        function closeSuccessModal() {
-            if (successModal) {
-                successModal.classList.add('hidden');
-                successModal.classList.remove('flex');
-            }
-        }
-
-        if (new URLSearchParams(window.location.search).get('sent') === '1') {
-            if (successModal) {
-                successModal.classList.remove('hidden');
-                successModal.classList.add('flex');
-            }
-            history.replaceState(null, '', `${window.location.pathname}#contacto`);
-        }
-
-        if (successModalClose) successModalClose.addEventListener('click', closeSuccessModal);
-        if (successModal) successModal.addEventListener('click', event => {
-            if (event.target === successModal) closeSuccessModal();
-        });
-        document.addEventListener('keydown', event => {
-            if (event.key === 'Escape') closeSuccessModal();
-        });
-
         const themeToggle = document.querySelector('#theme-toggle');
         const themeMoon = document.querySelector('#theme-moon');
         const themeSun = document.querySelector('#theme-sun');

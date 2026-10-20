@@ -1,0 +1,110 @@
+/* Guirnalda animada de banderas chilenas para el menú principal. */
+.fiestas-header {
+    margin-bottom: 3.75rem;
+}
+
+.guirnalda-chilena {
+    position: absolute;
+    top: calc(100% - 3px);
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 4rem;
+    overflow: hidden;
+    pointer-events: none;
+    filter: drop-shadow(0 4px 3px rgb(0 0 0 / 22%));
+}
+
+.guirnalda-chilena__cordon {
+    position: absolute;
+    inset: 0 0 auto;
+    width: 100%;
+    height: 1.85rem;
+    overflow: visible;
+}
+
+.guirnalda-chilena__cordon path {
+    fill: none;
+    stroke: #eee3c8;
+    stroke-width: 3;
+    vector-effect: non-scaling-stroke;
+}
+
+.guirnalda-chilena__bandera {
+    --inclinacion: 0deg;
+    --demora: 0s;
+    position: absolute;
+    top: var(--caida);
+    left: var(--posicion);
+    width: 2.15rem;
+    transform: translateX(-50%);
+}
+
+.guirnalda-chilena__colgante {
+    position: relative;
+    display: block;
+    padding-top: .58rem;
+    transform-origin: 50% 0;
+    animation: bandera-al-viento 3.4s ease-in-out var(--demora) infinite alternate;
+}
+
+.guirnalda-chilena__colgante::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 1px;
+    height: .65rem;
+    background: #eee3c8;
+    box-shadow: 0 0 0 1px rgb(0 0 0 / 10%);
+}
+
+.guirnalda-chilena__tela {
+    position: relative;
+    display: block;
+    width: 2.15rem;
+    height: 1.45rem;
+    overflow: hidden;
+    border-radius: 1px 1px 3px 2px;
+    background: linear-gradient(to bottom, #fff 0 50%, #d52b1e 50% 100%);
+    box-shadow: 0 2px 4px rgb(0 0 0 / 28%), inset -3px 0 4px rgb(0 0 0 / 8%);
+}
+
+.guirnalda-chilena__tela::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto auto 0;
+    width: .72rem;
+    height: .73rem;
+    background: #0039a6;
+}
+
+.guirnalda-chilena__tela::after {
+    content: "★";
+    position: absolute;
+    top: .02rem;
+    left: .14rem;
+    color: #fff;
+    font-size: .43rem;
+    line-height: .68rem;
+    text-shadow: 0 1px 1px rgb(0 0 0 / 18%);
+}
+
+@keyframes bandera-al-viento {
+    0% { transform: rotate(calc(var(--inclinacion) - 2deg)) skewX(-1deg); }
+    55% { transform: rotate(calc(var(--inclinacion) + 1deg)) skewX(1.5deg); }
+    100% { transform: rotate(calc(var(--inclinacion) + 3deg)) skewX(-.5deg); }
+}
+
+@media (max-width: 767px) {
+    .fiestas-header { margin-bottom: 3.35rem; }
+    .guirnalda-chilena { height: 3.65rem; }
+    .guirnalda-chilena__bandera:nth-of-type(even) { display: none; }
+    .guirnalda-chilena__tela { width: 1.9rem; height: 1.28rem; }
+    .guirnalda-chilena__tela::before { width: .64rem; height: .64rem; }
+    .guirnalda-chilena__tela::after { left: .12rem; font-size: .38rem; line-height: .59rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .guirnalda-chilena__colgante { animation: none; }
+}

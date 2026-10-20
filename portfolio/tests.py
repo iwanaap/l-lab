@@ -1,3 +1,5 @@
+from urllib.parse import parse_qs, urlparse
+
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
@@ -48,6 +50,33 @@ class PublicSiteTests(TestCase):
         self.assertContains(response, "Cómo trabajamos")
         self.assertContains(response, 'application/ld+json')
 
+    def test_contact_uses_whatsapp_without_exposing_an_email_address(self):
+        response = self.client.get(reverse("home"))
+        self.assertContains(response, "Continuar en WhatsApp")
+        self.assertContains(response, "WhatsApp +56 9 3482 1394")
+        self.assertNotContains(response, "contacto@l-lab.cl")
+        self.assertNotContains(response, 'type="email"')
+        self.assertNotContains(response, "mailto:")
+
+        response = self.client.post(
+            reverse("home"),
+            {
+                "name": "Ana Pérez",
+                "phone": "+56 9 1111 2222",
+                "service": "Web profesional",
+                "message": "Necesito renovar mi sitio.",
+            },
+        )
+        self.assertEqual(response.status_code, 302)
+        redirect_url = urlparse(response["Location"])
+        self.assertEqual(redirect_url.netloc, "wa.me")
+        self.assertEqual(redirect_url.path, "/56934821394")
+        whatsapp_text = parse_qs(redirect_url.query)["text"][0]
+        self.assertIn("Ana Pérez", whatsapp_text)
+        self.assertIn("Web profesional", whatsapp_text)
+        self.assertIn("Necesito renovar mi sitio.", whatsapp_text)
+        self.assertNotIn("Email", whatsapp_text)
+
     def test_service_pages_use_concrete_commercial_copy(self):
         catalog = self.client.get(reverse("catalog"))
         self.assertContains(catalog, "Ferreterías")
@@ -69,7 +98,14 @@ class PublicSiteTests(TestCase):
         systems = self.client.get(reverse("systems"))
         self.assertContains(systems, "ERP Empresas")
         self.assertContains(systems, "Aula Virtual")
-        self.assertContains(systems, "No partimos de cero")
+        self.assertContains(systems, "Elige el sistema")
+        self.assertContains(systems, "que se acerca a lo que necesitas.")
+        self.assertNotContains(systems, "Sistemas disponibles")
+        self.assertNotContains(systems, "No partimos de cero")
+        self.assertNotContains(systems, "Tenemos sistemas construidos")
+        self.assertNotContains(systems, "SYS—01")
+        self.assertNotContains(systems, "SYS—02")
+        self.assertNotContains(systems, ">60%</span>")
 
     def test_main_service_pages_share_the_primary_cta(self):
         cta = "Agenda un diagnóstico"
@@ -102,10 +138,17 @@ class PublicSiteTests(TestCase):
                 self.assertNotIn('href="/catalogo-web/"', header)
                 self.assertNotIn('href="/erp/"', header)
 
+    def test_flag_garland_is_not_rendered(self):
+        for name in ("home", "web_development_projects", "catalog", "erp", "automations", "systems"):
+            with self.subTest(name=name):
+                response = self.client.get(reverse(name))
+                self.assertNotContains(response, "/static/portfolio/css/fiestas-patrias.css")
+                self.assertNotContains(response, 'class="guirnalda-chilena"')
+
     def test_home_is_a_concise_commercial_guide(self):
         response = self.client.get(reverse("home"))
         self.assertEqual(len(response.context["services"]), 4)
-        self.assertEqual(len(response.context["case_studies"]), 3)
+        self.assertEqual(len(response.context["case_studies"]), 2)
         for removed_copy in (
             "Problemas que resolvemos",
             "Menos fricción para vender y operar",
@@ -152,11 +195,59 @@ class PublicSiteTests(TestCase):
         for image in (
             "/static/portfolio/images/adp-seguridad.png",
             "/static/portfolio/images/renmai-ficha-clinica.png",
-            "/static/portfolio/images/likan-propiedades.png",
         ):
             self.assertContains(response, image)
             asset_response = self.client.get(image)
             self.assertEqual(asset_response.status_code, 200)
+
+    def test_case_studies_link_to_live_projects(self):
+        response = self.client.get(reverse("home"))
+        for project_url in (
+            "https://adpseguridad.cl",
+            "https://fichaclinica.renmai.cl",
+        ):
+            self.assertContains(response, f'href="{project_url}"')
+        self.assertContains(response, "Visitar proyecto", count=2)
+        self.assertNotContains(response, "Ver una solución similar")
+
+    def test_likan_propiedades_is_hidden_from_home_and_web_development(self):
+        Project.objects.update_or_create(
+            slug="likan-propiedades",
+            defaults={
+                "title": "Likan Propiedades",
+                "short_description": "Catálogo inmobiliario",
+                "project_url": "https://www.likanpropiedades.cl",
+                "status": "published",
+            },
+        )
+        for name in ("home", "web_development_projects"):
+            with self.subTest(name=name):
+                response = self.client.get(reverse(name))
+                self.assertNotContains(response, "Likan Propiedades")
+                self.assertNotContains(response, "likanpropiedades.cl")
+
+    def test_encaminar_replaces_abordar_on_web_development_page(self):
+        response = self.client.get(reverse("web_development_projects"))
+        image_url = "/static/portfolio/images/encaminar.png"
+        self.assertContains(response, "Encaminar")
+        self.assertContains(response, "https://encaminar.cl")
+        self.assertContains(response, "Django")
+        self.assertContains(response, "Tailwind")
+        self.assertContains(response, image_url)
+        self.assertNotContains(response, "Abordar")
+        self.assertEqual(self.client.get(image_url).status_code, 200)
+
+    def test_renmai_uses_its_deployable_preview_on_web_development_page(self):
+        Project.objects.create(
+            title="Renmai",
+            short_description="Sitio web de Renmai",
+            project_url="https://renmai.cl",
+            status="published",
+        )
+        response = self.client.get(reverse("web_development_projects"))
+        image_url = "/static/portfolio/images/renmai.png"
+        self.assertContains(response, image_url)
+        self.assertEqual(self.client.get(image_url).status_code, 200)
 
     def test_erp_uses_real_deployable_interface_images(self):
         response = self.client.get(reverse("erp"))

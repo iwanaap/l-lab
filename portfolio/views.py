@@ -1,15 +1,10 @@
-import logging
+from urllib.parse import urlencode
 
-from django.conf import settings
 from django.contrib import messages
-from django.core.mail import EmailMessage
 from django.shortcuts import redirect, render
 
 from .forms import ContactInquiryForm
 from .models import Project
-
-
-logger = logging.getLogger(__name__)
 
 
 AUTOMATION_EXAMPLES = [
@@ -88,9 +83,10 @@ SERVICES = [
 
 PROJECT_STATIC_PREVIEWS = {
     "adp-seguridad": {"image": "portfolio/images/adp-seguridad.png"},
+    "encaminar": {"image": "portfolio/images/encaminar.png"},
     "ficha-clinica-renmai": {"image": "portfolio/images/renmai-ficha-clinica.png"},
-    "likan-propiedades": {"image": "portfolio/images/likan-propiedades.png"},
     "ns-security": {"image": "portfolio/images/ns-security.png"},
+    "renmai": {"image": "portfolio/images/renmai.png"},
     "rulkanis": {"image": "portfolio/images/rulkanis.png"},
     "solitario": {"video": "portfolio/videos/solitario.mp4"},
 }
@@ -108,6 +104,7 @@ def attach_static_previews(projects):
 CASE_STUDIES = [
     {
         "project_title": "ADP Seguridad",
+        "url": "https://adpseguridad.cl",
         "image": "portfolio/images/adp-seguridad.png",
         "value_statement": "Una presencia digital más clara para respaldar prospección y contacto comercial.",
         "solution_type": "Web corporativa",
@@ -119,6 +116,7 @@ CASE_STUDIES = [
     {
         "project_title": "Ficha Clínica Renmai",
         "display_title": "Renmai",
+        "url": "https://fichaclinica.renmai.cl",
         "image": "portfolio/images/renmai-ficha-clinica.png",
         "value_statement": "Una herramienta privada para ordenar información clínica en un flujo web dedicado.",
         "solution_type": "Sistema privado",
@@ -126,16 +124,6 @@ CASE_STUDIES = [
         "solution": "Se construyó una aplicación web separada del sitio público para apoyar el flujo interno.",
         "built": "Subdominio privado, fichas de información y flujo de gestión web.",
         "benefit": "Información clínica centralizada en una herramienta dedicada al proceso.",
-    },
-    {
-        "project_title": "Likan Propiedades",
-        "image": "portfolio/images/likan-propiedades.png",
-        "value_statement": "Un catálogo inmobiliario propio para mostrar propiedades y recibir consultas más ordenadas.",
-        "solution_type": "Catálogo inmobiliario",
-        "problem": "La oferta inmobiliaria necesitaba exhibirse de forma clara y conectar cada propiedad con consultas de potenciales clientes.",
-        "solution": "Se desarrolló un sitio inmobiliario para publicar propiedades y facilitar el contacto.",
-        "built": "Catálogo de propiedades, fichas, navegación y canales de consulta.",
-        "benefit": "Un catálogo web propio para mostrar la oferta y recibir contactos de manera más ordenada.",
     },
 ]
 
@@ -150,12 +138,21 @@ def erp(request):
 
 def web_development_projects(request):
     published_projects = Project.objects.filter(status="published")
-    projects = attach_static_previews(published_projects.exclude(title__iexact="Solitario"))
+    projects = attach_static_previews(
+        published_projects.exclude(title__iexact="Solitario")
+        .exclude(slug="ficha-clinica-renmai")
+        .exclude(slug="likan-propiedades")
+    )
+    showcase_projects = [project for project in projects if project.static_image or project.image]
     lab_projects = attach_static_previews(published_projects.filter(title__iexact="Solitario"))
     return render(
         request,
         "portfolio/web_development_projects.html",
-        {"projects": projects, "lab_projects": lab_projects},
+        {
+            "projects": projects,
+            "showcase_projects": showcase_projects,
+            "lab_projects": lab_projects,
+        },
     )
 
 
@@ -191,31 +188,16 @@ def home(request):
 
     if request.method == "POST":
         if form.is_valid():
-            inquiry = form.save()
-            subject = f"Nueva solicitud de contacto: {inquiry.service or 'Sin servicio'}"
-            body = (
-                "Se recibió una nueva solicitud desde l-lab.cl\n\n"
-                f"Nombre: {inquiry.name}\n"
-                f"Email: {inquiry.email}\n"
-                f"Teléfono: {inquiry.phone or 'No indicado'}\n"
-                f"Servicio: {inquiry.service or 'No indicado'}\n\n"
-                f"Mensaje:\n{inquiry.message}\n"
+            data = form.cleaned_data
+            whatsapp_message = (
+                "Hola l-lab, quiero agendar un diagnóstico.\n\n"
+                f"Nombre: {data['name']}\n"
+                f"Teléfono: {data['phone'] or 'No indicado'}\n"
+                f"Servicio: {data['service']}\n\n"
+                f"Mensaje: {data['message']}"
             )
-            try:
-                email = EmailMessage(
-                    subject=subject,
-                    body=body,
-                    from_email=settings.DEFAULT_FROM_EMAIL,
-                    to=[settings.CONTACT_EMAIL],
-                    reply_to=[inquiry.email],
-                )
-                email.send(fail_silently=False)
-                messages.success(request, "Mensaje enviado. Te contactaremos pronto.")
-                return redirect("/?sent=1#contacto")
-            except Exception:
-                logger.exception("No se pudo enviar la solicitud de contacto por correo.")
-                messages.error(request, "Recibimos tu solicitud, pero no se pudo enviar la notificación por correo. Te contactaré pronto.")
-                return redirect("/#contacto")
+            whatsapp_url = f"https://wa.me/56934821394?{urlencode({'text': whatsapp_message})}"
+            return redirect(whatsapp_url)
         messages.error(request, "Revisa los campos del formulario e intenta nuevamente.")
 
     return render(

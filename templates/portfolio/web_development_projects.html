@@ -33,6 +33,18 @@
         .web-grid { position:relative; overflow:hidden; }
         .web-grid::before { content:""; position:absolute; inset:0; opacity:.55; pointer-events:none; background-image:linear-gradient(rgba(255,106,42,.075) 1px, transparent 1px), linear-gradient(90deg, rgba(255,106,42,.075) 1px, transparent 1px); background-size:72px 72px; mask-image:radial-gradient(ellipse at 48% 24%, black 0%, black 45%, transparent 78%); }
         .web-grid > * { position:relative; z-index:1; }
+        .scroll-showcase { position:relative; background:#090909; perspective:1400px; }
+        .showcase-stage { position:sticky; top:73px; height:calc(100svh - 73px); overflow:hidden; isolation:isolate; background:#111; }
+        .showcase-panel { --slide-x:100%; --page-turn:8deg; position:absolute; inset:0; overflow:hidden; background:#111; transform:translate3d(var(--slide-x),0,0) rotateY(var(--page-turn)); transform-origin:left center; will-change:transform; backface-visibility:hidden; box-shadow:-30px 0 70px rgba(0,0,0,.6); }
+        .showcase-panel::before { content:""; position:absolute; inset:0; z-index:1; background:linear-gradient(90deg, rgba(8,8,8,.91) 0%, rgba(8,8,8,.66) 39%, rgba(8,8,8,.12) 72%), linear-gradient(0deg, rgba(8,8,8,.8), transparent 48%); pointer-events:none; }
+        .showcase-panel::after { content:""; position:absolute; inset:0; z-index:2; opacity:.25; background-image:linear-gradient(rgba(255,255,255,.07) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,.07) 1px, transparent 1px); background-size:72px 72px; mask-image:linear-gradient(90deg, black, transparent 72%); pointer-events:none; }
+        .showcase-image { position:absolute; inset:1.5rem auto 0 50%; height:calc(100% - 1.5rem); width:70%; object-fit:cover; object-position:center var(--image-y, 0%); opacity:1; filter:none; transform:translateX(-50%) scale(1.015); transform-origin:center; will-change:object-position; }
+        .showcase-copy { position:relative; z-index:3; display:flex; height:100%; max-width:80rem; margin:auto; padding:clamp(2rem,6vw,5rem) clamp(1.25rem,4vw,2rem); flex-direction:column; justify-content:space-between; }
+        .showcase-meta { display:flex; align-items:end; justify-content:space-between; gap:1.5rem; border-top:1px solid rgba(255,255,255,.2); padding-top:1rem; color:#f4f1ec; }
+        .showcase-progress { position:absolute; z-index:20; right:1.5rem; top:50%; display:grid; gap:.45rem; transform:translateY(-50%); }
+        .showcase-progress span { width:2px; height:1.5rem; background:rgba(255,255,255,.28); transition:height .35s ease, background .35s ease; }
+        .showcase-progress span.is-active { height:3rem; background:#ff6a2a; }
+        .showcase-scroll-step { height:200svh; }
         .theme-toggle-dot { transform:translateX(0); transition:transform .25s ease, background .25s ease; }
         .light-theme .theme-toggle-dot { transform:translateX(1.45rem); background:#171717; }
         .light-theme body { background:#f4f1ec; color:#171717; }
@@ -44,6 +56,22 @@
         .light-theme [class*="bg-white/[."] { background:rgba(23,23,23,.035) !important; }
         .light-theme [class*="border-white/"] { border-color:rgba(23,23,23,.12) !important; }
         .light-theme #galeria { background:#e8e2d8 !important; color:#171717 !important; border-color:rgba(23,23,23,.1) !important; }
+        @media (max-width: 640px) {
+            .showcase-stage { top:73px; }
+            .showcase-panel::before { background:linear-gradient(0deg, rgba(8,8,8,.92) 0%, rgba(8,8,8,.38) 70%, rgba(8,8,8,.22)); }
+            .showcase-image { width:100%; opacity:1; }
+            .showcase-copy { padding-bottom:2rem; }
+            .showcase-progress { right:.65rem; }
+            .showcase-scroll-step { height:165svh; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior:auto !important; }
+            .showcase-stage { position:relative; top:auto; height:80svh; }
+            .showcase-panel { display:none; transform:none !important; }
+            .showcase-panel:first-child { display:block; }
+            .showcase-image { object-position:center top !important; }
+            .showcase-scroll-step, .showcase-progress { display:none; }
+        }
     </style>
 </head>
 <body class="grain font-sans selection:bg-ember selection:text-graphite">
@@ -55,38 +83,40 @@
         {% include "portfolio/_header.html" %}
 
     <main>
-        <section class="web-grid mx-auto grid min-h-[70vh] max-w-7xl items-center gap-12 px-5 py-20 lg:grid-cols-[1.05fr_.95fr] lg:px-8">
-            <div>
-                <p class="font-mono text-xs uppercase tracking-[.45em] text-ember">Desarrollo web</p>
-                <h1 class="mt-6 max-w-4xl font-mono text-5xl font-medium uppercase leading-[.95] tracking-[-.08em] text-smoke md:text-7xl lg:text-8xl">Una web que explica, convence y abre conversaciones.</h1>
-                <p class="mt-8 max-w-2xl text-lg leading-8 text-smoke/72">Diseñamos sitios para pymes que necesitan comunicar mejor su oferta, generar confianza y llevar cada visita hacia una cotización, WhatsApp o formulario.</p>
-                <div class="mt-10 flex flex-col gap-3 sm:flex-row">
-                    <a href="https://wa.me/56934821394?text=Hola%20l-lab%2C%20quiero%20un%20diagn%C3%B3stico%20gratis%20para%20mi%20p%C3%A1gina%20web" target="_blank" rel="noopener" class="rounded-full bg-ember px-6 py-4 text-center font-bold text-graphite shadow-glow transition hover:-translate-y-0.5 hover:bg-[#ff7d45]">Agenda un diagnóstico</a>
-                    <a href="#galeria" class="rounded-full border border-white/15 px-6 py-4 text-center font-bold text-smoke transition hover:border-cyan-200 hover:text-cyan-200">Ver proyectos reales</a>
-                </div>
-            </div>
-            <div class="rounded-[2rem] border border-white/10 bg-white/[.045] p-5 shadow-2xl backdrop-blur">
-                <div class="mb-5 flex items-center justify-between border-b border-white/10 pb-4 font-mono text-xs text-smoke/55"><span>web.l-lab/showcase</span><span class="text-ember">online</span></div>
-                <div class="grid gap-3">
-                    <div class="rounded-2xl border border-ember/20 bg-ember/10 p-4"><p class="font-mono text-xs uppercase tracking-[.22em] text-ember">Corporativo</p><p class="mt-2 text-smoke/62">Presencia clara para negocios y servicios.</p></div>
-                    <div class="grid gap-3 sm:grid-cols-2">
-                        <div class="rounded-2xl border border-white/10 bg-white/[.045] p-4"><p class="font-mono text-xs uppercase tracking-[.22em] text-cyan-200">Landing</p><p class="mt-2 text-smoke/62">Campañas y conversión.</p></div>
-                        <div class="rounded-2xl border border-white/10 bg-white/[.045] p-4"><p class="font-mono text-xs uppercase tracking-[.22em] text-lime-200">Aplicación</p><p class="mt-2 text-smoke/62">Usuarios, paneles y flujos.</p></div>
+        {% if showcase_projects %}
+        <section class="scroll-showcase" data-showcase aria-label="Proyectos web destacados">
+            <h1 class="sr-only">Desarrollo web y proyectos realizados</h1>
+            <div class="showcase-stage">
+                {% for project in showcase_projects %}
+                <article class="showcase-panel" data-showcase-panel {% if forloop.first %}style="--slide-x:0%; --page-turn:0deg"{% endif %}>
+                    {% if project.static_image %}
+                    <img src="{% static project.static_image %}" alt="Vista completa del proyecto {{ project.title }}" class="showcase-image" {% if not forloop.first %}loading="lazy"{% endif %} decoding="async">
+                    {% else %}
+                    <img src="{{ project.image.url }}" alt="Vista completa del proyecto {{ project.title }}" class="showcase-image" {% if not forloop.first %}loading="lazy"{% endif %} decoding="async">
+                    {% endif %}
+                    <div class="showcase-copy">
+                        <div aria-hidden="true"></div>
+                        <div class="showcase-meta">
+                            <div><p class="font-mono text-[10px] uppercase tracking-[.3em] text-ember">Proyecto {{ forloop.counter|stringformat:"02d" }}</p><h2 class="mt-2 text-2xl font-bold md:text-4xl">{{ project.title }}</h2></div>
+                            {% if project.project_url %}<a href="{{ project.project_url }}" target="_blank" rel="noopener noreferrer" class="shrink-0 font-mono text-xs uppercase tracking-[.16em] text-smoke transition hover:text-ember">Visitar ↗</a>{% endif %}
+                        </div>
                     </div>
+                </article>
+                {% endfor %}
+                <div class="showcase-progress" aria-hidden="true">
+                    {% for marker in showcase_projects %}<span{% if forloop.first %} class="is-active"{% endif %}></span>{% endfor %}
                 </div>
             </div>
+            {% for project in showcase_projects %}<div class="showcase-scroll-step" aria-hidden="true"></div>{% endfor %}
         </section>
-
-        <section class="mx-auto max-w-7xl px-5 py-20 lg:px-8">
-            <p class="font-mono text-xs uppercase tracking-[.35em] text-ember">La oferta</p>
-            <h2 class="mt-4 max-w-4xl font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-6xl">No solo una página bonita.</h2>
-            <div class="mt-10 grid gap-4 md:grid-cols-3">
-                <article class="rounded-[1.5rem] border border-white/10 bg-white/[.035] p-6"><h3 class="text-xl font-bold">Mensaje comercial claro</h3><p class="mt-3 leading-7 text-smoke/62">Ordenamos servicios, argumentos y llamados a la acción para que el cliente entienda qué haces y para quién.</p></article>
-                <article class="rounded-[1.5rem] border border-white/10 bg-white/[.035] p-6"><h3 class="text-xl font-bold">Captación conectada</h3><p class="mt-3 leading-7 text-smoke/62">Formularios y WhatsApp con mensajes según servicio para recibir consultas con más contexto.</p></article>
-                <article class="rounded-[1.5rem] border border-white/10 bg-white/[.035] p-6"><h3 class="text-xl font-bold">Base técnica sólida</h3><p class="mt-3 leading-7 text-smoke/62">Responsive, SEO básico, métricas, seguridad, dominio y una estructura preparada para crecer.</p></article>
-            </div>
-            <div class="mt-8 rounded-[1.5rem] border border-ember/25 bg-ember/10 p-6"><p class="font-mono text-xs uppercase tracking-[.25em] text-ember">Inversión</p><p class="mt-3 text-2xl font-bold">Web corporativa desde $100.000</p><p class="mt-2 text-smoke/62">El valor final depende de páginas, contenido, administración e integraciones. Tiendas, portales y sistemas se cotizan aparte.</p></div>
+        {% else %}
+        <section class="web-grid mx-auto min-h-[70vh] max-w-7xl px-5 py-20 lg:px-8">
+            <p class="font-mono text-xs uppercase tracking-[.45em] text-ember">Desarrollo web</p>
+            <h1 class="mt-6 max-w-4xl font-mono text-5xl font-medium uppercase leading-[.95] tracking-[-.08em] text-smoke md:text-7xl lg:text-8xl">Una web que explica, convence y abre conversaciones.</h1>
+            <p class="mt-8 max-w-2xl text-lg leading-8 text-smoke/72">Diseñamos sitios para pymes que necesitan comunicar mejor su oferta, generar confianza y llevar cada visita hacia una cotización.</p>
+            <a href="https://wa.me/56934821394?text=Hola%20l-lab%2C%20quiero%20un%20diagn%C3%B3stico%20gratis%20para%20mi%20p%C3%A1gina%20web" target="_blank" rel="noopener" class="mt-10 inline-flex rounded-full bg-ember px-6 py-4 font-bold text-graphite">Agenda un diagnóstico</a>
         </section>
+        {% endif %}
 
         <section id="galeria" class="border-y border-white/10 bg-[#1d1c1a] text-smoke">
             <div class="mx-auto max-w-7xl px-5 py-20 lg:px-8">
@@ -121,8 +151,7 @@
         </section>
 
         {% if lab_projects %}
-        <section id="laboratorio" class="mx-auto max-w-7xl px-5 pt-20 lg:px-8">
-            <div class="grid gap-8 rounded-[2rem] border border-dashed border-cyan-300/25 bg-cyan-300/[.045] p-7 md:p-9 lg:grid-cols-[.7fr_1.3fr]">
+        <section id="laboratorio" class="mx-auto grid max-w-7xl gap-8 px-5 pt-20 lg:grid-cols-[.7fr_1.3fr] lg:px-8">
                 <div><p class="font-mono text-xs uppercase tracking-[.35em] text-cyan-200">Laboratorio</p><h2 class="mt-4 font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em]">Experimentos técnicos.</h2><p class="mt-5 leading-7 text-smoke/62">Pruebas de interacción y tecnología separadas de los casos comerciales.</p></div>
                 <div class="grid gap-4">
                     {% for project in lab_projects %}
@@ -132,11 +161,10 @@
                     </article>
                     {% endfor %}
                 </div>
-            </div>
         </section>
         {% endif %}
 
-        <section class="mx-auto max-w-7xl px-5 py-20 lg:px-8"><div class="rounded-[2rem] border border-ember/25 bg-ember/10 p-8 md:p-10"><p class="font-mono text-xs uppercase tracking-[.35em] text-ember">Revisión sin compromiso</p><h2 class="mt-4 max-w-4xl font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-6xl">¿Tu web actual no está generando consultas?</h2><p class="mt-6 max-w-2xl text-lg leading-8 text-smoke/70">Revisamos mensaje, navegación y puntos de contacto en un diagnóstico gratis de 15 minutos.</p><a href="https://wa.me/56934821394?text=Hola%20l-lab%2C%20quiero%20revisar%20mi%20web%20actual%20en%20un%20diagn%C3%B3stico%20gratis" target="_blank" rel="noopener" class="mt-8 inline-flex rounded-full bg-ember px-6 py-4 font-bold text-graphite">Agenda un diagnóstico</a></div></section>
+        <section class="mx-auto max-w-7xl px-5 py-20 lg:px-8"><div class="rounded-[2rem] border border-ember/25 bg-ember/10 p-8 md:p-10"><p class="font-mono text-xs uppercase tracking-[.35em] text-ember">Revisión sin compromiso</p><h2 class="mt-4 max-w-4xl font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-6xl">Precio que se acomoda a tu necesidad.</h2><p class="mt-6 max-w-2xl text-lg leading-8 text-smoke/70">El valor final depende de páginas, contenido, administración e integraciones.</p><ul class="mt-6 grid max-w-3xl gap-3 text-smoke/70 sm:grid-cols-2"><li class="flex items-start gap-3"><span class="mt-1 text-ember" aria-hidden="true">✓</span><span>El pago es único, sin mensualidades.</span></li><li class="flex items-start gap-3"><span class="mt-1 text-ember" aria-hidden="true">✓</span><span>El código es reutilizable y queda respaldado en un repositorio privado de GitHub.</span></li></ul><a href="https://wa.me/56934821394?text=Hola%20l-lab%2C%20quiero%20revisar%20mi%20web%20actual%20en%20un%20diagn%C3%B3stico%20gratis" target="_blank" rel="noopener" class="mt-8 inline-flex rounded-full bg-ember px-6 py-4 font-bold text-graphite">Agenda un diagnóstico</a></div></section>
     </main>
 
     <footer class="border-t border-white/10 px-5 py-8 text-center font-mono text-xs uppercase tracking-[.2em] text-smoke/45">© {% now "Y" %} l-lab.cl — desarrollo web y proyectos realizados</footer>
@@ -174,6 +202,68 @@
                 if (mobileMenuToggle) mobileMenuToggle.textContent = '☰';
             });
         });
+
+        const showcase = document.querySelector('[data-showcase]');
+        const showcasePanels = [...document.querySelectorAll('[data-showcase-panel]')];
+        const showcaseMarkers = [...document.querySelectorAll('.showcase-progress span')];
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        let showcaseTicking = false;
+        function updateShowcase() {
+            if (showcase && showcasePanels.length && !reduceMotion.matches) {
+                const stage = showcase.querySelector('.showcase-stage');
+                const headerHeight = document.querySelector('header')?.offsetHeight || 73;
+                const rect = showcase.getBoundingClientRect();
+                const travel = Math.max(1, showcase.offsetHeight - stage.offsetHeight);
+                const progress = Math.min(1, Math.max(0, (headerHeight - rect.top) / travel));
+                const timeline = progress * showcasePanels.length;
+                const currentIndex = Math.min(showcasePanels.length - 1, Math.floor(timeline));
+                const localProgress = Math.min(1, timeline - currentIndex);
+                const panEnd = .76;
+                const imageProgress = Math.min(1, localProgress / panEnd);
+                const rawTurn = Math.max(0, (localProgress - panEnd) / (1 - panEnd));
+                const pageTurn = rawTurn * rawTurn * (3 - 2 * rawTurn);
+                const hasNext = currentIndex < showcasePanels.length - 1;
+                const activeIndex = hasNext && pageTurn > .55 ? currentIndex + 1 : currentIndex;
+
+                showcasePanels.forEach((panel, index) => {
+                    let offset = 1;
+                    let turn = 8;
+                    let imageY = 0;
+                    if (index < currentIndex) {
+                        offset = -1;
+                        turn = -8;
+                        imageY = 100;
+                    } else if (index === currentIndex) {
+                        offset = hasNext ? -pageTurn : 0;
+                        turn = hasNext ? -pageTurn * 8 : 0;
+                        imageY = imageProgress * 100;
+                    } else if (index === currentIndex + 1) {
+                        offset = 1 - pageTurn;
+                        turn = (1 - pageTurn) * 8;
+                    }
+                    panel.style.setProperty('--slide-x', `${offset * 100}%`);
+                    panel.style.setProperty('--page-turn', `${turn}deg`);
+                    panel.querySelector('.showcase-image')?.style.setProperty('--image-y', `${imageY}%`);
+                    panel.style.zIndex = String(index + 1);
+                    panel.style.pointerEvents = index === activeIndex ? 'auto' : 'none';
+                });
+
+                showcaseMarkers.forEach((marker, index) => marker.classList.toggle('is-active', index === activeIndex));
+            }
+            showcaseTicking = false;
+        }
+        function requestShowcaseUpdate() {
+            if (!showcaseTicking) {
+                requestAnimationFrame(updateShowcase);
+                showcaseTicking = true;
+            }
+        }
+        if (showcasePanels.length) {
+            addEventListener('scroll', requestShowcaseUpdate, { passive:true });
+            addEventListener('resize', requestShowcaseUpdate);
+            reduceMotion.addEventListener?.('change', requestShowcaseUpdate);
+            updateShowcase();
+        }
     </script>
 </body>
 </html>

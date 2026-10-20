@@ -143,18 +143,6 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Email / contact form
-CONTACT_EMAIL = os.environ.get("CONTACT_EMAIL", "contacto@l-lab.cl")
-EMAIL_BACKEND = os.environ.get("EMAIL_BACKEND", "django.core.mail.backends.smtp.EmailBackend")
-EMAIL_HOST = os.environ.get("EMAIL_HOST", "smtp.titan.email")
-EMAIL_PORT = int(os.environ.get("EMAIL_PORT", "465"))
-EMAIL_USE_SSL = os.environ.get("EMAIL_USE_SSL", "True").lower() in ("1", "true", "yes", "on")
-EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS", "False").lower() in ("1", "true", "yes", "on")
-EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", CONTACT_EMAIL)
-EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
-DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", CONTACT_EMAIL)
-SERVER_EMAIL = DEFAULT_FROM_EMAIL
-
 try:
     from .local_settings import *  # noqa: F401,F403
 except ImportError:

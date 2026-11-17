@@ -55,28 +55,28 @@ AUTOMATION_EXAMPLES = [
 
 SERVICES = [
     {
-        "title": "Web profesional",
-        "description": "Una web rápida y confiable que genera confianza y formaliza tu proyecto, con información clara para una mejor comunicación.",
-        "url": "/desarrollo-web/",
-        "cta": "Ver solución web",
+        "eyebrow": "Vender mejor",
+        "title": "Consigue más consultas",
+        "description": "Una presencia digital clara para que tus clientes entiendan qué haces, confíen y sepan cómo contactarte.",
+        "examples": "Web corporativa · catálogo · landing page",
+        "url": "#contacto",
+        "cta": "Quiero mejorar mi web",
     },
     {
-        "title": "Ordenamos tus operaciones",
-        "description": "Conectamos la información y los procesos de tu negocio para reducir tareas manuales y trabajar con mayor claridad.",
-        "url": "/sistemas/",
-        "cta": "Conocer los sistemas",
+        "eyebrow": "Trabajar con orden",
+        "title": "Centraliza tu operación",
+        "description": "Un sistema pensado según tu forma de trabajar para tener clientes, ventas, tareas y documentos en un solo lugar.",
+        "examples": "ERP · gestión interna · plataforma privada",
+        "url": "#contacto",
+        "cta": "Quiero ordenar mi negocio",
     },
     {
-        "title": "Sistemas para tu negocio",
-        "description": "Conoce soluciones ya desarrolladas, como ERP Empresas y Aula Virtual, listas para adaptar a tus necesidades.",
-        "url": "/sistemas/",
-        "cta": "Ver sistemas",
-    },
-    {
-        "title": "Automatizaciones de procesos",
-        "description": "Alertas, lectura de documentos, reportes e integraciones para dejar de repetir tareas manuales.",
-        "url": "/automatizaciones/",
-        "cta": "Ver ejemplos",
+        "eyebrow": "Ahorrar tiempo",
+        "title": "Deja de repetir tareas",
+        "description": "Conectamos tus herramientas y automatizamos pasos manuales para reducir errores y liberar tiempo de tu equipo.",
+        "examples": "Alertas · reportes · documentos · integraciones",
+        "url": "#contacto",
+        "cta": "Quiero automatizar un proceso",
     },
 ]
 
@@ -165,7 +165,19 @@ def automations(request):
 
 
 def projects_hub(request):
-    return redirect("/desarrollo-web/#galeria")
+    return redirect("/#casos", permanent=True)
+
+
+def legacy_page_redirect(request):
+    """Keep old page URLs useful while the public site operates as one landing page."""
+    destinations = {
+        "/sistemas/": "/#soluciones",
+        "/erp/": "/#soluciones",
+        "/desarrollo-web/": "/#casos",
+        "/catalogo-web/": "/#soluciones",
+        "/automatizaciones/": "/#soluciones",
+    }
+    return redirect(destinations.get(request.path, "/"), permanent=True)
 
 
 def custom_404(request, exception):

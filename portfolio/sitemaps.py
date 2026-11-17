@@ -3,24 +3,14 @@ from django.urls import reverse
 
 
 class StaticViewSitemap(Sitemap):
-    """Public commercial pages included in the XML sitemap."""
+    """The public commercial site is intentionally a single landing page."""
 
     protocol = "https"
     changefreq = "monthly"
-    priority = 0.8
+    priority = 1.0
 
     def items(self):
-        return [
-            "home",
-            "web_development_projects",
-            "catalog",
-            "erp",
-            "automations",
-            "systems",
-        ]
+        return ["home"]
 
     def location(self, item):
         return reverse(item)
-
-    def priority(self, item):
-        return 1.0 if item == "home" else 0.8

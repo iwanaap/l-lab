@@ -1,0 +1,13 @@
+{% load static %}
+<figure class="web-build" id="web-build" aria-label="Demostración: el contenido de un negocio se organiza para formar una página web">
+    <div class="web-build-stage" aria-hidden="true">
+        <div class="web-build-browser"><div class="web-build-browser-bar"><span>● ● ●</span><span>tu-negocio.cl</span><span>↗</span></div></div>
+        <div class="web-piece web-piece-brand"><span class="web-piece-tag">Tu marca</span><div class="web-demo-brand"><span class="web-demo-symbol">N.</span> TU NEGOCIO</div><span class="web-demo-nav">Inicio · Servicios · Contacto</span></div>
+        <div class="web-piece web-piece-photo"><span class="web-piece-tag">La foto del negocio</span><img src="{% static 'portfolio/images/hero-negocio.svg' %}" alt="" width="640" height="440"><span class="web-photo-note">El lugar donde todo empieza.</span></div>
+        <div class="web-piece web-piece-intro"><span class="web-piece-tag">Lo que haces</span><span class="web-demo-eyebrow">Hecho con dedicación</span><strong>Tu próximo<br>proyecto empieza aquí.</strong><span class="web-demo-description">Un equipo cercano.<br>Un trabajo bien hecho.</span></div>
+        <div class="web-piece web-piece-services"><span class="web-piece-tag">Tus servicios</span><span class="web-demo-eyebrow">Cómo te ayudamos</span><div class="web-demo-services"><span>Asesoría <b>↗</b></span><span>Proyectos <b>↗</b></span><span>Soporte <b>↗</b></span></div></div>
+        <div class="web-piece web-piece-hours"><span class="web-piece-tag">Tus horarios</span><span class="web-demo-eyebrow">Conversemos</span><span>Lun — Vie<br><strong>09:00 a 18:00</strong></span></div>
+        <div class="web-piece web-piece-contact"><span class="web-piece-tag">Ese mensaje pendiente</span><span class="web-chat-question">Hola, ¿cómo puedo cotizar?</span><span class="web-demo-contact">Hablemos por WhatsApp <b>↗</b></span></div>
+    </div>
+    <div class="web-build-controls"><button type="button" id="web-build-replay" hidden>Ver transformación <span aria-hidden="true">↻</span></button></div>
+</figure>

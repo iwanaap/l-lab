@@ -4,319 +4,193 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Web, ERP y automatizaciones para pymes chilenas | l-lab</title>
-    <meta name="description" content="Webs, catálogos, ERP y automatizaciones para pymes que quieren captar clientes y ordenar ventas, tareas y procesos sin depender de Excel y WhatsApp.">
+    <title>Webs, sistemas y automatización para pymes | l-lab</title>
+    <meta name="description" content="Ayudamos a pymes chilenas a conseguir más consultas, ordenar su operación y reducir trabajo manual con webs, sistemas y automatizaciones a medida.">
     <link rel="canonical" href="https://l-lab.cl/">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="es_CL">
     <meta property="og:site_name" content="l-lab.cl">
-    <meta property="og:title" content="Web, ERP y automatizaciones para pymes chilenas | l-lab">
-    <meta property="og:description" content="Ordena tu operación, capta clientes y automatiza tareas repetitivas con tecnología hecha para tu pyme.">
+    <meta property="og:title" content="Menos tareas sueltas. Más negocio bajo control. | l-lab">
+    <meta property="og:description" content="Webs, sistemas y automatizaciones pensados para resolver problemas concretos de tu pyme.">
     <meta property="og:url" content="https://l-lab.cl/">
     <meta property="og:image" content="https://l-lab.cl/static/portfolio/brand/logo-l-lab.png">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Web, ERP y automatizaciones para pymes | l-lab">
-    <meta name="twitter:description" content="Tecnología práctica para vender y operar con menos trabajo manual.">
+    <meta name="twitter:title" content="Tecnología útil para tu pyme | l-lab">
+    <meta name="twitter:description" content="Consigue más consultas, ordena tu operación y reduce trabajo manual.">
     <meta name="twitter:image" content="https://l-lab.cl/static/portfolio/brand/logo-l-lab.png">
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfessionalService","name":"l-lab.cl","url":"https://l-lab.cl/","logo":"https://l-lab.cl/static/portfolio/brand/logo-l-lab.png","telephone":"+56934821394","contactPoint":{"@type":"ContactPoint","telephone":"+56934821394","contactType":"customer service","availableLanguage":"Spanish"},"areaServed":{"@type":"Country","name":"Chile"},"description":"Desarrollo web, ERP, automatizaciones e integraciones para pymes chilenas.","sameAs":[]}</script>
-    <link rel="icon" type="image/png" href="/static/portfolio/brand/logo-l-lab.png">
-    <link rel="apple-touch-icon" href="/static/portfolio/brand/logo-l-lab.png">
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfessionalService","name":"l-lab.cl","url":"https://l-lab.cl/","logo":"https://l-lab.cl/static/portfolio/brand/logo-l-lab.png","telephone":"+56934821394","contactPoint":{"@type":"ContactPoint","telephone":"+56934821394","contactType":"sales","availableLanguage":"Spanish"},"areaServed":{"@type":"Country","name":"Chile"},"description":"Desarrollo de webs, sistemas y automatizaciones para pymes chilenas."}</script>
+    <link rel="icon" type="image/png" href="{% static 'portfolio/brand/logo-l-lab.png' %}">
+    <link rel="apple-touch-icon" href="{% static 'portfolio/brand/logo-l-lab.png' %}">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        graphite: '#171717',
-                        smoke: '#f4f1ec',
-                        ash: '#d8d2c8',
-                        ember: '#ff6a2a',
-                        copper: '#b64a22'
-                    },
-                    fontFamily: {
-                        display: ['IBM Plex Mono', 'monospace'],
-                        sans: ['DM Sans', 'sans-serif'],
-                        mono: ['IBM Plex Mono', 'monospace']
-                    },
-                    boxShadow: {
-                        glow: '0 0 60px rgba(255,106,42,.18)'
-                    }
-                }
-            }
-        }
-    </script>
-    <script>
-        // Storage can be unavailable in Safari private mode or restrictive mobile browsers.
-        try {
-            if (localStorage.getItem('l-lab-theme') === 'light') {
-                document.documentElement.classList.add('light-theme');
-            }
-        } catch (error) {
-            // Keep the default dark theme without blocking the rest of the page scripts.
-        }
+        document.documentElement.classList.add('js');
+        tailwind.config = { theme: { extend: {
+            colors: { graphite:'#171717', smoke:'#f4f1ec', ash:'#d8d2c8', ember:'#ff6a2a', copper:'#b64a22' },
+            fontFamily: { display:['IBM Plex Mono','monospace'], sans:['DM Sans','sans-serif'], mono:['IBM Plex Mono','monospace'] },
+            boxShadow: { glow:'0 0 60px rgba(255,106,42,.18)' }
+        } } };
+        try { if (localStorage.getItem('l-lab-theme') === 'light') document.documentElement.classList.add('light-theme'); } catch (error) {}
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'portfolio/hero.css' %}">
+    <link rel="stylesheet" href="{% static 'portfolio/css/footer.css' %}">
+    <script src="{% static 'portfolio/hero.js' %}" defer></script>
     <style>
-        body { background: #171717; color: #f4f1ec; transition: background .35s ease, color .35s ease; }
-        .grain:before { content:""; position:fixed; inset:0; pointer-events:none; opacity:.13; z-index:50; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E"); }
-        .reveal { animation: reveal .8s cubic-bezier(.2,.8,.2,1) both; }
-        .delay-1 { animation-delay: .12s; } .delay-2 { animation-delay: .24s; } .delay-3 { animation-delay: .36s; }
-        @keyframes reveal { from { opacity:0; transform: translateY(18px); } to { opacity:1; transform: translateY(0); } }
-        .field input, .field textarea, .field select {
-            width:100%; border:1px solid rgba(244,241,236,.16); border-radius:1rem; background:rgba(244,241,236,.06);
-            padding: .95rem 1rem; color:#f4f1ec; outline:none; transition:.2s ease;
-        }
-        .field input:focus, .field textarea:focus, .field select:focus { border-color:#ff6a2a; box-shadow:0 0 0 4px rgba(255,106,42,.12); }
+        body { background:#171717; color:#f4f1ec; transition:background .3s ease,color .3s ease; }
+        .grain::before { content:""; position:fixed; inset:0; z-index:50; pointer-events:none; opacity:.11; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E"); }
+        .tech-grid { position:relative; overflow:hidden; }
+        .tech-grid::before { content:""; position:absolute; inset:0; pointer-events:none; opacity:.55; background-image:linear-gradient(rgba(244,241,236,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(244,241,236,.06) 1px,transparent 1px); background-size:72px 72px; mask-image:radial-gradient(ellipse at 55% 35%,black 0 45%,transparent 78%); }
+        .tech-grid::after { content:""; position:absolute; inset:0; pointer-events:none; background-image:radial-gradient(circle,rgba(255,106,42,.95) 0 2.5px,transparent 3.2px),radial-gradient(circle,rgba(244,241,236,.5) 0 1.7px,transparent 2.6px); background-size:432px 72px,576px 72px; background-position:0 35px,160px 71px; filter:drop-shadow(0 0 9px rgba(255,106,42,.45)); mask-image:radial-gradient(ellipse at 55% 35%,black 0 42%,transparent 74%); animation:signal 20s linear infinite; }
+        .tech-grid > * { position:relative; z-index:1; }
+        @keyframes signal { to { background-position:432px 35px,-416px 71px; } }
+        .reveal { animation:reveal .75s cubic-bezier(.2,.8,.2,1) both; }
+        .delay-1 { animation-delay:.1s; } .delay-2 { animation-delay:.2s; } .delay-3 { animation-delay:.3s; }
+        @keyframes reveal { from { opacity:0; transform:translateY(16px); } }
+        .js .section-enter { opacity:0; transform:translateY(52px) scale(.985); filter:blur(8px); transition:opacity .85s ease,transform 1s cubic-bezier(.16,1,.3,1),filter .8s ease; will-change:opacity,transform,filter; }
+        .js .section-enter.is-visible { opacity:1; transform:translateY(0) scale(1); filter:blur(0); }
+        .field input,.field textarea,.field select { width:100%; border:1px solid rgba(244,241,236,.16); border-radius:1rem; background:rgba(244,241,236,.055); padding:.9rem 1rem; color:#f4f1ec; outline:none; transition:.2s ease; }
+        .field input:focus,.field textarea:focus,.field select:focus { border-color:#ff6a2a; box-shadow:0 0 0 4px rgba(255,106,42,.12); }
         .field select option { color:#171717; }
-        .hero-net { position: relative; overflow: hidden; }
-        .hero-net::before {
-            content:""; position:absolute; inset:0; pointer-events:none; opacity:.58;
-            background-image:
-                linear-gradient(rgba(244,241,236,.065) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(244,241,236,.065) 1px, transparent 1px);
-            background-size: 72px 72px;
-            -webkit-mask-image: radial-gradient(ellipse at 52% 35%, black 0%, black 48%, transparent 78%);
-            mask-image: radial-gradient(ellipse at 52% 35%, black 0%, black 48%, transparent 78%);
-        }
-        .hero-net::after {
-            content:""; position:absolute; inset:0; pointer-events:none; opacity:.95;
-            background-image:
-                radial-gradient(circle, rgba(255,106,42,.95) 0 2.4px, transparent 3.2px),
-                radial-gradient(circle, rgba(244,241,236,.55) 0 1.8px, transparent 2.8px),
-                radial-gradient(circle, rgba(255,106,42,.45) 0 1.8px, transparent 2.8px);
-            background-size: 432px 72px, 576px 72px, 360px 72px;
-            background-position: 0 35px, 160px 71px, 80px 0;
-            filter: drop-shadow(0 0 10px rgba(255,106,42,.45));
-            animation: signal-run 18s linear infinite;
-            -webkit-mask-image: radial-gradient(ellipse at 52% 35%, black 0%, black 42%, transparent 74%);
-            mask-image: radial-gradient(ellipse at 52% 35%, black 0%, black 42%, transparent 74%);
-        }
-        .hero-net > * { position: relative; z-index: 1; }
-        @keyframes signal-run {
-            to { background-position: 432px 35px, -416px 71px, 440px 0; }
-        }
-        .terminal-output p { min-height: 1.5rem; white-space: pre-wrap; word-break: break-word; }
-        .terminal-cursor { display:inline-block; height:1em; width:.55em; transform:translateY(.16em); background:#ff6a2a; animation: cursor-blink .9s steps(1,end) infinite; }
-        .typing-title-cursor { width:.1em; height:.82em; margin-left:.08em; transform:translateY(.08em); box-shadow:0 0 14px rgba(255,106,42,.55); }
-        @keyframes cursor-blink { 50% { opacity:0; } }
-        .process-step {
-            position:relative;
-            animation: process-glow 8s ease-in-out infinite;
-            will-change: transform, box-shadow, background-color, border-color;
-        }
-        .process-step:nth-child(2) { animation-delay: 2s; }
-        .process-step:nth-child(3) { animation-delay: 4s; }
-        .process-step:nth-child(4) { animation-delay: 6s; }
-        .process-arrow {
-            position:absolute; left:50%; bottom:-2.25rem; width:2rem; height:2rem;
-            color:#ff6a2a; transform:translateX(-50%) rotate(90deg); pointer-events:none;
-            opacity:.28; animation:process-flow 8s ease-in-out infinite;
-        }
-        .process-step:nth-child(1) .process-arrow { animation-delay:1.15s; }
-        .process-step:nth-child(2) .process-arrow { animation-delay:3.15s; }
-        .process-step:nth-child(3) .process-arrow { animation-delay:5.15s; }
-        .process-step:hover .process-arrow { opacity:1; filter:drop-shadow(0 0 7px rgba(255,106,42,.7)); }
-        @media (min-width:1024px) {
-            .process-arrow { left:auto; right:-1.75rem; bottom:auto; top:50%; transform:translateY(-50%); }
-        }
-        @keyframes process-glow {
-            0%, 25%, 100% { transform:translateY(0); border-color:rgba(244,241,236,.1); background-color:transparent; box-shadow:0 0 0 rgba(255,106,42,0); }
-            5%, 20% { transform:translateY(-3px); border-color:rgba(255,106,42,.7); background-color:rgba(255,106,42,.1); box-shadow:0 0 30px rgba(255,106,42,.2); }
-        }
-        @keyframes process-flow {
-            0%, 12%, 100% { opacity:.28; filter:drop-shadow(0 0 0 rgba(255,106,42,0)); }
-            3%, 9% { opacity:1; filter:drop-shadow(0 0 7px rgba(255,106,42,.8)); }
-        }
-        .theme-toggle-dot { transform: translateX(0); transition: transform .25s ease, background .25s ease; }
-        .light-theme .theme-toggle-dot { transform: translateX(1.45rem); background:#171717; }
+        .field .errorlist { margin:.45rem 0 0; list-style:none; font-size:.8rem; color:#ff9a70; }
         .light-theme body { background:#f4f1ec; color:#171717; }
-        .light-theme .grain:before { opacity:.07; }
-        .light-theme header { background:rgba(244,241,236,.78) !important; border-color:rgba(23,23,23,.1) !important; }
-        .light-theme header [class*="bg-graphite/95"], .light-theme #mobile-menu { background:rgba(244,241,236,.96) !important; }
-        .light-theme .text-smoke { color:#171717 !important; }
-        .light-theme .text-smoke\/72, .light-theme .text-smoke\/70, .light-theme .text-smoke\/62, .light-theme .text-smoke\/60, .light-theme .text-smoke\/55, .light-theme .text-smoke\/50, .light-theme .text-smoke\/45 { color:rgba(23,23,23,.62) !important; }
-        .light-theme .hero-net::before {
-            background-image:linear-gradient(rgba(23,23,23,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(23,23,23,.07) 1px, transparent 1px);
-        }
-        .light-theme .hero-net::after {
-            background-image:radial-gradient(circle, rgba(255,106,42,.95) 0 2.4px, transparent 3.2px), radial-gradient(circle, rgba(23,23,23,.36) 0 1.8px, transparent 2.8px), radial-gradient(circle, rgba(255,106,42,.45) 0 1.8px, transparent 2.8px);
-        }
-        .light-theme [class*="bg-white/[."] { background:rgba(23,23,23,.035) !important; }
-        .light-theme [class*="border-white/"] { border-color:rgba(23,23,23,.12) !important; }
-        .light-theme #casos { background:#e8e2d8 !important; color:#171717 !important; border-color:rgba(23,23,23,.1) !important; }
-        .light-theme #precios { background:#efe7dc !important; color:#171717 !important; border-color:rgba(23,23,23,.1) !important; }
-        .light-theme #precios article { background:rgba(255,255,255,.42) !important; border-color:rgba(23,23,23,.1) !important; }
-        .light-theme #precios [class*="bg-white/[."] { background:rgba(23,23,23,.035) !important; }
-        .light-theme #precios [class*="border-white/"] { border-color:rgba(23,23,23,.12) !important; }
-        .light-theme .terminal-panel { background:#0b0b0b !important; color:#f4f1ec !important; }
-        .light-theme .terminal-panel .text-smoke { color:#f4f1ec !important; }
-        .light-theme .terminal-panel .text-smoke\/40 { color:rgba(244,241,236,.4) !important; }
-        .light-theme .terminal-panel [class*="border-white/"] { border-color:rgba(244,241,236,.1) !important; }
-        .light-theme .field input, .light-theme .field textarea, .light-theme .field select { background:rgba(23,23,23,.04); border-color:rgba(23,23,23,.14); color:#171717; }
-        @media (prefers-reduced-motion: reduce) {
-            .hero-net::after, .terminal-cursor, .process-step, .process-arrow { animation:none; }
-            .typing-title-cursor { display:none; }
-        }
+        .light-theme .grain::before { opacity:.06; }
+        .light-theme header { background:rgba(244,241,236,.82)!important; border-color:rgba(23,23,23,.1)!important; }
+        .light-theme #mobile-menu { background:rgba(244,241,236,.97)!important; }
+        .light-theme .text-smoke { color:#171717!important; }
+        .light-theme .text-smoke\/75,.light-theme .text-smoke\/70,.light-theme .text-smoke\/65,.light-theme .text-smoke\/60,.light-theme .text-smoke\/55,.light-theme .text-smoke\/50,.light-theme .text-smoke\/45 { color:rgba(23,23,23,.65)!important; }
+        .light-theme [class*="bg-white/[."] { background:rgba(23,23,23,.035)!important; }
+        .light-theme [class*="border-white/"] { border-color:rgba(23,23,23,.12)!important; }
+        .light-theme .tech-grid::before { background-image:linear-gradient(rgba(23,23,23,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(23,23,23,.07) 1px,transparent 1px); }
+        .light-theme #casos { background:#e8e2d8!important; color:#171717!important; border-color:rgba(23,23,23,.1)!important; }
+        .light-theme #casos .text-smoke\/70 { color:rgba(23,23,23,.68)!important; }
+        .light-theme .field input,.light-theme .field textarea,.light-theme .field select { background:rgba(23,23,23,.04); border-color:rgba(23,23,23,.14); color:#171717; }
+        :focus-visible { outline:2px solid #ff6a2a; outline-offset:4px; }
+        @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto!important; } .reveal,.tech-grid::after { animation:none!important; } .js .section-enter { opacity:1; transform:none; filter:none; transition:none; } }
     </style>
 </head>
 <body class="grain font-sans selection:bg-ember selection:text-graphite">
-    <div class="absolute inset-0 -z-10 overflow-hidden">
-        <div class="absolute left-[-12rem] top-[-10rem] h-[32rem] w-[32rem] rounded-full bg-ember/10 blur-3xl"></div>
-        <div class="absolute right-[-18rem] top-[20rem] h-[40rem] w-[40rem] rounded-full bg-white/5 blur-3xl"></div>
-        <div class="absolute inset-0 bg-[linear-gradient(rgba(244,241,236,.045)_1px,transparent_1px),linear-gradient(90deg,rgba(244,241,236,.045)_1px,transparent_1px)] bg-[size:72px_72px]"></div>
-    </div>
-
-        {% include "portfolio/_header.html" %}
+    {% include "portfolio/_header.html" %}
 
     <main id="inicio">
-        <section class="hero-net mx-auto grid min-h-[86vh] max-w-7xl items-center gap-12 px-5 py-20 lg:grid-cols-[1.1fr_.9fr] lg:px-8">
-            <div>
-                <p class="reveal font-mono text-xs uppercase tracking-[.45em] text-ember">Tecnología para pymes</p>
-                <h1 class="reveal delay-1 relative mt-6 max-w-4xl font-mono text-5xl font-medium uppercase leading-[.95] tracking-[-.08em] text-smoke md:text-7xl lg:text-8xl" aria-label="l-lab ordena tu operación, tu trabajo, tu negocio y tus datos.">
-                    <span class="invisible" aria-hidden="true">l-lab<br>ordena tu operación.</span>
-                    <span class="absolute inset-0" aria-hidden="true"><span id="typing-title" data-brand="l-lab" data-prefix="ordena " data-initial-ending="tu operación." data-endings="tu trabajo.|tu negocio.|tus datos.">l-lab<br>ordena tu operación.</span><span class="terminal-cursor typing-title-cursor"></span></span>
-                </h1>
-                <p class="reveal delay-2 mt-8 max-w-2xl text-lg leading-8 text-smoke/72">
-                    Creamos webs, catálogos, ERP y automatizaciones para empresas que quieren captar clientes y ordenar cotizaciones, tareas, facturas y pagos sin depender de Excel y chats dispersos.
-                </p>
-                <div class="reveal delay-3 mt-10 flex flex-col gap-3 sm:flex-row">
-                    <a href="https://wa.me/56934821394?text=Hola%20l-lab%2C%20quiero%20agendar%20un%20diagn%C3%B3stico%20gratis%20de%2015%20minutos" target="_blank" rel="noopener" class="rounded-full bg-ember px-6 py-4 text-center font-bold text-graphite shadow-glow transition hover:-translate-y-0.5 hover:bg-[#ff7d45]">Agenda un diagnóstico</a>
-                    <a href="#servicios" class="rounded-full border border-white/15 px-6 py-4 text-center font-bold text-smoke transition hover:border-ember/70 hover:text-ember">Ver soluciones</a>
-                </div>
-                <p class="reveal delay-3 mt-5 font-mono text-xs leading-6 text-smoke/50">Revisamos y analizamos tus procesos actuales</p>
+        <section class="hero-section tech-grid mx-auto max-w-7xl px-5 lg:px-8">
+            {% include "portfolio/_hero_scene.html" %}
+            <div class="hero-copy">
+                <p class="font-mono text-xs uppercase tracking-[.3em] text-ember">Páginas web para pymes · l-lab.cl</p>
+                <h1 class="mt-4 font-mono font-medium text-smoke">l-lab <span>ordena tu negocio.</span></h1>
             </div>
-            <div class="reveal delay-2 relative">
-                <div class="rounded-[2rem] border border-white/12 bg-white/[.045] p-5 shadow-2xl backdrop-blur">
-                    <div class="mb-5 flex items-center justify-between border-b border-white/10 pb-4 font-mono text-xs text-smoke/50">
-                        <span>l-lab.kernel</span><span class="text-ember">online</span>
-                    </div>
-                    <div class="space-y-4">
-                        <div class="terminal-panel rounded-2xl bg-[#0b0b0b] p-5 font-mono text-[12px] leading-6 text-smoke shadow-inner ring-1 ring-white/10 md:text-sm">
-                            <div class="mb-4 flex items-center gap-2 border-b border-white/10 pb-3">
-                                <span class="h-2.5 w-2.5 rounded-full bg-[#ff5f57]"></span>
-                                <span class="h-2.5 w-2.5 rounded-full bg-[#ffbd2e]"></span>
-                                <span class="h-2.5 w-2.5 rounded-full bg-[#28c840]"></span>
-                                <span class="ml-3 text-xs text-smoke/40">~/clientes/rulkanis_web</span>
-                            </div>
-                            <div id="terminal-output" class="terminal-output min-h-[17rem] space-y-1 overflow-hidden" aria-label="Animación de consola creando el proyecto rulkanis_web"></div>
-                        </div>
-                    </div>
+            <div class="hero-details">
+                <p class="max-w-xl text-lg leading-8 text-smoke/75">Creamos páginas web para que tus clientes entiendan qué haces, conozcan tu trabajo y sepan cómo contactarte.</p>
+                <div class="hero-actions mt-6 flex flex-col gap-3 sm:flex-row">
+                    <a href="#contacto" class="rounded-full bg-ember px-6 py-4 text-center font-bold text-graphite shadow-glow transition hover:-translate-y-0.5 hover:bg-[#ff7d45]">Hablemos de tu web</a>
+                    <a href="#casos" class="rounded-full border border-white/15 px-6 py-4 text-center font-bold text-smoke transition hover:border-ember/70 hover:text-ember">Ver proyectos</a>
                 </div>
+                <p class="mt-5 font-mono text-xs leading-6 text-smoke/50">Primera conversación sin compromiso</p>
+                <p class="hero-capabilities">¿Necesitas ir más allá? También creamos sistemas ERP y automatizaciones.</p>
             </div>
+
         </section>
 
-        <section id="servicios" class="mx-auto max-w-7xl px-5 py-20 lg:px-8">
-            <div class="mb-12">
-                <p class="font-mono text-xs uppercase tracking-[.35em] text-ember">Soluciones</p>
-                <h2 class="mt-4 font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-6xl">Formas para avanzar.</h2>
+        <div class="border-y border-white/10">
+            <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-8 gap-y-3 px-5 py-5 font-mono text-[11px] uppercase tracking-[.2em] text-smoke/50 lg:px-8">
+                <span>Webs que explican y convierten</span><span class="text-ember">●</span><span>Sistemas que ordenan</span><span class="text-ember">●</span><span>Automatizaciones que ahorran tiempo</span>
             </div>
-            <div class="grid gap-4 md:grid-cols-2">
+        </div>
+
+        <section id="soluciones" class="section-enter mx-auto max-w-7xl px-5 py-24 lg:px-8">
+            <div class="grid gap-8 lg:grid-cols-[.8fr_1.2fr] lg:items-end">
+                <div>
+                    <p class="font-mono text-xs uppercase tracking-[.35em] text-ember">Cómo podemos ayudarte</p>
+                    <h2 class="mt-4 font-mono text-4xl font-medium uppercase leading-[.96] tracking-[-.065em] md:text-6xl">Partimos por tu problema, no por la herramienta.</h2>
+                </div>
+                <p class="max-w-xl text-lg leading-8 text-smoke/65 lg:justify-self-end">No necesitas saber si buscas una web, un ERP o una integración. Cuéntanos qué quieres mejorar y definimos el camino más simple.</p>
+            </div>
+            <div class="mt-12 grid gap-4 lg:grid-cols-3">
                 {% for service in services %}
-                <article class="group rounded-[1.5rem] border border-white/10 bg-white/[.035] p-6 transition duration-300 hover:-translate-y-1 hover:border-ember/50 hover:bg-white/[.06]">
-                    <div class="mb-8 h-1 w-12 rounded-full bg-ember transition group-hover:w-20"></div>
-                    <h3 class="text-xl font-bold">{{ service.title }}</h3>
-                    <p class="mt-4 leading-7 text-smoke/62">{{ service.description }}</p>
-                    <a href="{{ service.url }}" class="mt-6 inline-flex font-mono text-xs uppercase tracking-[.18em] text-ember transition hover:text-smoke">{{ service.cta }} →</a>
+                <article class="group flex min-h-[22rem] flex-col rounded-[1.6rem] border border-white/10 bg-white/[.035] p-6 transition duration-300 hover:-translate-y-1 hover:border-ember/50 hover:bg-white/[.06]">
+                    <p class="font-mono text-xs uppercase tracking-[.22em] text-ember">{{ service.eyebrow }}</p>
+                    <h3 class="mt-6 text-2xl font-bold leading-tight">{{ service.title }}</h3>
+                    <p class="mt-4 leading-7 text-smoke/65">{{ service.description }}</p>
+                    <p class="mt-6 border-t border-white/10 pt-5 text-sm leading-6 text-smoke/50">{{ service.examples }}</p>
+                    <a href="{{ service.url }}" class="mt-auto pt-7 font-mono text-xs uppercase tracking-[.16em] text-ember transition group-hover:text-smoke">{{ service.cta }} →</a>
                 </article>
                 {% endfor %}
             </div>
         </section>
 
-        <section id="proceso" class="mx-auto max-w-7xl px-5 pb-24 lg:px-8">
-            <p class="font-mono text-xs uppercase tracking-[.35em] text-ember">Cómo trabajamos</p>
-            <h2 class="mt-4 max-w-3xl font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-5xl">Un proceso simple, de principio a fin.</h2>
-            <ol class="mt-8 grid gap-12 lg:grid-cols-4 lg:gap-6">
-                <li class="process-step flex min-h-28 items-center rounded-[1.4rem] border border-white/10 p-5"><h3 class="text-xl font-bold">Revisamos tu negocio</h3><span class="process-arrow" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M4 16h22M19 9l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></li>
-                <li class="process-step flex min-h-28 items-center rounded-[1.4rem] border border-white/10 p-5"><h3 class="text-xl font-bold">Proponemos una solución simple</h3><span class="process-arrow" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M4 16h22M19 9l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></li>
-                <li class="process-step flex min-h-28 items-center rounded-[1.4rem] border border-white/10 p-5"><h3 class="text-xl font-bold">Construimos y publicamos</h3><span class="process-arrow" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M4 16h22M19 9l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></li>
-                <li class="process-step flex min-h-28 items-center rounded-[1.4rem] border border-white/10 p-5"><h3 class="text-xl font-bold">Te acompañamos con soporte y mejoras</h3></li>
-            </ol>
-        </section>
-
-        <section id="casos" class="border-y border-white/10 bg-[#121110] text-smoke">
+        <section id="casos" class="section-enter border-y border-white/10 bg-[#121110] text-smoke">
             <div class="mx-auto max-w-7xl px-5 py-24 lg:px-8">
-                <p class="font-mono text-xs uppercase tracking-[.35em] text-ember">Casos de estudio</p>
-                <h2 class="mt-4 max-w-4xl font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-6xl">Problemas reales. Soluciones concretas.</h2>
-                <p class="mt-6 max-w-2xl text-lg leading-8 text-smoke/70">Dos soluciones creadas para necesidades reales.</p>
+                <div class="flex flex-col justify-between gap-5 md:flex-row md:items-end">
+                    <div>
+                        <p class="font-mono text-xs uppercase tracking-[.35em] text-ember">Trabajo realizado</p>
+                        <h2 class="mt-4 font-mono text-4xl font-medium uppercase leading-[.96] tracking-[-.065em] md:text-6xl">Soluciones que ya están funcionando.</h2>
+                    </div>
+                    <p class="max-w-md leading-7 text-smoke/70">Proyectos creados para necesidades reales, con foco en claridad, uso diario y resultados concretos.</p>
+                </div>
                 <div class="mt-12 grid gap-5 lg:grid-cols-2">
                     {% for case in case_studies %}
-                    <article class="flex flex-col rounded-[1.6rem] border border-white/10 bg-white/[.045] p-6 transition hover:-translate-y-1 hover:border-ember/45">
-                        {% if case.image %}<img src="{% static case.image %}" alt="Captura del proyecto {{ case.display_title|default:case.project_title }}" class="mb-6 aspect-[16/10] w-full rounded-[1.2rem] object-cover object-top ring-1 ring-white/10" loading="lazy" decoding="async">{% endif %}
-                        <p class="font-mono text-xs uppercase tracking-[.25em] text-ember">{{ case.solution_type }}</p>
-                        <h3 class="mt-3 text-2xl font-bold">{{ case.display_title|default:case.project_title }}</h3>
-                        <p class="mt-4 flex-1 leading-7 text-smoke/70">{{ case.value_statement }}</p>
-                        <a href="{{ case.url }}" target="_blank" rel="noopener noreferrer" class="mt-6 font-mono text-xs uppercase tracking-[.18em] text-cyan-200">Visitar proyecto →</a>
+                    <article class="group overflow-hidden rounded-[1.6rem] border border-white/10 bg-white/[.045] transition hover:-translate-y-1 hover:border-ember/45">
+                        {% if case.image %}<img src="{% static case.image %}" alt="Captura del proyecto {{ case.display_title|default:case.project_title }}" class="aspect-[16/9] w-full object-cover object-top opacity-90 transition duration-500 group-hover:opacity-100" loading="lazy" decoding="async">{% endif %}
+                        <div class="p-6">
+                            <p class="font-mono text-xs uppercase tracking-[.22em] text-ember">{{ case.solution_type }}</p>
+                            <h3 class="mt-3 text-2xl font-bold">{{ case.display_title|default:case.project_title }}</h3>
+                            <p class="mt-3 leading-7 text-smoke/70">{{ case.value_statement }}</p>
+                            <a href="{{ case.url }}" target="_blank" rel="noopener noreferrer" class="mt-5 inline-flex font-mono text-xs uppercase tracking-[.16em] text-ember">Visitar proyecto ↗</a>
+                        </div>
                     </article>
                     {% endfor %}
                 </div>
             </div>
         </section>
 
-        <section id="nosotros" class="mx-auto grid max-w-7xl gap-8 px-5 py-20 lg:grid-cols-[.75fr_1.25fr] lg:items-center lg:px-8">
-                <div class="flex flex-col items-start gap-5 sm:flex-row sm:items-center">
-                    <img src="{% static 'portfolio/images/nelson-landaeta.jpg' %}" alt="Nelson Landaeta" width="700" height="700" loading="lazy" class="h-32 w-32 shrink-0 rounded-full border-2 border-ember/70 object-cover shadow-[0_0_0_6px_rgba(255,106,42,.08)]">
-                    <div>
-                        <p class="font-mono text-xs uppercase tracking-[.35em] text-ember">Trabajo humano</p>
-                        <h2 class="mt-3 text-2xl font-bold"><a href="https://www.linkedin.com/in/nelson-ignacio-landaeta-toro/" target="_blank" rel="noopener noreferrer" class="underline decoration-white/20 underline-offset-4 transition hover:text-cyan-200 hover:decoration-cyan-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-200">Nelson Landaeta ↗</a></h2>
-                        <p class="mt-2 max-w-md font-mono text-xs leading-5 tracking-[.08em] text-smoke/45">Full-Stack Developer | Web Development | AI &amp; Automation | Python · JavaScript · Go | Client Relations</p>
+        <section id="proceso" class="section-enter mx-auto max-w-7xl px-5 py-24 lg:px-8">
+            <div class="grid gap-12 lg:grid-cols-[.7fr_1.3fr]">
+                <div>
+                    <p class="font-mono text-xs uppercase tracking-[.35em] text-ember">Así trabajamos</p>
+                    <h2 class="mt-4 font-mono text-4xl font-medium uppercase leading-[.96] tracking-[-.065em] md:text-5xl">Simple, directo y sin letra chica.</h2>
+                    <p class="mt-6 leading-7 text-smoke/65">Hablas directamente con quien analiza y construye tu solución.</p>
+                    <div class="mt-8 flex items-center gap-4">
+                        <img src="{% static 'portfolio/images/nelson-landaeta.jpg' %}" alt="Nelson Landaeta, desarrollador de l-lab" width="700" height="700" loading="lazy" class="h-16 w-16 rounded-full border-2 border-ember/60 object-cover">
+                        <div><p class="font-bold">Nelson Landaeta</p><p class="text-sm text-smoke/50">Desarrollo y acompañamiento</p></div>
                     </div>
                 </div>
-            <p class="max-w-3xl text-lg leading-8 text-smoke/70">Soy Nelson. Trabajo directamente con pymes para crear webs, sistemas y automatizaciones simples de usar, mantenibles y pensadas para vender u ordenar procesos.</p>
-        </section>
-
-        <section id="precios" class="border-y border-white/10 bg-[#121110]">
-            <div class="mx-auto max-w-7xl px-5 py-20 lg:px-8">
-                <p class="font-mono text-xs uppercase tracking-[.35em] text-ember">Precios desde</p>
-                <h2 class="mt-4 max-w-3xl font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-6xl">Un punto de partida claro.</h2>
-                <div class="mt-10 grid gap-4 md:grid-cols-3">
-                    <article class="rounded-[1.6rem] border border-white/10 bg-white/[.04] p-6">
-                        <p class="font-mono text-xs uppercase tracking-[.22em] text-ember">Web profesional</p>
-                        <p class="mt-5 font-mono text-4xl font-medium tracking-[-.07em]"><span class="text-sm text-smoke/55">desde</span> $100.000</p>
-                        <a href="/desarrollo-web/" class="mt-7 inline-flex font-mono text-xs uppercase tracking-[.18em] text-ember">Ver desarrollo web →</a>
-                    </article>
-                    <article class="rounded-[1.6rem] border border-cyan-300/25 bg-cyan-300/10 p-6">
-                        <p class="font-mono text-xs uppercase tracking-[.22em] text-cyan-200">Sistemas para tu negocio</p>
-                        <p class="mt-5 font-mono text-4xl font-medium tracking-[-.07em]"><span class="text-sm text-smoke/55">desde</span> $20.000.- <span class="text-sm tracking-normal text-smoke/55">mensual</span></p>
-                        <a href="/erp/" class="mt-7 inline-flex font-mono text-xs uppercase tracking-[.18em] text-cyan-200">Ver Sistemas →</a>
-                    </article>
-                    <article class="rounded-[1.6rem] border border-white/10 bg-white/[.04] p-6">
-                        <p class="font-mono text-xs uppercase tracking-[.22em] text-ember">Automatización</p>
-                        <p class="mt-5 font-mono text-4xl font-medium tracking-[-.07em]"><span class="text-sm text-smoke/55">desde</span> $50.000.-</p>
-                        <a href="/automatizaciones/" class="mt-7 inline-flex font-mono text-xs uppercase tracking-[.18em] text-ember">Ver automatizaciones →</a>
-                    </article>
+                <div class="divide-y divide-white/10 border-y border-white/10">
+                    <div class="py-7"><h3 class="text-xl font-bold">Entendemos qué está pasando</h3><p class="mt-2 leading-7 text-smoke/60">Revisamos el problema, el proceso actual y qué resultado esperas.</p></div>
+                    <div class="py-7"><h3 class="text-xl font-bold">Proponemos una solución concreta</h3><p class="mt-2 leading-7 text-smoke/60">Definimos alcance, tiempos y una propuesta fácil de entender.</p></div>
+                    <div class="py-7"><h3 class="text-xl font-bold">Construimos y te acompañamos</h3><p class="mt-2 leading-7 text-smoke/60">Implementamos, explicamos su uso y seguimos disponibles después de publicar.</p></div>
                 </div>
-                <p class="mt-6 rounded-2xl border border-white/10 bg-white/[.035] p-4 text-sm leading-6 text-smoke/62"><strong class="text-smoke">Valores base.</strong> Proyectos completos se cotizan según alcance.</p>
             </div>
         </section>
 
-        <section id="contacto" class="mx-auto max-w-7xl px-5 py-24 lg:px-8">
+        <section id="contacto" class="section-enter mx-auto max-w-7xl px-5 pb-24 lg:px-8">
             <div class="grid overflow-hidden rounded-[2rem] border border-white/10 bg-white/[.045] lg:grid-cols-[.9fr_1.1fr]">
-                <div class="bg-ember p-8 text-graphite md:p-10">
-                    <p class="font-mono text-xs uppercase tracking-[.3em]">Contacto</p>
-                    <h2 class="mt-5 font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.07em] md:text-5xl">Revisemos tu proceso actual.</h2>
-                    <p class="mt-5 leading-7">En 15 minutos identificamos qué conviene ordenar, automatizar o llevar a una web. Sin compromiso.</p>
-                    <div class="mt-10 font-bold">
-                        <a class="block rounded-2xl bg-graphite/10 p-4 transition hover:bg-graphite hover:text-smoke" href="https://wa.me/56934821394" target="_blank" rel="noopener noreferrer">WhatsApp +56 9 3482 1394</a>
+                <div class="bg-ember p-8 text-graphite md:p-10 lg:p-12">
+                    <p class="font-mono text-xs uppercase tracking-[.3em]">Hablemos</p>
+                    <h2 class="mt-5 font-mono text-4xl font-medium uppercase leading-[.95] tracking-[-.065em] md:text-5xl">Cuéntame qué quieres mejorar.</h2>
+                    <p class="mt-6 max-w-md text-lg leading-8">No hace falta tener una solución definida. Describe el problema y revisamos si podemos ayudarte.</p>
+                    <div class="mt-10 border-t border-graphite/15 pt-6 text-sm leading-6">
+                        <p class="font-bold">Respuesta directa por WhatsApp</p>
+                        <p class="mt-1">Primera conversación breve, sin compromiso.</p>
                     </div>
                 </div>
-                <form method="post" class="field space-y-4 p-8 md:p-10">
+                <form method="post" class="field space-y-5 p-8 md:p-10 lg:p-12" novalidate>
                     {% csrf_token %}
-                    {% if messages %}{% for message in messages %}<div class="rounded-2xl border border-ember/30 bg-ember/10 p-4 text-smoke">{{ message }}</div>{% endfor %}{% endif %}
-                    <div class="grid gap-4 md:grid-cols-2">{{ form.name }}{{ form.phone }}</div>
-                    {{ form.service }}
-                    {{ form.message }}
-                    <p class="text-sm leading-6 text-smoke/55">Al continuar se abrirá WhatsApp con tu solicitud lista para enviar.</p>
-                    <button class="w-full rounded-full bg-smoke px-6 py-4 font-bold text-graphite transition hover:-translate-y-0.5 hover:bg-ember" type="submit">Continuar en WhatsApp</button>
+                    {% if messages %}{% for message in messages %}<div role="alert" class="rounded-2xl border border-ember/30 bg-ember/10 p-4">{{ message }}</div>{% endfor %}{% endif %}
+                    <div class="grid gap-5 md:grid-cols-2">
+                        <div><label for="{{ form.name.id_for_label }}" class="mb-2 block text-sm font-bold">Tu nombre</label>{{ form.name }}{{ form.name.errors }}</div>
+                        <div><label for="{{ form.phone.id_for_label }}" class="mb-2 block text-sm font-bold">Teléfono <span class="font-normal text-smoke/45">(opcional)</span></label>{{ form.phone }}{{ form.phone.errors }}</div>
+                    </div>
+                    <div><label for="{{ form.service.id_for_label }}" class="mb-2 block text-sm font-bold">¿Qué quieres mejorar?</label>{{ form.service }}{{ form.service.errors }}</div>
+                    <div><label for="{{ form.message.id_for_label }}" class="mb-2 block text-sm font-bold">Cuéntanos un poco más</label>{{ form.message }}{{ form.message.errors }}</div>
+                    <p class="text-sm leading-6 text-smoke/55">Al continuar, abriremos WhatsApp con tu mensaje listo para enviar.</p>
+                    <button class="w-full rounded-full bg-smoke px-6 py-4 font-bold text-graphite transition hover:-translate-y-0.5 hover:bg-ember" type="submit">Enviar consulta por WhatsApp</button>
                 </form>
             </div>
         </section>
     </main>
 
-    <footer class="hero-net border-t border-white/10 px-5 py-10 text-center font-mono text-xs uppercase tracking-[.2em] text-smoke/45">
-        <span>© {% now "Y" %} l-lab.cl — desarrollo web y aplicaciones a medida</span>
-    </footer>
+    {% include "portfolio/_footer.html" %}
 
     <script>
         const themeToggle = document.querySelector('#theme-toggle');
@@ -324,190 +198,43 @@
         const themeSun = document.querySelector('#theme-sun');
         const mobileMenuToggle = document.querySelector('#mobile-menu-toggle');
         const mobileMenu = document.querySelector('#mobile-menu');
-
-        function getStoredTheme() {
-            try {
-                return localStorage.getItem('l-lab-theme');
-            } catch (error) {
-                return null;
-            }
-        }
-
+        function storedTheme() { try { return localStorage.getItem('l-lab-theme'); } catch (error) { return null; } }
         function applyTheme(theme) {
-            const isLight = theme === 'light';
-            document.documentElement.classList.toggle('light-theme', isLight);
-            try {
-                localStorage.setItem('l-lab-theme', theme);
-            } catch (error) {
-                // The visual toggle still works when persistent storage is blocked.
-            }
-            if (themeToggle) {
-                themeToggle.setAttribute('aria-label', isLight ? 'Cambiar a tema oscuro' : 'Cambiar a tema claro');
-                themeToggle.setAttribute('aria-pressed', String(isLight));
-            }
-            if (themeMoon) themeMoon.classList.toggle('hidden', isLight);
-            if (themeSun) themeSun.classList.toggle('hidden', !isLight);
+            const light = theme === 'light';
+            document.documentElement.classList.toggle('light-theme', light);
+            try { localStorage.setItem('l-lab-theme', theme); } catch (error) {}
+            if (themeToggle) { themeToggle.setAttribute('aria-label', light ? 'Cambiar a tema oscuro' : 'Cambiar a tema claro'); themeToggle.setAttribute('aria-pressed', String(light)); }
+            if (themeMoon) themeMoon.classList.toggle('hidden', light);
+            if (themeSun) themeSun.classList.toggle('hidden', !light);
         }
-
-        applyTheme(getStoredTheme() || 'dark');
-        if (themeToggle) themeToggle.addEventListener('click', () => {
-            const nextTheme = document.documentElement.classList.contains('light-theme') ? 'dark' : 'light';
-            applyTheme(nextTheme);
-        });
-
+        applyTheme(storedTheme() || 'dark');
+        if (themeToggle) themeToggle.addEventListener('click', () => applyTheme(document.documentElement.classList.contains('light-theme') ? 'dark' : 'light'));
         if (mobileMenuToggle) mobileMenuToggle.addEventListener('click', () => {
-            const isOpen = mobileMenu ? !mobileMenu.classList.contains('hidden') : false;
-            if (mobileMenu) mobileMenu.classList.toggle('hidden', isOpen);
-            mobileMenuToggle.setAttribute('aria-expanded', String(!isOpen));
-            mobileMenuToggle.textContent = isOpen ? '☰' : '×';
+            const opening = mobileMenu.classList.contains('hidden');
+            mobileMenu.classList.toggle('hidden');
+            mobileMenuToggle.setAttribute('aria-expanded', String(opening));
+            mobileMenuToggle.textContent = opening ? '×' : '☰';
         });
+        if (mobileMenu) mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+            mobileMenuToggle.setAttribute('aria-expanded', 'false');
+            mobileMenuToggle.textContent = '☰';
+        }));
 
-        if (mobileMenu) mobileMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-                if (mobileMenuToggle) {
-                    mobileMenuToggle.setAttribute('aria-expanded', 'false');
-                    mobileMenuToggle.textContent = '☰';
-                }
-            });
-        });
-
-        const typingTitle = document.querySelector('#typing-title');
-        const terminal = document.querySelector('#terminal-output');
-        const terminalLines = [
-            { prompt: 'nlandaeta@l-lab', path: ':~$ ', command: 'mkdir rulkanis_web' },
-            { prompt: 'nlandaeta@l-lab', path: ':~$ ', command: 'cd rulkanis_web' },
-            { prompt: 'nlandaeta@l-lab', path: ':~/rulkanis_web$ ', command: 'python -m venv venv' },
-            { output: '✓ entorno virtual creado' },
-            { prompt: 'nlandaeta@l-lab', path: ':~/rulkanis_web$ ', command: 'source venv/bin/activate' },
-            { prompt: '(venv)', path: ' $ ', command: 'pip install django tailwind' },
-            { output: '✓ dependencias instaladas · django · tailwind' },
-            { prompt: '(venv)', path: ' $ ', command: 'django-admin startproject core .' },
-            { prompt: '(venv)', path: ' $ ', command: 'python manage.py runserver 0.0.0.0:8000' },
-            { output: 'Servidor iniciado → ', link: 'https://rulkanis.l-lab.cl' },
-        ];
-
-        function appendSpan(line, text, className = '') {
-            const span = document.createElement('span');
-            span.className = className;
-            span.textContent = text;
-            line.appendChild(span);
-            return span;
-        }
-
-        function renderLine(item) {
-            const line = document.createElement('p');
-            terminal.appendChild(line);
-            if (item.prompt) {
-                appendSpan(line, item.prompt, 'text-ember');
-                appendSpan(line, item.path);
-                return { line, targetText: item.command };
-            }
-            return { line, targetText: item.output, output: true, link: item.link };
-        }
-
-        async function typeText(target, text, speed = 22) {
-            for (const character of text) {
-                target.textContent += character;
-                await new Promise(resolve => setTimeout(resolve, speed + Math.random() * 18));
-            }
-        }
-
-        async function deleteText(target, amount, speed = 38) {
-            for (let index = 0; index < amount; index += 1) {
-                target.textContent = target.textContent.slice(0, -1);
-                await new Promise(resolve => setTimeout(resolve, speed + Math.random() * 24));
-            }
-        }
-
-        function shuffledEndings(endings, previousEnding) {
-            const shuffled = [...endings];
-            for (let index = shuffled.length - 1; index > 0; index -= 1) {
-                const randomIndex = Math.floor(Math.random() * (index + 1));
-                [shuffled[index], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[index]];
-            }
-            if (shuffled.length > 1 && shuffled[0] === previousEnding) {
-                [shuffled[0], shuffled[1]] = [shuffled[1], shuffled[0]];
-            }
-            return shuffled;
-        }
-
-        async function runTypingTitle() {
-            if (!typingTitle || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-            const brand = typingTitle.dataset.brand || 'l-lab';
-            const prefix = typingTitle.dataset.prefix || 'ordena ';
-            const initialEnding = typingTitle.dataset.initialEnding || 'tu operación.';
-            const endings = (typingTitle.dataset.endings || 'tu trabajo.|tu negocio.|tus datos.').split('|');
-            while (typingTitle.firstChild) typingTitle.removeChild(typingTitle.firstChild);
-            await new Promise(resolve => setTimeout(resolve, 450));
-            await typeText(typingTitle, brand, 65);
-            typingTitle.appendChild(document.createElement('br'));
-            await new Promise(resolve => setTimeout(resolve, 700));
-            const messageLine = document.createElement('span');
-            typingTitle.appendChild(messageLine);
-            await typeText(messageLine, prefix + initialEnding, 65);
-
-            let currentEnding = initialEnding;
-            const round = shuffledEndings(endings, currentEnding);
-            for (const nextEnding of round) {
-                await new Promise(resolve => setTimeout(resolve, 1500));
-                await deleteText(messageLine, currentEnding.length);
-                await typeText(messageLine, nextEnding, 65);
-                currentEnding = nextEnding;
-            }
-        }
-
-        runTypingTitle();
-
-        async function runTerminal() {
-            if (!terminal) return;
-            await new Promise(resolve => setTimeout(resolve, 250));
-            for (const item of terminalLines) {
-                const { line, targetText, output, link } = renderLine(item);
-                const target = appendSpan(line, '', output ? 'text-ash/70' : '');
-                await typeText(target, targetText, output ? 12 : 20);
-                if (link) {
-                    const anchor = document.createElement('a');
-                    anchor.href = link;
-                    anchor.target = '_blank';
-                    anchor.rel = 'noopener';
-                    anchor.className = 'text-ember underline decoration-ember/40 underline-offset-4 transition hover:text-smoke';
-                    line.appendChild(anchor);
-                    await typeText(anchor, link, 18);
-                }
-                await new Promise(resolve => setTimeout(resolve, output ? 260 : 380));
-            }
-            const cursor = document.createElement('span');
-            cursor.className = 'terminal-cursor';
-            terminal.lastElementChild.appendChild(document.createTextNode(' '));
-            terminal.lastElementChild.appendChild(cursor);
-        }
-
-        let terminalStarted = false;
-
-        function startTerminalOnce() {
-            if (terminalStarted) return;
-            terminalStarted = true;
-            runTerminal();
-        }
-
-        if (terminal) {
-            if ('IntersectionObserver' in window) {
-                const terminalObserver = new IntersectionObserver((entries, observer) => {
-                    const entry = entries[0];
-                    if (!entry || !entry.isIntersecting) return;
-                    observer.disconnect();
-                    startTerminalOnce();
-                }, {
-                    threshold: 0.35,
-                    rootMargin: '0px 0px -10% 0px'
+        const animatedSections = document.querySelectorAll('.section-enter');
+        if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            const sectionObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
                 });
-
-                terminalObserver.observe(terminal);
-            } else {
-                startTerminalOnce();
-            }
+            }, { threshold:.12, rootMargin:'0px 0px -8% 0px' });
+            animatedSections.forEach(section => sectionObserver.observe(section));
+        } else {
+            animatedSections.forEach(section => section.classList.add('is-visible'));
         }
+
     </script>
 </body>
 </html>

@@ -3,68 +3,126 @@ from urllib.parse import parse_qs, urlparse
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
-from .models import Project
-
 
 @override_settings(SECURE_SSL_REDIRECT=False)
-class PublicSiteTests(TestCase):
-    def test_commercial_pages_are_available(self):
-        for name in (
-            "home",
-            "web_development_projects",
-            "catalog",
-            "erp",
-            "automations",
-            "systems",
-        ):
+class PublicLandingPageTests(TestCase):
+    def test_home_is_the_only_public_content_page(self):
+        response = self.client.get(reverse("home"))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "portfolio/home.html")
+        self.assertContains(response, 'rel="canonical" href="https://l-lab.cl/"')
+
+    def test_legacy_pages_redirect_to_landing_sections(self):
+        destinations = {
+            "systems": "/#soluciones",
+            "erp": "/#soluciones",
+            "web_development_projects": "/#casos",
+            "catalog": "/#soluciones",
+            "automations": "/#soluciones",
+            "projects_hub": "/#casos",
+        }
+        for name, destination in destinations.items():
             with self.subTest(name=name):
                 response = self.client.get(reverse(name))
-                self.assertEqual(response.status_code, 200)
-                self.assertContains(response, 'rel="canonical"')
+                self.assertEqual(response.status_code, 301)
+                self.assertEqual(response["Location"], destination)
 
-    def test_robots_points_to_sitemap_and_blocks_admin(self):
-        response = self.client.get("/robots.txt")
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response["Content-Type"], "text/plain")
-        self.assertContains(response, "Disallow: /admin/")
-        self.assertContains(response, "https://l-lab.cl/sitemap.xml")
-
-    def test_sitemap_contains_public_routes(self):
-        response = self.client.get("/sitemap.xml")
-        self.assertEqual(response.status_code, 200)
-        for path in ("/", "/desarrollo-web/", "/catalogo-web/", "/erp/", "/automatizaciones/", "/sistemas/"):
-            self.assertContains(response, path)
-
-    @override_settings(DEBUG=False)
-    def test_custom_404_hides_framework_details(self):
-        response = self.client.get("/ruta-que-no-existe/")
-        self.assertEqual(response.status_code, 404)
-        self.assertTemplateUsed(response, "404.html")
-        self.assertContains(response, "Esta página no existe", status_code=404)
-        self.assertNotContains(response, "URLconf", status_code=404)
-
-    def test_home_has_conversion_message_and_structured_data(self):
+    def test_landing_has_clear_conversion_structure(self):
         response = self.client.get(reverse("home"))
-        self.assertContains(response, "Agenda un diagnóstico")
-        self.assertContains(response, "Problemas reales. Soluciones concretas.")
-        self.assertContains(response, "Cómo trabajamos")
-        self.assertContains(response, 'application/ld+json')
+        for copy in (
+            "l-lab <span>ordena tu negocio.</span>",
+            "Consigue más consultas",
+            "Centraliza tu operación",
+            "Deja de repetir tareas",
+            "Soluciones que ya están funcionando.",
+            "Cuéntame qué quieres mejorar.",
+            "Enviar consulta por WhatsApp",
+        ):
+            self.assertContains(response, copy)
+        self.assertEqual(len(response.context["services"]), 3)
+        self.assertEqual(len(response.context["case_studies"]), 2)
 
-    def test_contact_uses_whatsapp_without_exposing_an_email_address(self):
+    def test_hero_prioritizes_websites_and_has_accessible_scene(self):
         response = self.client.get(reverse("home"))
-        self.assertContains(response, "Continuar en WhatsApp")
-        self.assertContains(response, "WhatsApp +56 9 3482 1394")
-        self.assertNotContains(response, "contacto@l-lab.cl")
-        self.assertNotContains(response, 'type="email"')
-        self.assertNotContains(response, "mailto:")
+        content = response.content.decode()
+        hero = content.split('<main id="inicio">', 1)[1].split('</section>', 1)[0]
+        self.assertIn("Páginas web para pymes", hero)
+        self.assertIn("l-lab <span>ordena tu negocio.</span>", hero)
+        self.assertLess(hero.index('id="web-build"'), hero.index('<h1'))
+        self.assertIn('href="#contacto"', hero)
+        self.assertIn("Hablemos de tu web", hero)
+        self.assertIn('href="#casos"', hero)
+        self.assertIn("Ver proyectos", hero)
+        self.assertIn("sistemas ERP y automatizaciones", hero)
+        self.assertIn('aria-label="Demostración:', hero)
+        for removed_copy in (
+            "De piezas sueltas a tu propia web",
+            "Diseño + contenido + contacto. Todo en su lugar.",
+            "Lo que hace único a tu negocio, en una web que lo conecta.",
+            "Una presencia clara. Un próximo paso fácil.",
+        ):
+            self.assertNotIn(removed_copy, hero)
+        self.assertNotIn('id="web-build-status"', hero)
+        self.assertIn('id="web-build-replay" hidden', hero)
+        self.assertNotIn('id="terminal-output"', content)
+        self.assertNotIn('id="typing-title"', content)
+        self.assertContains(response, '/static/portfolio/hero.css')
+        self.assertContains(response, '/static/portfolio/hero.js')
 
+    def test_footer_has_direct_contact_and_project_links(self):
+        response = self.client.get(reverse("home"))
+        self.assertTemplateUsed(response, "portfolio/_footer.html")
+        footer = response.content.decode().split('<footer', 1)[1].split('</footer>', 1)[0]
+        self.assertIn('href="tel:+56934821394"', footer)
+        self.assertIn("+56 9 3482 1394", footer)
+        self.assertIn('href="https://wa.me/56934821394"', footer)
+        self.assertIn('href="#contacto"', footer)
+        self.assertIn('href="#inicio"', footer)
+        self.assertIn('aria-labelledby="footer-projects-title"', footer)
+        self.assertNotIn("↗", footer)
+        self.assertNotIn("↑", footer)
+        self.assertIn('class="site-footer-cta"', footer)
+        self.assertIn('class="site-footer-link"', footer)
+        for project_url in (
+            "https://neuquemas.l-lab.cl",
+            "https://erp.l-lab.cl",
+        ):
+            self.assertIn(
+                f'href="{project_url}" target="_blank" rel="noopener noreferrer"',
+                footer,
+            )
+        self.assertContains(response, '/static/portfolio/css/footer.css')
+
+    def test_prices_and_links_to_old_pages_are_not_rendered(self):
+        content = self.client.get(reverse("home")).content.decode()
+        self.assertNotIn('id="precios"', content)
+        self.assertNotIn(">Precios<", content)
+        for old_path in (
+            "/desarrollo-web/",
+            "/catalogo-web/",
+            "/erp/",
+            "/automatizaciones/",
+            "/sistemas/",
+        ):
+            self.assertNotIn(f'href="{old_path}"', content)
+
+    def test_navigation_only_uses_landing_sections(self):
+        response = self.client.get(reverse("home"))
+        header = response.content.decode().split("<header", 1)[1].split("</header>", 1)[0]
+        for anchor in ("/#soluciones", "/#casos", "/#proceso", "/#contacto"):
+            self.assertIn(f'href="{anchor}"', header)
+        self.assertNotIn("Precios", header)
+        self.assertNotIn("Automatizaciones</a>", header)
+        self.assertNotIn("Desarrollo web</a>", header)
+
+    def test_contact_opens_whatsapp_with_submitted_details(self):
         response = self.client.post(
             reverse("home"),
             {
                 "name": "Ana Pérez",
                 "phone": "+56 9 1111 2222",
-                "service": "Web profesional",
-                "message": "Necesito renovar mi sitio.",
+                "service": "Ordenar mi operación",
+                "message": "Necesito centralizar las cotizaciones.",
             },
         )
         self.assertEqual(response.status_code, 302)
@@ -73,201 +131,45 @@ class PublicSiteTests(TestCase):
         self.assertEqual(redirect_url.path, "/56934821394")
         whatsapp_text = parse_qs(redirect_url.query)["text"][0]
         self.assertIn("Ana Pérez", whatsapp_text)
-        self.assertIn("Web profesional", whatsapp_text)
-        self.assertIn("Necesito renovar mi sitio.", whatsapp_text)
-        self.assertNotIn("Email", whatsapp_text)
+        self.assertIn("Ordenar mi operación", whatsapp_text)
+        self.assertIn("Necesito centralizar las cotizaciones.", whatsapp_text)
 
-    def test_service_pages_use_concrete_commercial_copy(self):
-        catalog = self.client.get(reverse("catalog"))
-        self.assertContains(catalog, "Ferreterías")
-        self.assertContains(catalog, "Ventas por WhatsApp")
+    def test_invalid_contact_submission_shows_errors(self):
+        response = self.client.post(reverse("home"), {"name": "", "service": "", "message": ""})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Revisa los campos del formulario")
+        self.assertContains(response, "Este campo es obligatorio")
 
-        erp = self.client.get(reverse("erp"))
-        self.assertContains(erp, "Tu operación, bajo control")
-        self.assertContains(erp, "Inventario por bodega y variante")
-        self.assertContains(erp, "Multiempresa, permisos y auditoría")
-        self.assertContains(erp, "Dashboard general")
-        self.assertContains(erp, "/static/portfolio/images/erp-login.png")
-        self.assertContains(erp, "/static/portfolio/images/erp-dashboard.png")
-        self.assertNotContains(erp, "Ejemplos de interfaz")
+    def test_sitemap_only_contains_home(self):
+        response = self.client.get("/sitemap.xml")
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "<loc>https://testserver/</loc>", html=True)
+        for path in ("desarrollo-web", "catalogo-web", "erp/", "automatizaciones", "sistemas/"):
+            self.assertNotContains(response, path)
 
-        automations = self.client.get(reverse("automations"))
-        self.assertContains(automations, "Formulario a lead y seguimiento")
-        self.assertContains(automations, "Aviso de tareas vencidas")
+    def test_robots_points_to_sitemap_and_blocks_admin(self):
+        response = self.client.get("/robots.txt")
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Disallow: /admin/")
+        self.assertContains(response, "https://l-lab.cl/sitemap.xml")
 
-        systems = self.client.get(reverse("systems"))
-        self.assertContains(systems, "ERP Empresas")
-        self.assertContains(systems, "Aula Virtual")
-        self.assertContains(systems, "Elige el sistema")
-        self.assertContains(systems, "que se acerca a lo que necesitas.")
-        self.assertNotContains(systems, "Sistemas disponibles")
-        self.assertNotContains(systems, "No partimos de cero")
-        self.assertNotContains(systems, "Tenemos sistemas construidos")
-        self.assertNotContains(systems, "SYS—01")
-        self.assertNotContains(systems, "SYS—02")
-        self.assertNotContains(systems, ">60%</span>")
+    @override_settings(DEBUG=False)
+    def test_custom_404_hides_framework_details(self):
+        response = self.client.get("/ruta-que-no-existe/")
+        self.assertEqual(response.status_code, 404)
+        self.assertTemplateUsed(response, "404.html")
+        self.assertContains(response, "Esta página no existe", status_code=404)
 
-    def test_main_service_pages_share_the_primary_cta(self):
-        cta = "Agenda un diagnóstico"
-        for name in ("home", "web_development_projects", "catalog", "erp", "automations", "systems"):
-            with self.subTest(name=name):
-                self.assertContains(self.client.get(reverse(name)), cta)
-
-    def test_all_pages_use_the_same_navigation(self):
-        links = (
-            "Inicio",
-            "Soluciones",
-            "Automatizaciones",
-            "Desarrollo web",
-            "Sistemas",
-            "Casos",
-            "Nosotros",
-            "Precios",
-            "Contacto",
-        )
-        for name in ("home", "web_development_projects", "catalog", "erp", "automations", "systems"):
-            with self.subTest(name=name):
-                response = self.client.get(reverse(name))
-                self.assertTemplateUsed(response, "portfolio/_header.html")
-                for link in links:
-                    self.assertContains(response, link)
-                self.assertContains(response, 'href="/#nosotros"')
-                header = response.content.decode().split("<header", 1)[1].split("</header>", 1)[0]
-                self.assertLess(header.index("Automatizaciones"), header.index("Desarrollo web"))
-                self.assertLess(header.index("Desarrollo web"), header.index("Sistemas"))
-                self.assertNotIn('href="/catalogo-web/"', header)
-                self.assertNotIn('href="/erp/"', header)
-
-    def test_flag_garland_is_not_rendered(self):
-        for name in ("home", "web_development_projects", "catalog", "erp", "automations", "systems"):
-            with self.subTest(name=name):
-                response = self.client.get(reverse(name))
-                self.assertNotContains(response, "/static/portfolio/css/fiestas-patrias.css")
-                self.assertNotContains(response, 'class="guirnalda-chilena"')
-
-    def test_home_is_a_concise_commercial_guide(self):
-        response = self.client.get(reverse("home"))
-        self.assertEqual(len(response.context["services"]), 4)
-        self.assertEqual(len(response.context["case_studies"]), 2)
-        for removed_copy in (
-            "Problemas que resolvemos",
-            "Menos fricción para vender y operar",
-            "No llegan suficientes consultas",
-            "Tu catálogo vive en WhatsApp",
-            "Tu operación depende de Excel",
-            "Pierdes tiempo en tareas repetidas",
-        ):
-            self.assertNotContains(response, removed_copy)
-        self.assertContains(response, "Web profesional")
-        self.assertContains(response, "Ordenamos tus operaciones")
-        self.assertContains(response, "Sistemas para tu negocio")
-        self.assertContains(response, 'href="/sistemas/"', count=4)
-        self.assertContains(response, "Valores base.")
-        self.assertContains(response, "Proyectos completos se cotizan según alcance.")
-        self.assertContains(response, "Trabajo humano")
-        self.assertContains(response, "Full-Stack Developer")
-        self.assertContains(response, "nelson-landaeta.jpg")
-        self.assertContains(response, "linkedin.com/in/nelson-ignacio-landaeta-toro/")
-        self.assertContains(response, "Soy Nelson.")
-        self.assertNotContains(response, "Repositorio comercial")
-        self.assertNotContains(response, "Misión")
-        self.assertNotContains(response, "Solitario")
-
-    def test_favicon_is_available_on_every_page(self):
-        favicon_url = "/static/portfolio/brand/logo-l-lab.png"
-        for name in ("home", "web_development_projects", "catalog", "erp", "automations", "systems"):
-            with self.subTest(name=name):
-                self.assertContains(self.client.get(reverse(name)), favicon_url)
-
-        redirect_response = self.client.get("/favicon.ico")
-        self.assertRedirects(
-            redirect_response,
-            favicon_url,
-            status_code=301,
-            fetch_redirect_response=False,
-        )
-        asset_response = self.client.get(favicon_url)
-        self.assertEqual(asset_response.status_code, 200)
-        self.assertEqual(asset_response["Content-Type"], "image/png")
-
-    def test_case_study_images_use_deployable_static_assets(self):
-        response = self.client.get(reverse("home"))
-        for image in (
+    def test_static_assets_used_by_landing_are_available(self):
+        for asset in (
+            "/static/portfolio/css/footer.css",
+            "/static/portfolio/hero.css",
+            "/static/portfolio/hero.js",
+            "/static/portfolio/images/hero-negocio.svg",
+            "/static/portfolio/brand/logo-l-lab.png",
             "/static/portfolio/images/adp-seguridad.png",
             "/static/portfolio/images/renmai-ficha-clinica.png",
+            "/static/portfolio/images/nelson-landaeta.jpg",
         ):
-            self.assertContains(response, image)
-            asset_response = self.client.get(image)
-            self.assertEqual(asset_response.status_code, 200)
-
-    def test_case_studies_link_to_live_projects(self):
-        response = self.client.get(reverse("home"))
-        for project_url in (
-            "https://adpseguridad.cl",
-            "https://fichaclinica.renmai.cl",
-        ):
-            self.assertContains(response, f'href="{project_url}"')
-        self.assertContains(response, "Visitar proyecto", count=2)
-        self.assertNotContains(response, "Ver una solución similar")
-
-    def test_likan_propiedades_is_hidden_from_home_and_web_development(self):
-        Project.objects.update_or_create(
-            slug="likan-propiedades",
-            defaults={
-                "title": "Likan Propiedades",
-                "short_description": "Catálogo inmobiliario",
-                "project_url": "https://www.likanpropiedades.cl",
-                "status": "published",
-            },
-        )
-        for name in ("home", "web_development_projects"):
-            with self.subTest(name=name):
-                response = self.client.get(reverse(name))
-                self.assertNotContains(response, "Likan Propiedades")
-                self.assertNotContains(response, "likanpropiedades.cl")
-
-    def test_encaminar_replaces_abordar_on_web_development_page(self):
-        response = self.client.get(reverse("web_development_projects"))
-        image_url = "/static/portfolio/images/encaminar.png"
-        self.assertContains(response, "Encaminar")
-        self.assertContains(response, "https://encaminar.cl")
-        self.assertContains(response, "Django")
-        self.assertContains(response, "Tailwind")
-        self.assertContains(response, image_url)
-        self.assertNotContains(response, "Abordar")
-        self.assertEqual(self.client.get(image_url).status_code, 200)
-
-    def test_renmai_uses_its_deployable_preview_on_web_development_page(self):
-        Project.objects.create(
-            title="Renmai",
-            short_description="Sitio web de Renmai",
-            project_url="https://renmai.cl",
-            status="published",
-        )
-        response = self.client.get(reverse("web_development_projects"))
-        image_url = "/static/portfolio/images/renmai.png"
-        self.assertContains(response, image_url)
-        self.assertEqual(self.client.get(image_url).status_code, 200)
-
-    def test_erp_uses_real_deployable_interface_images(self):
-        response = self.client.get(reverse("erp"))
-        for image in (
-            "/static/portfolio/images/erp-login.png",
-            "/static/portfolio/images/erp-dashboard.png",
-        ):
-            self.assertContains(response, image)
-            asset_response = self.client.get(image)
-            self.assertEqual(asset_response.status_code, 200)
-            self.assertEqual(asset_response["Content-Type"], "image/png")
-
-    def test_solitario_is_separated_as_a_lab_project(self):
-        Project.objects.create(
-            title="Solitario",
-            short_description="Experimento interactivo",
-            status="published",
-        )
-        response = self.client.get(reverse("web_development_projects"))
-        self.assertContains(response, "Laboratorio")
-        self.assertContains(response, "Experimento / no comercial")
-        self.assertContains(response, "Solitario")
-        self.assertContains(response, "/static/portfolio/videos/solitario.mp4")
+            with self.subTest(asset=asset):
+                self.assertEqual(self.client.get(asset).status_code, 200)

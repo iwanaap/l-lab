@@ -13,20 +13,18 @@ class ContactInquiryForm(forms.Form):
     )
     service = forms.ChoiceField(
         choices=[
-            ("", "Selecciona una solución"),
-            ("Diagnóstico general", "Diagnóstico general (15 min)"),
-            ("Web profesional", "Web profesional"),
-            ("Catálogo web", "Catálogo web"),
-            ("ERP para pymes", "ERP para pymes"),
-            ("Automatización", "Automatización de procesos"),
-            ("Desarrollo a medida", "Desarrollo a medida"),
+            ("", "Selecciona una opción"),
+            ("Conseguir más consultas", "Conseguir más consultas"),
+            ("Ordenar mi operación", "Ordenar mi operación"),
+            ("Automatizar tareas", "Automatizar tareas repetitivas"),
+            ("Aún no lo sé", "Aún no lo sé, necesito orientación"),
         ]
     )
     message = forms.CharField(
         widget=forms.Textarea(
             attrs={
-                "placeholder": "¿Qué proceso quieres ordenar, vender mejor o dejar de hacer manualmente?",
-                "rows": 5,
+                "placeholder": "Ej.: las consultas llegan por varios canales y se nos pierden...",
+                "rows": 4,
             }
         )
     )

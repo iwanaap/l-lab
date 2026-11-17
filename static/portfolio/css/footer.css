@@ -1,0 +1,43 @@
+.site-footer { --footer-muted:#b9b3a9; --footer-line:rgba(244,241,236,.13); border-top:1px solid var(--footer-line); background:#121110; color:#f4f1ec; }
+.site-footer-inner { max-width:1280px; margin:0 auto; padding:56px 20px 24px; }
+.site-footer-grid { display:grid; gap:40px; }
+.site-footer-brand { display:inline-flex; align-items:baseline; gap:8px; font:500 32px 'IBM Plex Mono',monospace; letter-spacing:-.06em; }
+.site-footer-brand span { color:#ff6a2a; font-size:10px; text-transform:uppercase; letter-spacing:.25em; }
+.site-footer-identity > p { max-width:310px; margin:16px 0 20px; color:var(--footer-muted); font-size:14px; line-height:1.8; }
+.site-footer .site-footer-cta { display:inline-flex; align-items:center; justify-content:center; min-height:48px; padding:12px 20px; border:1px solid #ff6a2a; border-radius:999px; background:#ff6a2a; color:#171717; box-shadow:0 6px 28px rgba(255,106,42,.12); font-size:14px; font-weight:700; text-align:center; }
+.site-footer .site-footer-cta:hover { background:#ff7d45; color:#171717; border-color:#ff7d45; transform:translateY(-2px); }
+.site-footer h2 { margin:0 0 22px; color:#ff6a2a; font:400 11px 'IBM Plex Mono',monospace; text-transform:uppercase; letter-spacing:.16em; }
+.site-footer address { display:grid; justify-items:start; gap:12px; font-style:normal; }
+.site-footer-phone { font:500 clamp(17px,2vw,21px) 'IBM Plex Mono',monospace; letter-spacing:-.04em; white-space:nowrap; }
+.site-footer .site-footer-link { display:inline-flex; align-items:center; justify-content:center; min-height:48px; padding:10px 18px; border:1px solid #ff6a2a; border-radius:999px; color:#ff6a2a; font-size:14px; font-weight:700; line-height:1.6; text-align:center; }
+.site-footer .site-footer-link:hover { background:#ff6a2a; color:#171717; transform:translateY(-2px); }
+.site-footer-note { max-width:260px; margin-top:20px; color:var(--footer-muted); font-size:13px; line-height:1.8; }
+.site-footer-projects { display:grid; gap:12px; list-style:none; margin:0; padding:0; }
+.site-footer .site-footer-projects a { display:flex; align-items:center; min-height:76px; padding:14px 18px; border:1px solid var(--footer-line); border-radius:16px; background:rgba(244,241,236,.045); }
+.site-footer .site-footer-projects a:hover { border-color:#ff6a2a; background:rgba(255,106,42,.09); transform:translateY(-2px); }
+.site-footer-projects strong { display:block; font-size:16px; font-weight:500; }
+.site-footer-projects small { display:block; margin-top:5px; color:var(--footer-muted); font:10px 'IBM Plex Mono',monospace; overflow-wrap:anywhere; }
+.site-footer a { border-radius:3px; transition:color .2s ease,background .2s ease,border-color .2s ease,transform .2s ease; }
+.site-footer a:hover { color:#ff6a2a; }
+.site-footer-bottom { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px; margin-top:44px; padding-top:22px; border-top:1px solid var(--footer-line); color:var(--footer-muted); font:10px/1.8 'IBM Plex Mono',monospace; }
+.light-theme .site-footer { --footer-muted:#615b52; --footer-line:rgba(23,23,23,.14); background:#e8e2d8; color:#171717; }
+.light-theme .site-footer h2,.light-theme .site-footer .site-footer-link { color:#b64a22; }
+.light-theme .site-footer .site-footer-link:hover { color:#171717; }
+.light-theme .site-footer .site-footer-projects a { background:rgba(23,23,23,.035); }
+.light-theme .site-footer .site-footer-projects a:hover { background:rgba(255,106,42,.1); }
+@media (max-width:767px) {
+    .site-footer-grid { justify-items:center; text-align:center; }
+    .site-footer-grid > * { width:100%; max-width:360px; }
+    .site-footer-identity > p,.site-footer-note { margin-left:auto; margin-right:auto; }
+    .site-footer address { justify-items:center; }
+    .site-footer .site-footer-projects a { justify-content:center; }
+    .site-footer-bottom { flex-direction:column; text-align:center; }
+}
+@media (min-width:768px) {
+    .site-footer-inner { padding:64px 32px 24px; }
+    .site-footer-grid { grid-template-columns:1.15fr 1fr 1fr; gap:32px; }
+}
+@media (prefers-reduced-motion:reduce) {
+    .site-footer a { transition:none; }
+    .site-footer .site-footer-cta:hover,.site-footer .site-footer-link:hover,.site-footer .site-footer-projects a:hover { transform:none; }
+}

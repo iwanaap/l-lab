@@ -1,13 +1,15 @@
 from django.urls import path
 
-from .views import automations, catalog, erp, home, projects_hub, systems, web_development_projects
+from .views import home, legacy_page_redirect, projects_hub
 
 urlpatterns = [
     path("", home, name="home"),
-    path("sistemas/", systems, name="systems"),
-    path("erp/", erp, name="erp"),
+    # The former pages remain in the codebase for possible reuse. Public traffic
+    # now returns to the relevant section of the single-page commercial site.
+    path("sistemas/", legacy_page_redirect, name="systems"),
+    path("erp/", legacy_page_redirect, name="erp"),
     path("proyectos/", projects_hub, name="projects_hub"),
-    path("desarrollo-web/", web_development_projects, name="web_development_projects"),
-    path("catalogo-web/", catalog, name="catalog"),
-    path("automatizaciones/", automations, name="automations"),
+    path("desarrollo-web/", legacy_page_redirect, name="web_development_projects"),
+    path("catalogo-web/", legacy_page_redirect, name="catalog"),
+    path("automatizaciones/", legacy_page_redirect, name="automations"),
 ]
